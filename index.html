@@ -22,10 +22,10 @@
     arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
 
       <a-assets>
-        <img img id="NPlogo" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/doitjust.jpg">
-        <img img id="doitjust" src="https://i.imgur.com/mYmmbrp.jpg">
+        <img img id="NPlogo" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/logo.jpg">
+        <img img id="doitjust" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/doitjust.jpg">
         <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg">
-        <a-asset-item id="dancer" src="http://127.0.0.1:5500/test.gltf"></a-asset-item>
+        <a-asset-item id="dancer" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/test.gltf"></a-asset-item>
       </a-assets>
 
       <a-nft
@@ -44,7 +44,12 @@
     position="-5 0 -10">
     </a-entity>
     </a-nft>
-
+    <a-entity
+    gltf-model="#dancer"
+    scale="1 1 1"
+    rotation= "-90 0 0"
+    position="-5 0 -10">
+    </a-entity>
       <a-box src="#NPlogo" 
       rotation="0 45 45" 
       position="-2 2 -10" 
