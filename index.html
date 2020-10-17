@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
 
     <script>src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script>src=" https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js"</script>
 
     <script type=module>
         import { GLTFLoader } from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/GLTFLoader.js';
@@ -21,6 +23,7 @@
         var renderer = new THREE.WebGLRenderer({antialias:true});
         renderer.setClearColor("#e5e5e5");
         renderer.setSize(window.innerWidth,window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
 
         document.body.appendChild(renderer.domElement);
 
@@ -50,23 +53,40 @@
         var control = new OrbitControls(camera,renderer.domElement);
         control.update();
         //MODEL
+        var obj = new THREE.Object3D;
         var loader = new GLTFLoader();
-            loader.load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/test.gltf', function ( gltf ) 
+            loader.load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/dancer.gltf', function ( gltf ) 
             {
-                var dancer= gltf.scene;
-                console.log(dancer.children[0].type);
-                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/wood.jpg' );
+                //var dancer= gltf.scene;
+                //console.log(gltf.children[0].type);
+                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/texture_dancer_paint.png' );
 
                 // immediately use the texture for material creation
-                var materialz = new THREE.MeshBasicMaterial( { map: texturez } );
-                
-                dancer.children[0].material= materialz; //.color.set( 0x000066);
-                dancer.children[1].material= materialz;
+                var materialz = new THREE.MeshPhongMaterial( { map: texturez } );
+                materialz.encoding = THREE.sRGBEncoding;
+                materialz.flipY = false;
+
+                obj = gltf.scene;
+                obj.scale.set(40,41,40);
+                obj.position.set(0,-1,-2)
+                // var mixer= new THREE.AnimationMixer(obj);
+                // obj.animations.forEach((clip) => {mixer.clipAction(clip).play(); });
+                // var clock = new THREE.Clock();
+                // var delta = clock.getDelta();
+                //mixer.update( delta )
+
+
+                console.log(obj.position.z);
+
+                //dancer.children[0].material= materialz; //.color.set( 0x000066);
+                //dancer.children[1].material= materialz;
                 //dancer.children[2].material= materialz;
-                dancer.scale.set(0.4,0.4,0.4);
-                dancer.rotation.set(-90,0,0);
-                dancer.position.set(5,-2,0)
-	            scene.add( dancer);
+                //dancer.scale.set(0.4,0.4,0.4);
+                //dancer.rotation.set(-90,0,0);
+                //dancer.position.set(5,-2,0);
+	            scene.add(obj);
+                
+                //console.log(dancer.position.x)
                 
                 });
 
@@ -92,9 +112,11 @@
         scene.add(light);
 
         //FUNZIONI
+        var clock = new THREE.Clock();
         var render = function(){
             requestAnimationFrame(render);
             renderer.render(scene,camera);
+            
         }
 
         function onMouseMove(event) {
@@ -114,25 +136,25 @@
                 tl.to(intersects[ i ].object.scale,0.5,{x:2,ease:Expo.easeOut});
                 tl.to(intersects[ i ].object.scale,0.5,{y:3,ease:Expo.easeOut});
                 tl.to(intersects[ i ].object.position,0.3,{y:3,ease:Expo.easeOut});
-                tl.to(intersects[ i ].object.rotation,1,{y:1.5,ease:Expo.easeOut});                   
-                }
+                tl.to(intersects[ i ].object.rotation,1,{y:1.5,ease:Expo.easeOut});   
+
 
                 //intersects[ i ].object.material.color.set( 0xff0000 );    
 
                 tl.to(intersects[ i ].object.scale,0.5,{z:2,ease:Expo.easeOut});
                 tl.to(intersects[ i ].object.rotation,1,{z:1.5,ease:Expo.easeOut});
+
+                }
+
+
             }
         }
-        console.log(scene.children[0].material);
-
         
+
 
         window.addEventListener('click', onMouseMove);
 
         render();
-
-
-
 
 
 
