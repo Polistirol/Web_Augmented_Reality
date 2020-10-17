@@ -50,11 +50,11 @@
         control.update();
         //MODEL
         var loader = new GLTFLoader();
-            loader.load( 'http://127.0.0.1:5500/test.gltf', function ( gltf ) 
+            loader.load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/test.gltf', function ( gltf ) 
             {
                 var dancer= gltf.scene;
                 console.log(dancer.children[0].type);
-                var texturez = new THREE.TextureLoader().load( 'http://127.0.0.1:5500/wood.jpg' );
+                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/wood.jpg' );
 
                 // immediately use the texture for material creation
                 var materialz = new THREE.MeshBasicMaterial( { map: texturez } );
