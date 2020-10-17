@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://github.com/Polistirol/Polistirol.github.io/blob/master/css/main.css">
 </head>
 <body>
+    <h1>che panic!</h1>
 
     <script>src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
@@ -41,7 +42,7 @@
         const plane_geom = new THREE.PlaneGeometry( 20, 15, 32 );
         var plane_mat = new THREE.MeshBasicMaterial({color:0xff0000,side: THREE.DoubleSide});
         var plane_mesh = new THREE.Mesh(plane_geom,plane_mat);
-        scene.add(plane_mesh);
+        //scene.add(plane_mesh);
         plane_mesh.position.set(0,-2,0);
         plane_mesh.rotation.set(90,0,0);
         //controls
@@ -62,9 +63,9 @@
                 dancer.children[0].material= materialz; //.color.set( 0x000066);
                 dancer.children[1].material= materialz;
                 //dancer.children[2].material= materialz;
-                dancer.scale.set(0.5,0.5,0.5);
+                dancer.scale.set(0.4,0.4,0.4);
                 dancer.rotation.set(-90,0,0);
-                dancer.position.set(0,0,0)
+                dancer.position.set(5,-2,0)
 	            scene.add( dancer);
                 
                 });
@@ -76,7 +77,7 @@
         {
             var mesh = new THREE.Mesh(geometry,material);
             mesh.position.x = (Math.random()-0.5)*10;
-            mesh.position.y = 0
+            mesh.position.y = (Math.random()-0.5)*10;
             mesh.position.z = Math.random()*-5;
             scene.add(mesh);
         }
@@ -110,16 +111,16 @@
                 if (intersects[ i ].object.material.type != "MeshBasicMaterial" )
                 {
                  var tl = gsap.timeline().delay(0.3);
-                tl.to(intersects[ i ].object.scale,1,{x:2,ease:Expo.easeOut});
-                tl.to(intersects[ i ].object.scale,1,{y:3,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.scale,0.5,{x:2,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.scale,0.5,{y:3,ease:Expo.easeOut});
                 tl.to(intersects[ i ].object.position,0.3,{y:3,ease:Expo.easeOut});
                 tl.to(intersects[ i ].object.rotation,1,{y:1.5,ease:Expo.easeOut});                   
                 }
 
                 //intersects[ i ].object.material.color.set( 0xff0000 );    
 
-                //tl.to(intersects[ i ].object.scale,0.5,{z:2,ease:Expo.easeOut});
-                //tl.to(intersects[ i ].object.rotation,1,{z:1.5,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.scale,0.5,{z:2,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.rotation,1,{z:1.5,ease:Expo.easeOut});
             }
         }
         console.log(scene.children[0].material);

@@ -3,3 +3,17 @@ body{
     height:100vh;
 }
 canvas{display:block;}
+
+h1 {
+    position: absolute;
+    top: 1em;
+    left: 2em;
+    color: rgb(218, 14, 61);
+    font-family: 'Arial';
+    font-size: 7em;
+    text-transform: uppercase;
+    width: auto;
+    line-height: .8em;
+    border: 5px solid rgb(218, 14, 61);
+    padding: .2em;
+  }
