@@ -53,14 +53,17 @@
         var control = new OrbitControls(camera,renderer.domElement);
         control.update();
         //MODEL
+        var clock = new THREE.Clock();
+        var delta = clock.getDelta();
         var obj = new THREE.Object3D;
+        var mixer= new THREE.AnimationMixer();
+
         var loader = new GLTFLoader();
             loader.load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/dancer.gltf', function ( gltf ) 
             {
-                //var dancer= gltf.scene;
-                //console.log(gltf.children[0].type);
-                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/texture_dancer_paint.png' );
 
+                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/texture_dancer_paint.png' );
+            
                 // immediately use the texture for material creation
                 var materialz = new THREE.MeshPhongMaterial( { map: texturez } );
                 materialz.encoding = THREE.sRGBEncoding;
@@ -69,25 +72,18 @@
                 obj = gltf.scene;
                 obj.scale.set(40,41,40);
                 obj.position.set(0,-1,-2)
-                // var mixer= new THREE.AnimationMixer(obj);
-                // obj.animations.forEach((clip) => {mixer.clipAction(clip).play(); });
-                // var clock = new THREE.Clock();
-                // var delta = clock.getDelta();
-                //mixer.update( delta )
+                
+                mixer= new THREE.AnimationMixer(gltf.scene);
+                var clip = mixer.clipAction(gltf.animations[0]);
+                clip.play();
 
+                function update () {
+                mixer.update( 2 );
+               }
 
-                console.log(obj.position.z);
-
-                //dancer.children[0].material= materialz; //.color.set( 0x000066);
-                //dancer.children[1].material= materialz;
-                //dancer.children[2].material= materialz;
-                //dancer.scale.set(0.4,0.4,0.4);
-                //dancer.rotation.set(-90,0,0);
-                //dancer.position.set(5,-2,0);
 	            scene.add(obj);
-                
-                //console.log(dancer.position.x)
-                
+                //update();
+                              
                 });
 
         //CUBI
@@ -112,10 +108,17 @@
         scene.add(light);
 
         //FUNZIONI
-        var clock = new THREE.Clock();
+        // function update () {
+        //         mixer.update( 2 );
+        //        }
+
         var render = function(){
             requestAnimationFrame(render);
             renderer.render(scene,camera);
+            mixer.update(0.02);
+            
+
+            //update();
             
         }
 
