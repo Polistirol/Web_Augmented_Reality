@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <h1>che panic!</h1>
+
+    <script>src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+    <script>src=" https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js"</script>
+
+    <script type=module>
+        import { GLTFLoader } from 'https://unpkg.com/three@0.121.1/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'https://unpkg.com/three@0.121.1/examples/jsm/controls/OrbitControls.js';
+        import * as THREE from 'https://unpkg.com/three@0.121.1/build/three.module.js';
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+        var renderer = new THREE.WebGLRenderer({antialias:true});
+        renderer.setClearColor("#e5e5e5");
+        renderer.setSize(window.innerWidth,window.innerHeight);
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        document.body.appendChild(renderer.domElement);
+
+        window.addEventListener("resize",() => 
+        {
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            camera.aspect=window.window.innerWidth/window.innerHeight;
+            camera.updateProjectionMatrix();
+        })
+
+        //POV
+        camera.position.z = 8;
+        camera.position.y = 3;
+
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();   
+
+        //PIANO 
+        const plane_geom = new THREE.PlaneGeometry( 20, 15, 32 );
+        var plane_mat = new THREE.MeshBasicMaterial({color:0xff0000,side: THREE.DoubleSide});
+        var plane_mesh = new THREE.Mesh(plane_geom,plane_mat);
+        //scene.add(plane_mesh);
+        plane_mesh.position.set(0,-2,0);
+        plane_mesh.rotation.set(90,0,0);
+        //controls
+
+        var control = new OrbitControls(camera,renderer.domElement);
+        control.update();
+        //MODEL
+        var clock = new THREE.Clock();
+        var delta = clock.getDelta();
+        var obj = new THREE.Object3D;
+        var mixer= new THREE.AnimationMixer();
+
+        var loader = new GLTFLoader();
+            loader.load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/dancer.gltf', function ( gltf ) 
+            {
+
+                var texturez = new THREE.TextureLoader().load( 'https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/texture_dancer_paint.png' );
+            
+                // immediately use the texture for material creation
+                var materialz = new THREE.MeshPhongMaterial( { map: texturez } );
+                materialz.encoding = THREE.sRGBEncoding;
+                materialz.flipY = false;
+
+                obj = gltf.scene;
+                obj.scale.set(40,41,40);
+                obj.position.set(0,-1,-2)
+                
+                mixer= new THREE.AnimationMixer(gltf.scene);
+                var clip = mixer.clipAction(gltf.animations[0]);
+                clip.play();
+
+                function update () {
+                mixer.update( 2 );
+               }
+
+	            scene.add(obj);
+                //update();
+                              
+                });
+
+        //CUBI
+        var geometry =new THREE.BoxGeometry(1,1,1);
+        var material = new THREE.MeshLambertMaterial({color:0xF7F7F7});
+        for (var i =0 ; i<10 ; i++)
+        {
+            var mesh = new THREE.Mesh(geometry,material);
+            mesh.position.x = (Math.random()-0.5)*10;
+            mesh.position.y = (Math.random()-0.5)*10;
+            mesh.position.z = Math.random()*-5;
+            scene.add(mesh);
+        }
+
+        //Luci
+        var light = new THREE.PointLight(0xFFFFFF,1.5,1000)
+        light.position.set(0,0,0.5);
+        scene.add(light);
+
+        var light = new THREE.PointLight(0xFFFFFF,1.5,1000)
+        light.position.set(-25,0,0);
+        scene.add(light);
+
+        //FUNZIONI
+        // function update () {
+        //         mixer.update( 2 );
+        //        }
+
+        var render = function(){
+            requestAnimationFrame(render);
+            renderer.render(scene,camera);
+            mixer.update(0.02);
+            
+
+            //update();
+            
+        }
+
+        function onMouseMove(event) {
+            event.preventDefault();
+
+            mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+            raycaster.setFromCamera(mouse, camera);
+
+            var intersects = raycaster.intersectObjects(scene.children, true);
+            //console.log(intersects.lenght);
+            for (var i = 0; i < intersects.length; i++) {
+                if (intersects[ i ].object.material.type != "MeshBasicMaterial" )
+                {
+                 var tl = gsap.timeline().delay(0.3);
+                tl.to(intersects[ i ].object.scale,0.5,{x:2,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.scale,0.5,{y:3,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.position,0.3,{y:3,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.rotation,1,{y:1.5,ease:Expo.easeOut});   
+
+
+                //intersects[ i ].object.material.color.set( 0xff0000 );    
+
+                tl.to(intersects[ i ].object.scale,0.5,{z:2,ease:Expo.easeOut});
+                tl.to(intersects[ i ].object.rotation,1,{z:1.5,ease:Expo.easeOut});
+
+                }
+
+
+            }
+        }
+        
+
+
+        window.addEventListener('click', onMouseMove);
+
+        render();
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>
