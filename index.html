@@ -1,5 +1,6 @@
 <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
 <style>
   .arjs-loader {
@@ -59,7 +60,7 @@
       <img img id="eugenio_profile" src="img/eugenio_profile.jpg">
       <img img id="tommaso_profile" src="img/tommaso_profile.jpg">
       <img img id="pol_profile" src="img/pol_profile.jpg">
-      <a-asset-item id="dancer" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/test.gltf"></a-asset-item>
+      <a-asset-item id="dancer" src="dancer.gltf"></a-asset-item>
     </a-assets>
     
   
@@ -74,14 +75,11 @@
       smoothThreshold="5"
     >
 
-
-    
-
     <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-    <a-entity link="href: index.html; title: My Homepage; image: #homeThumbnail"></a-entity>
-
+    
+    <a-entity position= "200 -100 0">
     <a-cylinder src="#pol_profile" 
-    position="200 0 -50" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
+    position="100 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
     
     animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
     animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
@@ -90,28 +88,38 @@
     </a-cylinder>
 
     <a-cylinder src="#giulio_profile" 
-    position="0 0 -50" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
+    position="-100 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
   
     animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
     animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
+    navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/"
     >
     </a-cylinder>
 
     <a-cylinder src="#eugenio_profile" 
-    position="100 0 50" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
+    position="0 0 100" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
     
     animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
     animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
     navigate-on-click="url: https://www.instagram.com/eugedamasio/"></a-cylinder>
 
     <a-cylinder src="#tommaso_profile" 
-    position="100 0 -100" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
+    position="0 0 -100" height="0.1" rotation= "0 0 0" radius="1.5" scale = "20 20 20"
     
     animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
     animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
     navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"></a-cylinder>
-      </a-entity>
+
+    <!--dancer-->
+    <a-entity gltf-model="#dancer"
+    position = "0 0 0"
+    scale = "200 200 200"
+    rotation = "-90 0 0"
+    animation-mixer></a-entity>
+    </a-entity>
+      
     </a-nft>
+
     <a-entity camera></a-entity>
     <a-camera>
       <!--<a-cursor></a-cursor>-->
