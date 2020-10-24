@@ -1,7 +1,7 @@
 <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
 <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   .arjs-loader {
     height: 100%;
@@ -53,7 +53,7 @@
   
   <!-- minimal loader shown until image descriptors are loaded -->
   <div class="arjs-loader">
-    <div>Just the loading screen.<br> DON'T PANIC.a</div>
+    <div>We are loading.<br> DON'T PANIC.a</div>
     
   </div>
 
@@ -91,7 +91,7 @@
     <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
 
     <!--transform parent-->
-    <a-entity position= "200 -200  -100">
+    <a-entity position= "100 -200  -100">
 
     <a-cylinder src="#pol_profile" 
     position="75 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
