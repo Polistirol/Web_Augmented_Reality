@@ -9,7 +9,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(233, 233, 233, 0.8);
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -18,8 +18,8 @@
 
   .arjs-loader div {
     text-align: center;
-    font-size: 1.25em;
-    color: rgb(226, 38, 38);
+    font-size: 1.5em;
+    color:rgb(218, 14, 61);
   }
 </style>
 
@@ -70,9 +70,10 @@
       type="nft"
       url="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/filePol/_DSC7672-Modifica"
       smooth="true"
-      smoothCount="20"
-      smoothTolerance=".02"
-      smoothThreshold="10"
+      smoothCount="40"
+      smoothTolerance="1"
+      smoothThreshold="20"
+      size = "0.3"
     >
 
     <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
@@ -123,7 +124,7 @@
 
     <a-entity camera></a-entity>
     <a-camera>
-      <!--<a-cursor></a-cursor>-->
+      <a-cursor></a-cursor>
     </a-camera>
   </a-scene>
   <!-- 
