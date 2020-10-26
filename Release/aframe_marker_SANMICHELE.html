@@ -99,52 +99,26 @@ AFRAME.registerComponent('registerevents', {
           >
           </a-cylinder>
 
-          <a-cylinder src="#giulio_profile" 
-          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5"
-          animation="property: object3D.position.x; to: 1.5;  dur: 3000; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/">
-          </a-cylinder>
+          <a-plane color = "#deceaf " width = "8" height="4" position = "-5 0 -2" opacity = "0.1" rotation = "-90 0 0 " >
+            <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
+            position = "-3 0 0" color = "black" scale = "1.3 1.3 1"></a-text>
+            <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
+            <a-box scale = "8 0.2 0.1" position = "0 -2 0.1" color = "#dba02c"></a-box>
+            <a-box scale = "0.2 4 0.1" position = "4 0 0.1" color = "#dba02c"></a-box>
+            <a-box scale = "0.2 4 0.1" position = "-4 0 0.1" color = "#dba02c"></a-box>
 
-          <a-cylinder src="#eugenio_profile" 
-          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5"
-          animation="property: object3D.position.z; to: 1.5;  dur: 3000; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/eugedamasio/"></a-cylinder>
+           
+           
+           </a-plane>
 
-          <a-cylinder src="#tommaso_profile" 
-          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
-          animation="property: object3D.position.z; to: -1.5;  dur: 3000; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"></a-cylinder>
+      
 
       </a-entity>
 
 
 
       </a-marker>
-      <a-entity position = "0 -1.6 0">
 
-      
-      <a-camera >
-         <a-sphere
-      cursor="fuse :false; "
-      position ="0 0 -1"
-      radius="0.005;"
-      color = "black"
-      opacity = "0.8"
-      
-      ></a-spere></a-camera></a-entity>
-     
-
-
-      
-
-
-      
     </a-scene>
   </body>
 </html>

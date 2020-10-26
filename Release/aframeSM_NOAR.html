@@ -36,30 +36,38 @@
     <a-scene>
       
       <a-assets>
-        <img img id="NPlogo" src="../img/resources/logo.jpg">
-        <img img id="giulio_profile" src="../img/resources/giulio_profile.jpg">
-        <img img id="eugenio_profile" src="../img/resources/eugenio_profile.jpg">
-        <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
         <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
-        <a-asset-item id="Tappo" src="../models/TAPPO_SM/TAPPO_SM.gltf"></a-asset-item>
+        <a-asset-item id="Tappo" src="../models/TAPPO_SM/TAPPO_SM2.gltf"></a-asset-item>
         <video id="beer" src = "../img/video/Beer.mp4" loop = "true" autoplay="true" muted= "true"></video>
+        <img img id="testo" src="../img/resources/Testo.png">
       </a-assets>
     
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
         <a-entity link="href: index.html; title: My Homepage; image: #homeThumbnail"></a-entity>
 
-        <!--cubo-->
-          <a-box src ="#NPlogo"
-          position = "0 0 -5"
-          scale = "2 2 2"
-          material="roughness:0.2"
-          visible = "false"
-          
-          ></a-box>
+
         <!--parent entity-->
         <a-entity position = "0 0 0">
 
-          <a-video src = "#beer" width = "8" height= "4.5" position = "5 5 -10" rotation = "0 0 0"></a-video>
+         
+
+         <a-plane color="red"  width = "8.2" height="4.6" position = "5 5 -10" >
+            <a-video src = "#beer" width = "8" height= "4.5" position = "0 0 0" rotation = "0 0 0"></a-video>
+         </a-plane>
+
+         <a-plane color = "#deceaf " width = "8" height="4" position = "-5 5 -10" opacity = "0.1" >
+           <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
+           position = "-3 0 0" color = "black" scale = "1.3 1.3 1"></a-text>
+           <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
+           <a-box scale = "8 0.2 0.1" position = "0 -2 0.1" color = "#dba02c"></a-box>
+           <a-box scale = "0.2 4 0.1" position = "4 0 0.1" color = "#dba02c"></a-box>
+           <a-box scale = "0.2 4 0.1" position = "-4 0 0.1" color = "#dba02c"></a-box>
+           <!--<a-cylinder color = "#535557" material="side: double" open-ended="true" rotation="90 0 0" theta-length = "45"
+           theta-start= "0"
+           position = "3 -1 0.1"></a-cylinder>-->
+          
+          
+          </a-plane>
 
           <!--childrens -->
           <a-cylinder src="#pol_profile" 
@@ -67,53 +75,28 @@
           position="-3 0 -10" height="0.1" rotation= "90 0 0" radius="1.5" 
           animation="property: object3D.position.x; to: -5;  
                     dur: 1500; 
-                    loop: false
-                   " 
-          
+                    loop: false" 
           animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
           animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
           navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
           >
           </a-cylinder>
+          <a-sky color = "#97a6bf"></a-sky>
 
   <a-entity gltf-model="#Tappo"
-          position = "0 0 -10"
+          position = "5 0 -10"
           scale = "0.5 0.5 0.5"
-          rotation = "90"
+          rotation = "0 -90 0"
           renderer="colorManagement: true"
           animation__mouseenter="property: scale; to: 1 1 1; dur: 200; startEvents: mouseenter"
           animation__mouseleave="property: scale; to: 0.5 0.5 0.5; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
+          navigate-on-click="url: https://www.birrasanmichele.it/"
          
-          ></a-entity>
-
-
-          <!--<a-cylinder src="#giulio_profile" 
-          position="3 0 -10" height="0.1" rotation= "90 0 0" radius="1.5"
-          animation="property: object3D.position.x; to: 4.5;  dur: 1500; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/">
-          </a-cylinder>
-
-          <a-cylinder src="#eugenio_profile" 
-          position="0 3 -10" height="0.6" rotation= "90 0 0" radius="1.5"
-          animation="property: object3D.position.y; to: 4.5;  dur: 1500; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/eugedamasio/"></a-cylinder>
-
-          <a-cylinder src="#tommaso_profile" position="0 -3 -10" height="0.1" rotation= "90 0 0" radius="1.5" 
-          animation="property: object3D.position.y; to: -4.5;  dur: 1500; loop: false"
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"></a-cylinder>-->
-
-
-          
+          ></a-entity>     
       </a-entity>
-        
 
+      
+        
       <a-camera>
         <a-sphere
         cursor
