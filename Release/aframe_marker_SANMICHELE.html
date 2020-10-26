@@ -64,10 +64,10 @@ AFRAME.registerComponent('registerevents', {
             <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
-                url ="../pattern-sanmic.patt">
-        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>   -->     
+                url ="../pattern-sanmic.patt">-->  
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>      
         
-        <a-marker type="pattern"
+        <a-marker-camera type="pattern"
                 url ="../img/markers/pattern-sanmic.patt" registerevents>
 
         <!--BOX -->
@@ -83,7 +83,7 @@ AFRAME.registerComponent('registerevents', {
         ></a-entity>
 
         <!--parent entity-->
-        <a-entity position = "0 0 0">
+        
 
           <a-video src = "#beer" width = "3" height= "1.7" position = "3 0 -2" rotation = "90 180 0">
 
@@ -99,21 +99,15 @@ AFRAME.registerComponent('registerevents', {
           >
           </a-cylinder>
 
-          <a-plane color = "#deceaf " width = "8" height="4" position = "-5 0 -2" opacity = "0.1" rotation = "-90 0 0 " >
+          <a-plane color = "#deceaf " width = "8" height="4" position = "-5 0 -2" opacity = "0.3" rotation = "-90 0 0 " >
             <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
-            position = "-3 0 0" color = "black" scale = "1.3 1.3 1"></a-text>
+            position = "-3 0 0.1" color = "black" scale = "1.3 1.3 1"></a-text>
             <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
             <a-box scale = "8 0.2 0.1" position = "0 -2 0.1" color = "#dba02c"></a-box>
             <a-box scale = "0.2 4 0.1" position = "4 0 0.1" color = "#dba02c"></a-box>
             <a-box scale = "0.2 4 0.1" position = "-4 0 0.1" color = "#dba02c"></a-box>
-
-           
            
            </a-plane>
-
-      
-
-      </a-entity>
 
 
 
