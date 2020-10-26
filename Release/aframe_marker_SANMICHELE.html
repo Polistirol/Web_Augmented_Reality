@@ -85,7 +85,7 @@ AFRAME.registerComponent('registerevents', {
         <!--parent entity-->
         <a-entity position = "0 0 0">
 
-          <a-video src = "#beer" width = "4" height= "2" position = "3 0 -2" rotation = "90 180 0">
+          <a-video src = "#beer" width = "3" height= "1.7" position = "3 0 -2" rotation = "90 180 0">
 
 
           </a-video>
@@ -126,7 +126,10 @@ AFRAME.registerComponent('registerevents', {
 
 
       </a-marker>
-      <a-camera position = "0 0 0">
+      <a-entity position = "0 -1.6 0">
+
+      
+      <a-camera >
          <a-sphere
       cursor="fuse :false; "
       position ="0 0 -1"
@@ -134,7 +137,7 @@ AFRAME.registerComponent('registerevents', {
       color = "black"
       opacity = "0.8"
       
-      ></a-spere></a-camera>
+      ></a-spere></a-camera></a-entity>
      
 
 
