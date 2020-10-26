@@ -5,6 +5,7 @@
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
 
+  <!--NAV ON CLICK-->
   <script>
     AFRAME.registerComponent('navigate-on-click', {
       schema: {
@@ -21,9 +22,35 @@
       }
     });        
   </script>
-  <script>
-      
-  </script>
+
+<!--ON MARKER -->
+<script>
+  window.addEventListener('camera-init', (data) => {
+      console.log('camera-init', data);
+  })
+  window.addEventListener('camera-error', (error) => {
+      console.log('camera-error', error);
+  })
+AFRAME.registerComponent('registerevents', {
+  init: function () {
+    var marker = this.el;
+
+    marker.addEventListener('markerFound', function() {
+      var markerId = marker.id;
+      console.log('markerFound', markerId);
+      var v = document.querySelector('#beer');
+        v.play();
+      // TODO: Add your own code here to react to the marker being found.
+    });
+
+    marker.addEventListener('markerLost', function() {
+      var markerId = marker.id;
+      console.log('markerLost', markerId);
+      // TODO: Add your own code here to react to the marker being lost.
+    });
+  }
+});
+</script>
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
@@ -32,6 +59,7 @@
             <img img id="giulio_profile" src="../img/resources/giulio_profile.jpg">
             <img img id="eugenio_profile" src="../img/resources/eugenio_profile.jpg">
             <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
+            <video id="beer" src = "../img/video/Beer.mp4" loop = "true" autoplay="true" muted= "true"></video>
             <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
             <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
           </a-assets>
@@ -40,11 +68,13 @@
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>   -->     
         
         <a-marker type="pattern"
-                url ="../img/markers/pattern-sanmic.patt">
+                url ="../img/markers/pattern-sanmic.patt" registerevents>
 
+        <!--BOX -->
         <a-box src="#NPlogo" 
         position="0 0 0"></a-box>
-                    
+
+        <!--dancer -->     
        <a-entity
           position="0 0.5 0"
           scale="10 10 10"
@@ -54,6 +84,11 @@
 
         <!--parent entity-->
         <a-entity position = "0 0 0">
+
+          <a-video src = "#beer" width = "4" height= "2" position = "3 0 -2" rotation = "90 180 0">
+
+
+          </a-video>
           <!--childrens -->
           <a-cylinder src="#pol_profile" 
           position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
@@ -89,17 +124,20 @@
       </a-entity>
 
 
+
       </a-marker>
-      <a-camera >
-        <a-sphere
-        cursor="fuse :false; "
-        position ="0 0 -1"
-        radius="0.005;"
-        color = "black"
-        opacity = "0.8"
-        
-        ></a-spere>
-      </a-camera>
+      <a-camera position = "0 0 0">
+         <a-sphere
+      cursor="fuse :false; "
+      position ="0 0 -1"
+      radius="0.005;"
+      color = "black"
+      opacity = "0.8"
+      
+      ></a-spere></a-camera>
+     
+
+
       
 
 

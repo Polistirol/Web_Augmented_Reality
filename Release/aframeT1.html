@@ -24,6 +24,12 @@
           }
         });        
       </script>
+       <script>
+        window.addEventListener('click', function () {
+        var v = document.querySelector('#beer');
+        v.play();
+        });
+      </script>
 
 
 
@@ -38,6 +44,7 @@
         <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
         <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
         <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
+        <video id="beer" src = "../img/video/Beer.mp4" loop = "true" autoplay="true" muted= "true"></video>
       </a-assets>
     
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
@@ -53,6 +60,8 @@
           ></a-box>
         <!--parent entity-->
         <a-entity position = "0 0 0">
+
+          <a-video src = "#beer" width = "8" height= "4.5" position = "5 5 -10" rotation = "0 0 0"></a-video>
 
           <!--childrens -->
           <a-cylinder src="#pol_profile" 
