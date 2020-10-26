@@ -42,10 +42,13 @@
     
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
         <a-entity link="href: index.html; title: My Homepage; image: #homeThumbnail"></a-entity>
+
+        <!--cubo-->
           <a-box src ="#NPlogo"
           position = "0 0 -5"
           scale = "2 2 2"
           material="roughness:0.2"
+          visible = "false"
           
           ></a-box>
         <!--parent entity-->
@@ -90,9 +93,16 @@
       </a-entity>
         
 
-        <a-camera>
-            <!--<a-cursor></a-cursor>-->
-          </a-camera>
+      <a-camera>
+        <a-sphere
+        cursor
+        position ="0 0 -3"
+        geometry = "primitive : sphere ; radius : 0.01;"
+        color = "black"
+        opacity = "0.8"
+        
+        ></a-spere>
+      </a-camera>
     </a-scene>
   </body>
 </html>

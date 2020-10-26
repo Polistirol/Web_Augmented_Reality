@@ -36,8 +36,8 @@
             <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
-                url ="../pattern-sanmic.patt">-->
-        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>        
+                url ="../pattern-sanmic.patt">
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>   -->     
         
         <a-marker type="pattern"
                 url ="../img/markers/pattern-sanmic.patt">
@@ -90,15 +90,17 @@
 
 
       </a-marker>
-      <a-entity camera
-      position = "0 0 0">
-        <a-entity id="mouseCursor"
-         cursor
-         position ="0 0 -1"
-        geometry = "primitive : sphere ; radius : 1"
+      <a-camera position = "0 0 0">
+        <a-sphere
+        cursor="fuse :false; "
+        position ="0 0 -1"
+        radius="0.005;"
         color = "black"
-        ></a-entity>
-      </a-entity>
+        opacity = "0.8"
+        
+        ></a-spere>
+      </a-camera>
+      
 
 
       
