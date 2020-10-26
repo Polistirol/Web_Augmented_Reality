@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+  <!-- we import arjs version without NFT but with marker + location based support -->
+  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+  <script>
+    AFRAME.registerComponent('navigate-on-click', {
+      schema: {
+        url: {default: ''}
+      },
+  
+      init: function () {
+        var data = this.data;
+        var el = this.el;
+  
+        el.addEventListener('click', function () {
+          window.location.href = data.url;
+        });
+      }
+    });        
+  </script>
+  <script>
+      
+  </script>
+
+  <body style="margin : 0px; overflow: hidden;">
+    <a-scene embedded arjs>
+        <a-assets>
+            <img img id="NPlogo" src="../img/resources/logo.jpg">
+            <img img id="giulio_profile" src="../img/resources/giulio_profile.jpg">
+            <img img id="eugenio_profile" src="../img/resources/eugenio_profile.jpg">
+            <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
+            <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
+            <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
+          </a-assets>
+      <!--<a-marker type="pattern"
+                url ="../pattern-sanmic.patt">-->
+        <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>        
+        <a-marker preset="hiro">
+
+
+
+        <a-box src="#NPlogo" 
+        position="0 0 0"></a-box>
+        
+
+                        
+       <a-entity
+          position="0 0.5 0"
+          scale="10 10 10"
+          gltf-model="#dancer"
+          animation-mixer
+        ></a-entity>
+
+        
+
+        
+
+
+        <!--parent entity-->
+        <a-entity position = "0 0 0">
+          <!--childrens -->
+          <a-cylinder src="#pol_profile" 
+          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
+          animation="property: object3D.position.x; to: -1.5;  dur: 3000; loop: false" 
+          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
+          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+          navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
+          >
+          </a-cylinder>
+
+          <a-cylinder src="#giulio_profile" 
+          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5"
+          animation="property: object3D.position.x; to: 1.5;  dur: 3000; loop: false"
+          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
+          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+          navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/">
+          </a-cylinder>
+
+          <a-cylinder src="#eugenio_profile" 
+          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5"
+          animation="property: object3D.position.z; to: 1.5;  dur: 3000; loop: false"
+          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
+          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+          navigate-on-click="url: https://www.instagram.com/eugedamasio/"></a-cylinder>
+
+          <a-cylinder src="#tommaso_profile" 
+          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
+          animation="property: object3D.position.z; to: -1.5;  dur: 3000; loop: false"
+          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
+          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+          navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"></a-cylinder>
+
+      </a-entity>
+
+
+      </a-marker>
+      <a-entity camera
+      position = "0 0 0">
+        <a-entity id="mouseCursor"
+         cursor
+         position ="0 0 -1"
+        geometry = "primitive : sphere ; radius : 1"
+        color = "black"
+        ></a-entity>
+      </a-entity>
+
+
+      
+    </a-scene>
+  </body>
+</html>

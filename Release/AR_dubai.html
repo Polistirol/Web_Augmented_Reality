@@ -1,0 +1,145 @@
+<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
+<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+<style>
+  .arjs-loader {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(233, 233, 233, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .arjs-loader div {
+    width:80vw ;
+    height: 80vh;
+    color: rgb(218, 14, 61);
+    font-family: 'Arial';
+    font-weight: 900;
+    font-size: 4em;
+    text-transform: uppercase;
+    width: auto;
+    line-height: 0.8em;
+    border: 30px solid rgb(218, 14, 61);
+    padding: .2em;
+  }
+</style>
+
+<body style="margin : 0px; overflow: hidden;">
+  <script>
+    AFRAME.registerComponent('navigate-on-click', {
+      schema: {
+        url: {default: ''}
+      },
+  
+      init: function () {
+        var data = this.data;
+        var el = this.el;
+  
+        el.addEventListener('click', function () {
+          window.location.href = data.url;
+        });
+      }
+    });        
+  </script>
+  
+
+  
+  <!-- minimal loader shown until image descriptors are loaded -->
+  <div class="arjs-loader">
+    <div>We are loading.<br> <br> <br> <br> DON'T PANIC</div>
+    
+  </div>
+  <A HREF="pages/about.html">About this site</A>
+
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+
+    <a-assets>
+      <img img id="NPlogo" src="../img/resources/logo.jpg">
+      <img img id="giulio_profile" src="../img/resources/giulio_profile.jpg">
+      <img img id="eugenio_profile" src="../img/resources/eugenio_profile.jpg">
+      <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
+      <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
+      <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
+    </a-assets>
+    
+    <!-- we use cors proxy to avoid cross-origin problems -->
+    <a-nft
+      type="nft"
+      url="../img/imgTarget/dubai/_DSC7672-Modifica"
+      smooth="true"
+      smoothCount="40"
+      smoothTolerance="1"
+      smoothThreshold="20"
+      size = "0.3"
+    >
+
+    <a-entity id="mouseCursor" cursor="rayOrigin: mouse ; fuse : false"></a-entity>
+
+    <!--transform parent-->
+    <a-box></a-box>
+    <a-entity position= "100 -200  -100">
+
+    <a-cylinder src="#pol_profile" 
+    position="75 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
+    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
+    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
+    navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
+    
+
+    >
+    </a-cylinder>
+
+    <a-cylinder src="#giulio_profile" 
+    position="-75 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
+    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
+    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
+    
+    >
+    </a-cylinder>
+
+    <a-cylinder src="#eugenio_profile" 
+    position="0 0 75" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
+    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
+    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
+    ></a-cylinder>
+
+    <a-cylinder src="#tommaso_profile" 
+    position="0 0 -75" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
+    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
+    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
+    ></a-cylinder>
+
+    <!--dancer-->
+    <a-entity gltf-model="#dancer"
+    position = "0 0 0"
+    scale = "400 400 400"
+    rotation = "-90 0 0"
+    animation-mixer></a-entity>
+    </a-entity>
+      
+    </a-nft>
+
+    <a-entity camera></a-entity>
+    <a-camera>
+      <a-cursor></a-cursor>
+    </a-camera>
+  </a-scene>
+  <!-- 
+    navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
+    navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/"
+    navigate-on-click="url: https://www.instagram.com/eugedamasio/"
+    navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"
+  -->
+</body>
+

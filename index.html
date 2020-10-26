@@ -1,148 +1,52 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-
-<style>
-  .arjs-loader {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(233, 233, 233, 0.8);
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .arjs-loader div {
-    width:80vw ;
-    height: 80vh;
-    color: rgb(218, 14, 61);
-    font-family: 'Arial';
-    font-weight: 900;
-    font-size: 4em;
-    text-transform: uppercase;
-    width: auto;
-    line-height: 0.8em;
-    border: 30px solid rgb(218, 14, 61);
-    padding: .2em;
-  }
-</style>
-
-<body style="margin : 0px; overflow: hidden;">
-  <script>
-    AFRAME.registerComponent('navigate-on-click', {
-      schema: {
-        url: {default: ''}
-      },
-  
-      init: function () {
-        var data = this.data;
-        var el = this.el;
-  
-        el.addEventListener('click', function () {
-          window.location.href = data.url;
-        });
-      }
-    });        
-  </script>
-  
-
-  
-  <!-- minimal loader shown until image descriptors are loaded -->
-  <div class="arjs-loader">
-    <div>We are loading.<br> <br> <br> <br> DON'T PANIC</div>
-    
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stARtup Menu</title>
+</head>
+<body>
 
 
+    <ul>
+        <li >Image Target -
+            <a> -AR con immagini.</a>
+              <ul>
+                <li><a href="Release/AR_dubai.html">AR dubai</a></li>
+                <ul>
+                    <li><a href="img/imgTarget/dubai/_DSC7672-Modifica.jpg">__img Target</a></li>
+                </ul>
+              </ul></li>
+              <p></p>
+              
+        <li>Marker Based
+            <a> -Marker Based Ar.</a>
+              <ul>
+                <li><a href="Release/aframe_marker_HIRO.html">HIRO Marker</a>
+                    <ul>
+                        <li><a href="img/markers/download/pattern-hiro.png">____marker</a></li>
+                    </ul></li>
 
+                <li><a href="Release/aframe_marker_NOPANIC.html">NO PANIC Marker</a>
+                    <ul>
+                        <li><a href="img/markers/download/pattern-logo.png">____marker</a></li>
+                    </ul></li>
 
-  <a-scene
-    vr-mode-ui="enabled: false;"
-    renderer="logarithmicDepthBuffer: true;"
-    embedded
-    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+                <li><a href="Release/aframe_marker_SANMICHELE.html">Birrificio San Michele Marker</a>
+                    <ul>
+                        <li><a href="img/markers/download/pattern-sanmic.png">____marker</a></li>
+                    </ul></li>
+              </ul></li>
+              <p></p>
 
-    <a-assets>
-      <img img id="NPlogo" src="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/logo.jpg">
-      <img img id="giulio_profile" src="img/giulio_profile.jpg">
-      <img img id="eugenio_profile" src="img/eugenio_profile.jpg">
-      <img img id="tommaso_profile" src="img/tommaso_profile.jpg">
-      <img img id="pol_profile" src="img/pol_profile.jpg">
-      <a-asset-item id="dancer" src="dancer.gltf"></a-asset-item>
-    </a-assets>
-    
-  
+              <li >NO AR 
+                <a> -Prova di modelli e anim senza AR.</a>
+                <ul>
+                  <li><a href="Release/aframeT1.html">img AR dubai</a>
+                </li>
 
-    <!-- we use cors proxy to avoid cross-origin problems -->
-    <a-nft
-      type="nft"
-      url="https://raw.githubusercontent.com/Polistirol/Polistirol.github.io/master/filePol/_DSC7672-Modifica"
-      smooth="true"
-      smoothCount="40"
-      smoothTolerance="1"
-      smoothThreshold="20"
-      size = "0.3"
-    >
-
-    <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
-
-    <!--transform parent-->
-    <a-entity position= "100 -200  -100">
-
-    <a-cylinder src="#pol_profile" 
-    position="75 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
-    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
-    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
-    navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
-    
-
-    >
-    </a-cylinder>
-
-    <a-cylinder src="#giulio_profile" 
-    position="-75 0 0" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
-    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
-    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
-    
-    >
-    </a-cylinder>
-
-    <a-cylinder src="#eugenio_profile" 
-    position="0 0 75" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
-    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
-    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
-    ></a-cylinder>
-
-    <a-cylinder src="#tommaso_profile" 
-    position="0 0 -75" height="0.1" rotation= "0 0 0" radius="1.5" scale = "15 15 15"
-    animation__mouseenter="property: scale; to: 30 30 30; dur: 300; startEvents: mouseenter"
-    animation__mouseleave="property: scale; to: 20 20 20; dur: 300; startEvents: mouseleave"
-    ></a-cylinder>
-
-    <!--dancer-->
-    <a-entity gltf-model="#dancer"
-    position = "0 0 0"
-    scale = "400 400 400"
-    rotation = "-90 0 0"
-    animation-mixer></a-entity>
-    </a-entity>
-      
-    </a-nft>
-
-    <a-entity camera></a-entity>
-    <a-camera>
-      <a-cursor></a-cursor>
-    </a-camera>
-  </a-scene>
-  <!-- 
-    navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
-    navigate-on-click="url: https://www.instagram.com/giulio_rubinelli/"
-    navigate-on-click="url: https://www.instagram.com/eugedamasio/"
-    navigate-on-click="url: https://www.instagram.com/moretti.tommaso/"
-  -->
+                </ul></li>
+        
+   </ul>
 </body>
-
+</html>
