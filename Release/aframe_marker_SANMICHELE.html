@@ -41,8 +41,7 @@ AFRAME.registerComponent('registerevents', {
       
       var v = document.querySelector('#beer');
         v.play();
-        var scena = document.querySelector("#scena");
-        scena.visible = true;
+
 
       // TODO: Add your own code here to react to the marker being found.
     });
@@ -50,8 +49,9 @@ AFRAME.registerComponent('registerevents', {
     marker.addEventListener('markerLost', function() {
       var markerId = marker.id;
       console.log('markerLost', markerId);
-      var scena = document.querySelector("#scena");
-        scena.visible = false;
+      var v = document.querySelector('#beer');
+        v.pause();
+
       // TODO: Add your own code here to react to the marker being lost.
     });
   }
@@ -65,7 +65,7 @@ AFRAME.registerComponent('registerevents', {
             <img img id="NPlogo" src="../img/resources/logo.jpg">
             <video id="beer" src = "../img/video/Beer.mp4" loop = "true" autoplay="true" muted= "true"></video>
             <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
-            <a-asset-item id="Tappo" src="../models/TAPPO_SM/TAPPO_SM2.gltf"></a-asset-item>
+            <a-asset-item id="Tappo" src="../models/TAPPO_SM/tappo_SM2.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
                 url ="../pattern-sanmic.patt">-->  
@@ -76,7 +76,7 @@ AFRAME.registerComponent('registerevents', {
 
 
          <!--parent entity-->        
-        <a-entity id="scena" position="0 0 0" visible = "true">
+        <a-entity id="scena" position="0 0 0" >
 
         <!--BOX 
         <a-box src="#NPlogo" 
