@@ -38,14 +38,20 @@ AFRAME.registerComponent('registerevents', {
     marker.addEventListener('markerFound', function() {
       var markerId = marker.id;
       console.log('markerFound', markerId);
+      
       var v = document.querySelector('#beer');
         v.play();
+        var scena = document.querySelector("#scena");
+        scena.visible = true;
+
       // TODO: Add your own code here to react to the marker being found.
     });
 
     marker.addEventListener('markerLost', function() {
       var markerId = marker.id;
       console.log('markerLost', markerId);
+      var scena = document.querySelector("#scena");
+        scena.visible = false;
       // TODO: Add your own code here to react to the marker being lost.
     });
   }
@@ -54,64 +60,89 @@ AFRAME.registerComponent('registerevents', {
 
   <body style="margin : 0px; overflow: hidden;">
     <a-scene embedded arjs>
+
         <a-assets>
             <img img id="NPlogo" src="../img/resources/logo.jpg">
-            <img img id="giulio_profile" src="../img/resources/giulio_profile.jpg">
-            <img img id="eugenio_profile" src="../img/resources/eugenio_profile.jpg">
-            <img img id="tommaso_profile" src="../img/resources/tommaso_profile.jpg">
             <video id="beer" src = "../img/video/Beer.mp4" loop = "true" autoplay="true" muted= "true"></video>
             <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
-            <a-asset-item id="dancer" src="../models/dancer.gltf"></a-asset-item>
+            <a-asset-item id="Tappo" src="../models/TAPPO_SM/TAPPO_SM2.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
                 url ="../pattern-sanmic.patt">-->  
         <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>      
         
-        <a-marker-camera type="pattern"
+        <a-marker type="pattern"
                 url ="../img/markers/pattern-sanmic.patt" registerevents>
 
-        <!--BOX -->
+
+         <!--parent entity-->        
+        <a-entity id="scena" position="0 0 0" visible = "true">
+
+        <!--BOX 
         <a-box src="#NPlogo" 
-        position="0 0 0"></a-box>
+        position="0 0 0"></a-box>-->
 
-        <!--dancer -->     
+        <!--tappo IG-->     
        <a-entity
-          position="0 0.5 0"
-          scale="10 10 10"
-          gltf-model="#dancer"
-          animation-mixer
+          position="-2 0 1"
+          scale="0.2 0.2 0.2"
+          gltf-model="#Tappo"
+          rotation = "0 90 90"
+          animation__mouseenter="property: scale; to: 0.35 0.35 0.35; dur: 200; startEvents: mouseenter"
+          animation__mouseleave="property: scale; to: 0.2 0.2 0.2; dur: 200; startEvents: mouseleave"
+          navigate-on-click="url:https://www.instagram.com/birrificiosanmicheletorino/"          
         ></a-entity>
-
-        <!--parent entity-->
         
+        <!--tappo FB-->     
+        <a-entity
+        position="0 0 1"
+        scale="0.2 0.2 0.2"
+        gltf-model="#Tappo"
+        rotation = "0 90 90"
+        animation__mouseenter="property: scale; to: 0.35 0.35 0.35; dur: 200; startEvents: mouseenter"
+        animation__mouseleave="property: scale; to: 0.2 0.2 0.2; dur: 200; startEvents: mouseleave"
+        navigate-on-click="url: https://it-it.facebook.com/pages/Birreria-San-Michele/1597462547196840"></a-entity>
 
-          <a-video src = "#beer" width = "3" height= "1.7" position = "3 0 -2" rotation = "90 180 0">
+        <!--tappo sito-->     
+        <a-entity
+        position="2 0 1"
+        scale="0.2 0.2 0.2"
+        gltf-model="#Tappo"
+        rotation = "0 90 90"
+        animation__mouseenter="property: scale; to: 0.35 0.35 0.35; dur: 200; startEvents: mouseenter"
+        animation__mouseleave="property: scale; to: 0.2 0.2 0.2; dur: 200; startEvents: mouseleave"
+        navigate-on-click="url: https://www.birrasanmichele.it/"></a-entity>          
+      
 
+        <a-video src = "#beer" width = "3" height= "1.7" position = "3 0 -2" rotation = "90 180 0"></a-video>
 
-          </a-video>
-          <!--childrens -->
-          <a-cylinder src="#pol_profile" 
-          position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
-          animation="property: object3D.position.x; to: -1.5;  dur: 3000; loop: false" 
-          animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
-          animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url: https://www.instagram.com/paolopettigiani/"
-          >
-          </a-cylinder>
+        <!--<a-cylinder src="#pol_profile" 
+        position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
+        animation="property: object3D.position.x; to: -1.5;  dur: 3000; loop: false" 
+        animation__mouseenter="property: scale; to: 1.5 1.5 1.5; dur: 200; startEvents: mouseenter"
+        animation__mouseleave="property: scale; to: 1 1 1; dur: 200; startEvents: mouseleave"
+        navigate-on-click="url: https://www.instagram.com/paolopettigiani/">
+        </a-cylinder>-->
 
-          <a-plane color = "#deceaf " width = "8" height="4" position = "-5 0 -2" opacity = "0.3" rotation = "-90 0 0 " >
-            <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
-            position = "-3 0 0.1" color = "black" scale = "1.3 1.3 1"></a-text>
-            <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
-            <a-box scale = "8 0.2 0.1" position = "0 -2 0.1" color = "#dba02c"></a-box>
-            <a-box scale = "0.2 4 0.1" position = "4 0 0.1" color = "#dba02c"></a-box>
-            <a-box scale = "0.2 4 0.1" position = "-4 0 0.1" color = "#dba02c"></a-box>
-           
-           </a-plane>
+        <a-plane color = "#deceaf " width = "8" height="4" position = "-3 0 -2" opacity = "0.3" rotation = "-90 0 0 " scale = "0.5 0.5 0.5" >
+          <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
+          position = "-3 0 0.1" color = "black" scale = "1.3 1.3 1"></a-text>
+          <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
+          <a-box scale = "8 0.2 0.1" position = "0 -2 0.1" color = "#dba02c"></a-box>
+          <a-box scale = "0.2 4 0.1" position = "4 0 0.1" color = "#dba02c"></a-box>
+          <a-box scale = "0.2 4 0.1" position = "-4 0 0.1" color = "#dba02c"></a-box>
+        </a-plane>
 
+        </a-marker>
+      </a-entity>
 
-
-      </a-marker>
+      <a-entity camera >
+          <a-cursor
+          cursor="rayOrigin:mouse" 
+          geometry = "primitive : sphere ; radius : 0.005;"
+          color = "black"
+          opacity = "1" ></a-cursor>
+      </a-entity>
 
     </a-scene>
   </body>
