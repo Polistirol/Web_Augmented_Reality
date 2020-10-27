@@ -63,10 +63,12 @@ AFRAME.registerComponent('registerevents', {
 
         <a-assets>
             <img img id="NPlogo" src="../img/resources/logo.jpg">
-            <video id="beer" src = "../img/video/sanmicPromo.mp4" loop = "true" autoplay="true" muted= "true"></video>
             <img img id="pol_profile" src="../img/resources/pol_profile.jpg">
-            <a-asset-item id="Tappo" src="../models/TAPPO_SM/tappo_SM2.gltf"></a-asset-item>
             <img img id="tappotex" src="../img/resources/san michele_pertappo.png" >
+
+            <video id="beer" src = "../img/video/sanmicPromo.mp4" loop = "true" autoplay="true" muted= "true"></video>
+            <a-asset-item id="Tappo" src="../models/TAPPO_SM/tappo_SM2.gltf"></a-asset-item>    
+            <a-asset-item id="cornice" src=" ../models/CORNICE_SM/CORNICE.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
                 url ="../pattern-sanmic.patt">-->  
@@ -94,6 +96,15 @@ AFRAME.registerComponent('registerevents', {
           navigate-on-click="url:https://www.instagram.com/birrificiosanmicheletorino/" 
                   
         ></a-entity>
+        <a-entity
+        position="1.7 -3 -1"
+        scale="0.2 0.2 0.2"
+        gltf-model="#cornice"
+        rotation = "0 0 0">
+            <a-video src = "#beer" width = "6.5" height= "3.5" position = "0.2 -0.5 -2" rotation = "90 180 0"></a-video>
+        </a-entity>
+
+
         
         <!--tappo FB-->     
         <a-entity
@@ -116,7 +127,7 @@ AFRAME.registerComponent('registerevents', {
         navigate-on-click="url: https://www.birrasanmichele.it/"></a-entity>          
       
 
-        <a-video src = "#beer" width = "2.6" height= "1.5" position = "2 0 -1" rotation = "90 180 0"></a-video>
+        <!--<a-video src = "#beer" width = "2.6" height= "1.5" position = "2.5 -3 -1" rotation = "90 180 0"></a-video>-->
 
         <!--<a-cylinder src="#pol_profile" 
         position="0 0 0" height="0.1" rotation= "0 0 0" radius="0.5" 
@@ -126,7 +137,7 @@ AFRAME.registerComponent('registerevents', {
         navigate-on-click="url: https://www.instagram.com/paolopettigiani/">
         </a-cylinder>-->
 
-        <a-plane color = "#deceaf " width = "8" height="4" position = "-1.5 0 -1" opacity = "0.3" rotation = "-90 0 0 " scale = "0.3 0.3 0.3" >
+        <a-plane color = "#deceaf " width = "8" height="4" position = "-1.5 -3 -1" opacity = "0.3" rotation = "-90 0 0 " scale = "0.3 0.3 0.3" >
           <a-text value="Antica fabbrica del 1860 ai piedi della Sacra di San Michele in cui poter acquistare e degustare, nell’annesso ristorante interno o nel dehor che gode di una vista mozzafiato, la miglior birra artigianale della valle di Susa e sfiziosi piatti della cucina Italiana. Previo appuntamento è possibile visitare i laboratori di produzione, vivere un esperienza indimenticabile e scoprire i segreti che rendono unica la Birra San Michele come l’acqua di montagna, il malto di nostra produzione e tanti altri dettagli." 
           position = "-3 0 0.1" color = "black" scale = "1.3 1.3 1"></a-text>
           <a-box scale = "8 0.2 0.1" position = "0 2 0.1" color = "#dba02c"></a-box>
