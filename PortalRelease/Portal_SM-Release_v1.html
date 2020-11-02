@@ -179,7 +179,7 @@ var GLTFloader = new THREE.GLTFLoader();
 	iglight.position.y=2;
 	smoothedRoot.add(iglight)
 //INSTAGRAM
-const tappoIGpath = "./res/models/tappoig/insta.gltf";
+const tappoIGpath = "./res/models/tappoig/INSTA.gltf";
 const tappoFBpath = "./res/models/tappofb/FACEBOOK.gltf";
 const tappoWpath ="./res/models/tappowww/WWW.gltf";
 const stemmaPath="./res/models/stemma/STEMMA.gltf";
@@ -230,8 +230,8 @@ GLTFloader.load(stemmaPath,function(gltf){
     }
 }
 //gltf.layers.set(1);
-gltf.scene.scale.set(0.2,0.2,0.2);
-gltf.scene.position.set(0,0,0)
+gltf.scene.scale.set(0.3,0.3,0.3);
+gltf.scene.position.set(0,0,-1)
 smoothedRoot.add(gltf.scene);
 },
 // called while loading is progressing
@@ -262,8 +262,8 @@ smoothedRoot.add(gltf.scene);
 	});
 	
 	
-	let portalWidth = 1.25;
-	let portalHeight = 1.2;
+	let portalWidth = 1.9;
+	let portalHeight = 1.9;
 	let portalBorder = 0.1;
 	
 	portal = new THREE.Mesh(
@@ -274,7 +274,7 @@ smoothedRoot.add(gltf.scene);
 	portal.layers.set(1);
 	smoothedRoot.add(portal);
 	portal.rotation.x=Math.PI/2;
-	portal.position.set(0,0,-0.1);
+	portal.position.set(0,0,-1.1);
 	
 	camera.layers.enable(1);
 	
