@@ -193,7 +193,7 @@ var GLTFloader = new THREE.GLTFLoader();
 const tappoIGpath = "./res/models/tappoig/INSTA.gltf";
 const tappoFBpath = "./res/models/tappofb/FACEBOOK.gltf";
 const tappoWpath ="./res/models/tappowww/WWW.gltf";
-const stemmaPath="./res/models/stemma/STEMMA.gltf";
+const scudoComplpath="./res/models/scudo/STEMMA_COMPLETO.gltf";
 const scudo3Dpath ="./res/models/scudo/SCUDO3D.gltf";
 const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 
@@ -234,11 +234,16 @@ smoothedRoot.add(gltf.scene);
 );
 
 /////PORTAL******************************
+
 //scudo3d_portal_FRAME ---------------------
-	GLTFloader.load(scudo3Dpath,function(gltf){
+	GLTFloader.load(scudoComplpath,function(gltf){
+	console.log("scudo frame")
 	console.log(gltf.scene.children);
+
+	gltf.scene.children[0].materal = defaultMaterial;
+	gltf.scene.children[0].layers.set(1);
 	gltf.scene.scale.set(0.32,0.32,0.32);
-	gltf.scene.position.set(0,0,-2)
+	gltf.scene.position.set(0,0,-2) ;
 	smoothedRoot.add(gltf.scene);
 	},
 	// called while loading is progressing
@@ -247,19 +252,19 @@ smoothedRoot.add(gltf.scene);
 		function ( error ) {console.log( 'An error happened' );}
 	);
 //SCUDO2d_PORTAL WINDOW---------------------
-	GLTFloader.load(scudo2Dpath,function(gltf){
-	gltf.scene.children[2].materal = defaultMaterial;
-	gltf.scene.children[2].layers.set(1);
-	gltf.scene.scale.set(0.3,0.3,0.3);
-	gltf.scene.position.set(0,0,-2);
-	console.log(gltf);
-	smoothedRoot.add(gltf.scene);
-	},
-	// called while loading is progressing
-	function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-	// called when loading has errors
-	function ( error ) {console.log( 'An error happened' );}
-	);
+	// GLTFloader.load(scudo2Dpath,function(gltf){
+	// gltf.scene.children[2].materal = defaultMaterial;
+	// gltf.scene.children[2].layers.set(1);
+	// gltf.scene.scale.set(0.3,0.3,0.3);
+	// gltf.scene.position.set(0,0,-2);
+	// //console.log(gltf);
+	// //smoothedRoot.add(gltf.scene);
+	// },
+	// // called while loading is progressing
+	// function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+	// // called when loading has errors
+	// function ( error ) {console.log( 'An error happened' );}
+	// );
 
 	camera.layers.enable(1);
 
