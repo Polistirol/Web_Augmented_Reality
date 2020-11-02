@@ -130,9 +130,9 @@ function initialize()
 	let smoothedRoot = new THREE.Group();
 	scene.add(smoothedRoot);
 	smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
-		lerpPosition: 0.5,
-		lerpQuaternion: 0.5,
-		lerpScale: 1,
+		lerpPosition: 0.5, //0.5
+		lerpQuaternion: 0.1, //0.5
+		lerpScale: 1, //1
 		// minVisibleDelay: 1,
 		// minUnvisibleDelay: 1,
 	});
@@ -150,26 +150,37 @@ smoothedRoot.add(axesHelper);
 //document.body.appendChild(stats.dom);
 
 //VIDEO HANDELING
-// var videoBeer = document.getElementById( 'videoBeer' );
-// console.log(videoBeer.type)
-// videoBeer.src =  "./res/video/sanmicPromo.mp4";
-// const textureVid = new THREE.VideoTexture( videoBeer );
-// textureVid.needsUpdate=true;
-// textureVid.minFilter = THREE.LinearFilter;
-// textureVid.magFilter = THREE.LinearFilter;
-// textureVid.format = THREE.RGBFormat;
-// textureVid.crossOrigin = 'anonymous';
-// //videoBeer.src =  "./res/video/sanmicPromo.mp4";
-// videoBeer.load();
-// //videoBeer.play();
-//     //plane to display video
-//     var planeGeom = new THREE.PlaneGeometry(1.5,1);
-//     var planeMat = new THREE.MeshBasicMaterial({map:textureVid});
-//     var planeMesh = new THREE.Mesh(planeGeom,planeMat);
-//     planeMesh.position.set(-1.5,0,0);
-//     //smoothedRoot.add(planeMesh);
+var videoBeer = document.getElementById( 'videoBeer' );
+console.log(videoBeer.type)
+videoBeer.src =  "./res/video/sanmicPromo.mp4";
+const textureVid = new THREE.VideoTexture( videoBeer );
+textureVid.needsUpdate=true;
+textureVid.minFilter = THREE.LinearFilter;
+textureVid.magFilter = THREE.LinearFilter;
+textureVid.format = THREE.RGBFormat;
+textureVid.crossOrigin = 'anonymous';
+videoBeer.src =  "./res/video/sanmicPromo.mp4";
+videoBeer.load();
+videoBeer.play();
+    //plane to display video
+    var planeGeom = new THREE.PlaneGeometry(1.5,1);
+    var planeMat = new THREE.MeshBasicMaterial({map:textureVid});
+    var planeMesh = new THREE.Mesh(planeGeom,planeMat);
+	planeMesh.position.set(-1.5,0,0);
+	planeMesh.rotation.x = Math.PI/-2;
+    //smoothedRoot.add(planeMesh);
 
-
+let loader = new THREE.TextureLoader();
+	
+	// material for portal (for debugging)
+	
+	let defaultMaterial = new THREE.MeshBasicMaterial({
+		map: loader.load("images/sphere-colored.png"), 
+		color: 0x444444,
+		side: THREE.DoubleSide,
+		transparent: true,
+		opacity: 0.6
+	});
 
 
 //LOAD MODELS /////
@@ -183,6 +194,8 @@ const tappoIGpath = "./res/models/tappoig/INSTA.gltf";
 const tappoFBpath = "./res/models/tappofb/FACEBOOK.gltf";
 const tappoWpath ="./res/models/tappowww/WWW.gltf";
 const stemmaPath="./res/models/stemma/STEMMA.gltf";
+const scudo3Dpath ="./res/models/scudo/SCUDO3D.gltf";
+const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 
 //IG-------------------------
 GLTFloader.load(tappoIGpath,function(gltf){
@@ -219,81 +232,38 @@ smoothedRoot.add(gltf.scene);
 // called when loading has errors
     function ( error ) {console.log( 'An error happened' );}
 );
-//STEMMA---------------------
-GLTFloader.load(stemmaPath,function(gltf){
 
-
-	for(var i =0 ; i<gltf.scene.children.length; i++)
-{
-    if (gltf.scene.children[i].isMesh && i>1){
-        gltf.scene.children[i].visible = false;
-    }
-}
-//gltf.layers.set(1);
-gltf.scene.scale.set(0.3,0.3,0.3);
-gltf.scene.position.set(0,0,-1)
-smoothedRoot.add(gltf.scene);
-},
-// called while loading is progressing
-    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-// called when loading has errors
-    function ( error ) {console.log( 'An error happened' );}
-);
-
-///////////////////////////
-	// var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-	// var material = new THREE.MeshBasicMaterial( { color: "#433F81" } );
-	// var cube = new THREE.Mesh( geometry, material );
-	// cube.position.x = 3.5
-	// // Add cube to Scene
-	// smoothedRoot.add( cube );
-	
-
-	let loader = new THREE.TextureLoader();
-	
-	// material for portal (for debugging)
-	
-	let defaultMaterial = new THREE.MeshBasicMaterial({
-		map: loader.load("images/sphere-colored.png"), 
-		color: 0x444444,
-		side: THREE.DoubleSide,
-		transparent: true,
-		opacity: 0.6
-	});
-	
-	
-	let portalWidth = 1.9;
-	let portalHeight = 1.9;
-	let portalBorder = 0.1;
-	
-	portal = new THREE.Mesh(
-		new THREE.PlaneGeometry(portalWidth, portalHeight),
-		defaultMaterial
+/////PORTAL******************************
+//scudo3d_portal_FRAME ---------------------
+	GLTFloader.load(scudo3Dpath,function(gltf){
+	console.log(gltf.scene.children);
+	gltf.scene.scale.set(0.32,0.32,0.32);
+	gltf.scene.position.set(0,0,-2)
+	smoothedRoot.add(gltf.scene);
+	},
+	// called while loading is progressing
+		function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+	// called when loading has errors
+		function ( error ) {console.log( 'An error happened' );}
 	);
-	//portal.position.y = portalHeight/2 + portalBorder;
-	portal.layers.set(1);
-	smoothedRoot.add(portal);
-	portal.rotation.x=Math.PI/2;
-	portal.position.set(0,0,-1.1);
-	
+//SCUDO2d_PORTAL WINDOW---------------------
+	GLTFloader.load(scudo2Dpath,function(gltf){
+	gltf.scene.children[2].materal = defaultMaterial;
+	gltf.scene.children[2].layers.set(1);
+	gltf.scene.scale.set(0.3,0.3,0.3);
+	gltf.scene.position.set(0,0,-2);
+	console.log(gltf);
+	smoothedRoot.add(gltf.scene);
+	},
+	// called while loading is progressing
+	function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+	// called when loading has errors
+	function ( error ) {console.log( 'An error happened' );}
+	);
+
 	camera.layers.enable(1);
-	
-	portalMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, side: THREE.DoubleSide, transparent:true, opacity: 0.75 });
-	
-	
-	let portalBorderMesh = new THREE.Mesh(
-		new THREE.PlaneGeometry(portalWidth + 2*portalBorder, portalHeight + 2*portalBorder),
-		portalMaterial
-	);
-	portalBorderMesh.visible = false;
-	portalBorderMesh.position.y = portal.position.y;
-	portalBorderMesh.layers.set(0);
-	smoothedRoot.add(portalBorderMesh);
-	portalBorderMesh.rotation.x=Math.PI/2;;
-	portalBorderMesh.position.set(0,0,-2);;
-	
-	// the world beyond the portal
-	
+
+	// the world beyond the portal	
 	// textures from http://www.humus.name/
 	let skyMaterialArray = [
 		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/posx.jpg"), side: THREE.BackSide } ),
@@ -308,14 +278,13 @@ smoothedRoot.add(gltf.scene);
 		skyMaterialArray );
 	skyMesh.layers.set(2);
 	smoothedRoot.add(skyMesh);
-
 }
 
 
 function update()
 {
 	// portal ring color cycle
-	portalMaterial.color.setHSL( totalTime/10 % 1, 1, 0.75 );
+	//portalMaterial.color.setHSL( totalTime/10 % 1, 1, 0.75 );
 	
 	// update artoolkit on every frame
 	if ( arToolkitSource.ready !== false )
