@@ -9,19 +9,46 @@
   <script>
     AFRAME.registerComponent('navigate-on-click', {
       schema: {
-        url: {default: ''}
-      },
-  
+        url: {default: ""}
+      },  
       init: function () {
         var data = this.data;
-        var el = this.el;
-  
+        var el = this.el; 
+
         el.addEventListener('click', function () {
           window.location.href = data.url;
         });
       }
     });        
   </script>
+
+  <!--mouseenter
+<script>
+  AFRAME.registerComponent('scale-on-mouseenter', {schema: {to: {default: '0.07 0.07 0.07', type: 'vec3' },},
+    init: function () {
+      var data = this.data;
+      var el = this.el;
+      this.el.addEventListener('mouseenter', function () {
+        el.object3D.scale.copy(data.to);
+      });
+    }
+  });
+</script>-->
+
+    <!--debug-->
+    <script>
+      AFRAME.registerComponent('movedeb', {
+  
+        init: function () {
+          var data = this.data;
+          var el = this.el;
+    
+          el.addEventListener('mouseenter', function () {
+            console.log("entrato");
+          });
+        }
+      });        
+    </script>
 
 <!--ON MARKER -->
 <script>
@@ -68,7 +95,7 @@ AFRAME.registerComponent('registerevents', {
 
             <video id="beer" src = "../img/video/sanmicPromo.mp4" loop = "true" autoplay="true" muted= "true"></video>
             <a-asset-item id="Tappo" src="../models/TAPPO_SM/tappo_SM2.gltf"></a-asset-item>    
-            <a-asset-item id="cornice" src=" ../models/CORNICE_SM/CORNICE.gltf"></a-asset-item>
+            <a-asset-item id="cornice" src=" ../models/CORNICE_SM/CORNICE 2.gltf"></a-asset-item>
           </a-assets>
       <!--<a-marker type="pattern"
                 url ="../pattern-sanmic.patt">-->  
@@ -87,13 +114,15 @@ AFRAME.registerComponent('registerevents', {
 
         <!--tappo IG-->     
        <a-entity
+          id="tappoig"
           position="-0.7 0 0.7"
           scale="0.05 0.05 0.05"
           gltf-model="#Tappo"
           rotation = "0 90 90"
-          animation__mouseenter="property: scale; to: 0.07 0.07 0.07; dur: 200; startEvents: mouseenter"
           animation__mouseleave="property: scale; to: 0.05 0.05 0.05; dur: 200; startEvents: mouseleave"
-          navigate-on-click="url:https://www.instagram.com/birrificiosanmicheletorino/" 
+          navigate-on-click="url:https://www.instagram.com/birrificiosanmicheletorino/;" 
+          movedeb
+          scale-on-mouseenter
                   
         ></a-entity>
         <a-entity
@@ -101,30 +130,32 @@ AFRAME.registerComponent('registerevents', {
         scale="0.2 0.2 0.2"
         gltf-model="#cornice"
         rotation = "0 0 0">
-            <a-video src = "#beer" width = "6.5" height= "3.5" position = "0.2 -0.5 -2" rotation = "90 180 0"></a-video>
+            <a-video src = "#beer" width = "6.5" height= "3" position = "0.2 -0.5 -2" rotation = "90 180 0"></a-video>
         </a-entity>
 
 
         
         <!--tappo FB-->     
         <a-entity
+        id="tappofb"
         position="0 0 0.7"
         scale="0.05 0.05 0.05"
         gltf-model="#Tappo"
         rotation = "0 90 90"
         animation__mouseenter="property: scale; to: 0.07 0.07 0.07; dur: 200; startEvents: mouseenter"
         animation__mouseleave="property: scale; to: 0.05 0.05 0.05; dur: 200; startEvents: mouseleave"
-        navigate-on-click="url: https://it-it.facebook.com/pages/Birreria-San-Michele/1597462547196840"></a-entity>
+        navigate-on-click="url: https://it-it.facebook.com/pages/Birreria-San-Michele/1597462547196840;"></a-entity>
 
         <!--tappo sito-->     
         <a-entity
+        id="tappoww"
         position="0.7 0 0.7"
         scale="0.05 0.05 0.05"
         gltf-model="#Tappo"
         rotation = "0 90 90"
         animation__mouseenter="property: scale; to: 0.08 0.08 0.08; dur: 200; startEvents: mouseenter"
         animation__mouseleave="property: scale; to: 0.05 0.05 0.05; dur: 200; startEvents: mouseleave"
-        navigate-on-click="url: https://www.birrasanmichele.it/"></a-entity>          
+        navigate-on-click="url: https://www.birrasanmichele.it/;"></a-entity>          
       
 
         <!--<a-video src = "#beer" width = "2.6" height= "1.5" position = "2.5 -3 -1" rotation = "90 180 0"></a-video>-->
@@ -149,13 +180,13 @@ AFRAME.registerComponent('registerevents', {
         </a-marker>
       </a-entity>
 
-      <a-entity camera >
+      <!--<a-entity camera >
           <a-cursor
           cursor="rayOrigin:mouse" 
           geometry = "primitive : sphere ; radius : 0.005;"
           color = "black"
           opacity = "1" ></a-cursor>
-      </a-entity>
+      </a-entity>-->
 
     </a-scene>
   </body>

@@ -1,0 +1,265 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.3.48",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "Point",
+            "translation" : [
+                1.1581236124038696,
+                3.607123613357544,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "Bottle_Cap",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.5,
+                0.5400000214576721,
+                0.5
+            ],
+            "translation" : [
+                0.02000267803668976,
+                0.6834856867790222,
+                0.009244106709957123
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Bottle_Cap.002",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                0.5,
+                0.5400000214576721,
+                0.5
+            ],
+            "translation" : [
+                0.023223252967000008,
+                1.245310664176941,
+                0.009078818373382092
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "cap",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.0657166913151741,
+                    0.0657166913151741,
+                    0.0657166913151741,
+                    1
+                ],
+                "metallicFactor" : 1,
+                "roughnessFactor" : 0.8999999761581421
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "Material.002",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "Mesh",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "Mesh.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/png",
+            "name" : "sm per tappo2",
+            "uri" : "sm%20per%20tappo2.png"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 5984,
+            "max" : [
+                6.5133562088012695,
+                6.506600379943848,
+                1.3669713735580444
+            ],
+            "min" : [
+                -6.500468730926514,
+                -6.507210731506348,
+                -1.002463698387146
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 5984,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 5984,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 33792,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 397,
+            "max" : [
+                5.9710259437561035,
+                5.9710187911987305,
+                -1.2636184692382812e-05
+            ],
+            "min" : [
+                -5.9710211753845215,
+                -5.971016883850098,
+                -1.2874603271484375e-05
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 397,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 397,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 1980,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 71808,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 71808,
+            "byteOffset" : 71808
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 47872,
+            "byteOffset" : 143616
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 67584,
+            "byteOffset" : 191488
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4764,
+            "byteOffset" : 259072
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4764,
+            "byteOffset" : 263836
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3176,
+            "byteOffset" : 268600
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3960,
+            "byteOffset" : 271776
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 275736,
+            "uri" : "INSTA.bin"
+        }
+    ]
+}
