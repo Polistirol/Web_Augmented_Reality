@@ -51,7 +51,8 @@ function initialize()
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
 	scene.add( ambientLight );
 				
-	camera = new THREE.Camera();
+	camera = new THREE.PerspectiveCamera();
+	//camera = new THREE.Camera();
 	scene.add(camera);
 
 	renderer = new THREE.WebGLRenderer({
@@ -136,10 +137,48 @@ function initialize()
 		// minVisibleDelay: 1,
 		// minUnvisibleDelay: 1,
 	});
+///////////////////////////////
+//<Setup mouse and reaycasting
+///////////////////////////////////
+const raycaster = new THREE.Raycaster();
 
-	////////////////////////////////////////////////////////////
-	// setup scene
-	////////////////////////////////////////////////////////////
+renderer.domElement.addEventListener("mousedown",onMouseMove,false);
+//renderer.domElement.addEventListener("touchend", onTouchEnd,false);
+
+//renderer.domElement.addEventListener("mousemove",onMouseMove,false);
+
+function onMouseMove(event){
+	event.preventDefault();
+	const mouse = {
+		x:(event.clientX /window.innerWidth)*2-1,
+		y:-(event.clientY /window.innerHeight)*2+1,
+	}
+	raycaster.setFromCamera(mouse,camera)
+	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
+		if (intersects.length >0)
+		{
+			console.log(intersects[0].object.name);
+			window.open(intersects[0].object.userData.URL);
+		}	
+}
+// function onTouchEnd(event){
+// 	event.preventDefault();
+// 	const tap = {
+// 		x:(event.clientX /window.innerWidth)*2-1,
+// 		y:-(event.clientY /window.innerHeight)*2+1,
+// 	}
+// 	raycaster.setFromCamera(mouse,camera)
+// 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
+// 		if (intersects.length >0)
+// 		{
+// 			console.log(intersects[0].object.name);
+// 			window.open(intersects[0].object.userData.URL);
+// 		}	
+// }
+
+////////////////////////////////////////////////////////////
+// setup scene
+////////////////////////////////////////////////////////////
 
 
 //axes helper
@@ -189,20 +228,39 @@ var GLTFloader = new THREE.GLTFLoader();
 	var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
 	iglight.position.y=2;
 	smoothedRoot.add(iglight)
-//INSTAGRAM
-const tappoIGpath = "./res/models/tappoig/INSTA.gltf";
-const tappoFBpath = "./res/models/tappofb/FACEBOOK.gltf";
-const tappoWpath ="./res/models/tappowww/WWW.gltf";
+//indirizzi
+const tappoIGpath = {res:"./res/models/tappoig/INSTA.gltf",
+					 hlink :"https://www.instagram.com/explore/locations/499014100137651/birra-san-michele/?hl=it"} 
+const tappoFBpath ={res:"./res/models/tappofb/FACEBOOK.gltf",
+					hlink:"https://it-it.facebook.com/pages/Birreria-San-Michele/1597462547196840"};
+const tappoWpath ={res:"./res/models/tappowww/WWW.gltf",
+					hlink : "https://www.birrasanmichele.it/"};
+
 const scudoComplpath="./res/models/scudo/STEMMA_COMPLETO.gltf";
 const scudo3Dpath ="./res/models/scudo/SCUDO3D.gltf";
 const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 
+//func reaycast
+var sceneMeshes = [];
+function filtraMesh(oggetto,nome,link=" "){  
+	for(var i = 0 ; i < oggetto.children.length;i++)
+	{
+		if(oggetto.children[i].isMesh)
+		{
+			oggetto.children[i].name = nome;
+			oggetto.children[i].userData = { URL: link};
+			sceneMeshes.push(oggetto.children[i])
+		}
+	}
+}
+
 //IG-------------------------
-GLTFloader.load(tappoIGpath,function(gltf){
+GLTFloader.load(tappoIGpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
-console.log(gltf.scene.children[2].position.y)
 gltf.scene.children[2].position.y= 1.18;
 gltf.scene.position.z =(1);
+//console.log()
+filtraMesh(gltf.scene,"IG",tappoIGpath.hlink);
 smoothedRoot.add(gltf.scene);
 },
 // called while loading is progressing
@@ -211,9 +269,10 @@ smoothedRoot.add(gltf.scene);
     function ( error ) {console.log( 'An error happened' );}
 );
 //FB---------------------
-GLTFloader.load(tappoFBpath,function(gltf){
+GLTFloader.load(tappoFBpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
 gltf.scene.position.set(-1,0,1)
+filtraMesh(gltf.scene,"FB",tappoFBpath.hlink);
 smoothedRoot.add(gltf.scene);
 },
 // called while loading is progressing
@@ -221,10 +280,11 @@ smoothedRoot.add(gltf.scene);
 // called when loading has errors
     function ( error ) {console.log( 'An error happened' );}
 );
-//FB---------------------
-GLTFloader.load(tappoWpath,function(gltf){
+//WWW---------------------
+GLTFloader.load(tappoWpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
 gltf.scene.position.set(1,0,1)
+filtraMesh(gltf.scene,"www",tappoWpath.hlink);
 smoothedRoot.add(gltf.scene);
 },
 // called while loading is progressing

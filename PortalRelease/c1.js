@@ -6,6 +6,7 @@ import {GLTFLoader} from "./three/examples/jsm/loaders/GLTFLoader.js"
 console.log("imported");
 
 
+var raycaster = new THREE.Raycaster();
 
 const tappopath = "./res/models/scudo/scudo2d.gltf";
 const logopath = "./res/img/logo.jpg";
@@ -143,6 +144,19 @@ function updateGencube(){
 
 }
 
+var sceneMeshes = [];
+function filtraMesh(oggetto,nome){  
+	for(var i = 0 ; i < oggetto.children.length;i++)
+	{
+		if(oggetto.children[i].isMesh)
+		{
+			oggetto.children[i].name = nome;
+			sceneMeshes.push(oggetto.children[i])
+		}
+	}
+}
+
+
 //model loader
 const ModelFolder = gui.addFolder("MODEL");
 const ModelMeshFolder = ModelFolder.addFolder("MESH");
@@ -159,7 +173,8 @@ console.log(gltf.scene.children)
 //         ModelMeshFolder.add(gltf.scene.children[i] ,"visible",true );
 //     }
 // }
-
+filtraMesh(gltf.scene,"ig")
+console.log(sceneMeshes);
 scene.add(gltf.scene);
 },
 // called while loading is progressing
