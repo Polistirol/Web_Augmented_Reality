@@ -15,8 +15,8 @@
 	<script src="threex/threex-arsmoothedcontrols.js"></script>
 	<script src="three/examples/js/loaders/GLTFLoader.js"></script>
 	<div id="debug">
-		<div>x:<span id="x"></span></div>
-		<div>y:<span id="y"></span></div>
+		<div>touches:<span id="x"></span></div>
+		<div>click:<span id="y"></span></div>
 		<div>z:<span id="z"></span></div>
 	  </div>
 	  <style>
@@ -157,10 +157,11 @@ function initialize()
 //<Setup mouse and reaycasting
 ///////////////////////////////////
 const xElem = document.querySelector('#x');
+const yElem = document.querySelector('#y');
 
 const raycaster = new THREE.Raycaster();
 
-//renderer.domElement.addEventListener("mousedown",onMouseMove,false);
+renderer.domElement.addEventListener("mousedown",onMouseMove,false);
 renderer.domElement.addEventListener("touchstart", onTouchEnd,false);
 //renderer.domElement.addEventListener("mousemove",onMouseMove,false);
 
@@ -174,9 +175,9 @@ function onMouseMove(event){
 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
 		if (intersects.length >0)
 		{ 
-			xElem.textContent = (intersects[0].object.name);
+			yElem.textContent = (intersects[0].object.name);
 			console.log(intersects[0].object.name);
-			window.open(intersects[0].object.userData.URL);
+			//window.open(intersects[0].object.userData.URL);
 		}	
 }
 function onTouchEnd(event){
@@ -191,7 +192,7 @@ function onTouchEnd(event){
 		{
 			xElem.textContent = (intersects[0].object.name);
 			console.log(intersects[0].object.name);
-			window.open(intersects[0].object.userData.URL);
+			//window.open(intersects[0].object.userData.URL);
 		}	
 }
 
