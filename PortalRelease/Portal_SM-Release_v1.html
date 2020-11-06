@@ -302,12 +302,14 @@ function filtraMesh(oggetto,nome,link=" "){
 //IG-------------------------
 GLTFloader.load(tappoIGpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
-testobj = gltf.scene.children[2];
 gltf.scene.children[2].position.y= 1.18;
 gltf.scene.position.z =(1);
 gltf.scene.matrixAutoUpdate  = true;
 filtraMesh(gltf.scene,"IG",tappoIGpath.hlink);
+const igbox = new THREE.BoxHelper( gltf.scene, 0xffff00 );
 smoothedRoot.add(gltf.scene);
+smoothedRoot.add(igbox);
+igbox.update();
 },
 // called while loading is progressing
     function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
@@ -319,7 +321,10 @@ GLTFloader.load(tappoFBpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
 gltf.scene.position.set(-1,0,1)
 filtraMesh(gltf.scene,"FB",tappoFBpath.hlink);
+const fbbox = new THREE.BoxHelper( gltf.scene, 0xffff00 );
 smoothedRoot.add(gltf.scene);
+smoothedRoot.add(fbbox);
+fbbox.update();
 },
 // called while loading is progressing
     function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
