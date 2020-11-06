@@ -179,7 +179,9 @@ const touches_pos = document.querySelector('#tp');
 const raycaster = new THREE.Raycaster();
 
 renderer.domElement.addEventListener("mousedown",onMouseMove,false);
-renderer.domElement.addEventListener("touchstart", onTouchEnd, {passive: false});
+window.addEventListener("touchstart", onTouchEnd, {passive: false});
+renderer.domElement.addEventListener("touchmove", onTouchEnd, {passive: false});
+renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
 //renderer.domElement.addEventListener("mousemove",onMouseMove,false);
 
 function onMouseMove(event){
