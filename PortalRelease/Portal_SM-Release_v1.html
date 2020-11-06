@@ -13,7 +13,10 @@
 	<script src="threex/threex-arbasecontrols.js"></script>
 	<script src="threex/threex-armarkercontrols.js"></script>
 	<script src="threex/threex-arsmoothedcontrols.js"></script>
+	<script src="threex/threex.domevents.js"></script>
+
 	<script src="three/examples/js/loaders/GLTFLoader.js"></script>
+	
 	<div id="debug">
 		<div>touches:<span id="x"></span></div>
 		<div>click:<span id="y"></span></div>
@@ -21,6 +24,7 @@
 
 		<div>click_pos<span id="cp"></span></div>
 		<div>touch_pos :<span id="tp"></span></div>
+		<div>fb_pos :<span id="fb"></span></div>
 	  </div>
 	  <style>
 		#debug {
@@ -60,11 +64,15 @@ var portal, portalMaterial;
 
 
 
+var testobj = new THREE.Mesh();
+const fb_pos = document.querySelector('#fb');
+
 initialize();
 animate();
 
 function initialize()
 {
+	
 	scene = new THREE.Scene();
 
 	let ambientLight = new THREE.AmbientLight( 0xcccccc, 0.5 );
@@ -162,6 +170,7 @@ function initialize()
 const clicks = document.querySelector('#x');
 const touches = document.querySelector('#y');
 var ntouches = document.querySelector('#z');
+
 var cnt=0;
 
 const clicks_pos = document.querySelector('#cp');
@@ -223,7 +232,6 @@ smoothedRoot.add(axesHelper);
 
 //VIDEO HANDELING
 var videoBeer = document.getElementById( 'videoBeer' );
-console.log(videoBeer.type)
 videoBeer.src =  "./res/video/sanmicPromo.mp4";
 const textureVid = new THREE.VideoTexture( videoBeer );
 textureVid.needsUpdate=true;
@@ -273,6 +281,8 @@ const scudoComplpath="./res/models/scudo/STEMMA_COMPLETO.gltf";
 const scudo3Dpath ="./res/models/scudo/SCUDO3D.gltf";
 const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 
+
+
 //func reaycast
 var sceneMeshes = [];
 function filtraMesh(oggetto,nome,link=" "){  
@@ -283,16 +293,17 @@ function filtraMesh(oggetto,nome,link=" "){
 			oggetto.children[i].name = nome;
 			oggetto.children[i].userData = { URL: link};
 			sceneMeshes.push(oggetto.children[i])
+			//console.log(sceneMeshes);
 		}
 	}
 }
-
 //IG-------------------------
 GLTFloader.load(tappoIGpath.res,function(gltf){
 gltf.scene.scale.set(0.1,0.1,0.1);
+testobj = gltf.scene.children[2];
 gltf.scene.children[2].position.y= 1.18;
 gltf.scene.position.z =(1);
-//console.log()
+gltf.scene.matrixAutoUpdate  = true;
 filtraMesh(gltf.scene,"IG",tappoIGpath.hlink);
 smoothedRoot.add(gltf.scene);
 },
@@ -326,12 +337,13 @@ smoothedRoot.add(gltf.scene);
     function ( error ) {console.log( 'An error happened' );}
 );
 
+
 /////PORTAL******************************
 
 //scudo3d_portal_FRAME ---------------------
 	GLTFloader.load(scudoComplpath,function(gltf){
-	console.log("scudo frame")
-	console.log(gltf.scene.children);
+	//console.log("scudo frame")
+	//console.log(gltf.scene.children);
 
 	gltf.scene.children[0].materal = defaultMaterial;
 	gltf.scene.children[0].layers.set(1);
@@ -454,10 +466,13 @@ function render()
 function animate()
 {
 	requestAnimationFrame(animate);
+	fb_pos.textContent=String(testobj.position.z.toFixed(3));
+	//console.log(testobj.position);
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
 	render();
+
 }
 
 </script>
