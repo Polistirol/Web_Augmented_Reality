@@ -199,7 +199,7 @@ function onMouseMove(event){
 			clicks.textContent = (intersects[0].object.name);
 			
 			console.log(intersects[0].object.name);
-			window.open(intersects[0].object.userData.URL);
+			//window.open(intersects[0].object.userData.URL);
 		}	
 }
 function onTouchEnd(event){
@@ -285,65 +285,88 @@ const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 
 
 
+
 //func reaycast
 var sceneMeshes = [];
-function filtraMesh(oggetto,nome,link=" "){  
-	for(var i = 0 ; i < oggetto.children.length;i++)
+boxarray = [];
+// function filtraMesh(oggetto,nome,link=" "){  
+// 	for(var i = 0 ; i < oggetto.children.length;i++)
+// 	{
+// 		if(oggetto.children[i].isMesh)
+// 		{
+// 			oggetto.children[i].name = nome;
+// 			//console.log(oggetto.children[i].geometry.boundingBox);
+// 			//oggetto.children[i].geometry.computeBoundingBox();
+
+// 			oggetto.children[i].userData = { URL: link};
+// 			sceneMeshes.push(oggetto.children[i])
+// 		}
+// 	}
+// }
+
+function AddBoundingBox(gltf,nome,link="",OggettoFinale){
+	gltf.scene.traverse(function(child)
 	{
-		if(oggetto.children[i].isMesh)
-		{
-			oggetto.children[i].name = nome;
-			oggetto.children[i].userData = { URL: link};
-			sceneMeshes.push(oggetto.children[i])
-			//console.log(sceneMeshes);
+		if (child.isMesh)
+		{		
+			child.name = nome;
+			child.userData = { URL: link};
+			sceneMeshes.push(child);
+			
+				boxarray.push(new THREE.BoxHelper(child, 0xffff00));
+				boxarray[boxarray.length-1].name = nome;
+				OggettoFinale.add(boxarray[boxarray.length-1])
+				sceneMeshes.push(boxarray[boxarray.length-1])
 		}
-	}
+		
+	})
+	console.log("Bottone "+ nome +": ")
+	console.log(OggettoFinale);
 }
+
+var buttons = [];
+
 //IG-------------------------
+var IGButton = new THREE.Object3D();
+
 GLTFloader.load(tappoIGpath.res,function(gltf){
-gltf.scene.scale.set(0.1,0.1,0.1);
-gltf.scene.children[2].position.y= 1.18;
-gltf.scene.position.z =(1);
-gltf.scene.matrixAutoUpdate  = true;
-filtraMesh(gltf.scene,"IG",tappoIGpath.hlink);
-const igbox = new THREE.BoxHelper( gltf.scene, 0xffff00 );
-smoothedRoot.add(gltf.scene);
-smoothedRoot.add(igbox);
-igbox.update();
+IGButton.add(gltf.scene);
+IGButton.scale.set(0.1,0.1,0.1);
+IGButton.position.z=1;
+	gltf.scene.children[2].position.y= 1.18;
+	gltf.scene.matrixAutoUpdate  = true;
+AddBoundingBox(gltf,"IG",tappoIGpath.hlink,IGButton);
+smoothedRoot.add(IGButton)
 },
 // called while loading is progressing
-    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-// called when loading has errors
-    function ( error ) {console.log( 'An error happened' );}
+    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );}
 );
 //FB---------------------
+var FBButton =new THREE.Object3D();
 GLTFloader.load(tappoFBpath.res,function(gltf){
-gltf.scene.scale.set(0.1,0.1,0.1);
-gltf.scene.position.set(-1,0,1)
-filtraMesh(gltf.scene,"FB",tappoFBpath.hlink);
-const fbbox = new THREE.BoxHelper( gltf.scene, 0xffff00 );
-smoothedRoot.add(gltf.scene);
-smoothedRoot.add(fbbox);
-fbbox.update();
+FBButton.add(gltf.scene);
+FBButton.scale.set(0.1,0.1,0.1);
+FBButton.position.set(-1,0,1)
+AddBoundingBox(gltf,"FB",tappoFBpath.hlink,FBButton);
+smoothedRoot.add(FBButton);
 },
 // called while loading is progressing
-    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );}//,
 // called when loading has errors
-    function ( error ) {console.log( 'An error happened' );}
+    //function ( error ) {console.log( 'An error happened' );}
 );
 //WWW---------------------
+var WWWButton = new THREE.Object3D();
 GLTFloader.load(tappoWpath.res,function(gltf){
-gltf.scene.scale.set(0.1,0.1,0.1);
-gltf.scene.position.set(1,0,1)
-filtraMesh(gltf.scene,"www",tappoWpath.hlink);
-smoothedRoot.add(gltf.scene);
+WWWButton.add(gltf.scene);
+WWWButton.scale.set(0.1,0.1,0.1);
+WWWButton.position.set(1,0,1)
+AddBoundingBox(gltf,"www",tappoWpath.hlink,WWWButton);
+smoothedRoot.add(WWWButton);
 },
 // called while loading is progressing
-    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-// called when loading has errors
-    function ( error ) {console.log( 'An error happened' );}
+    function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );}
 );
-
 
 /////PORTAL******************************
 
