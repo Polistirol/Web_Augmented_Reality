@@ -204,6 +204,8 @@ function onMouseMove(event){
 		}	
 }
 function onTouchEnd(event){
+	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
+	
 	event.preventDefault();
 	const tap = {
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
