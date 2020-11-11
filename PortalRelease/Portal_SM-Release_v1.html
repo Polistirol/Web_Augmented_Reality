@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Hello, AR Cube!</title>
+	<title>Portal_sanMichele_marker_v1</title>
 	<!-- include three.js library -->
-	<script src='three/build/three.js'></script>
+	<script src='../build/three/build/three.js'></script>
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
 	<!-- include threex.artoolkit -->
-	<script src="threex/threex-artoolkitsource.js"></script>
-	<script src="threex/threex-artoolkitcontext.js"></script>
-	<script src="threex/threex-arbasecontrols.js"></script>
-	<script src="threex/threex-armarkercontrols.js"></script>
-	<script src="threex/threex-arsmoothedcontrols.js"></script>
-	<script src="threex/threex.domevents.js"></script>
+	<script src="../build/threex/threex-artoolkitsource.js"></script>
+	<script src="../build/threex/threex-artoolkitcontext.js"></script>
+	<script src="../build/threex/threex-arbasecontrols.js"></script>
+	<script src="../build/threex/threex-armarkercontrols.js"></script>
+	<script src="../build/threex/threex-arsmoothedcontrols.js"></script>
+	<script src="../build/threex/threex.domevents.js"></script>
 
-	<script src="three/examples/js/loaders/GLTFLoader.js"></script>
+	<script src="../build/three/examples/js/loaders/GLTFLoader.js"></script>
 	
 	<div id="debug">
 		<div>touches:<span id="x"></span></div>
@@ -43,7 +43,7 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-<video id="videoBeer" src = "./res/video/sanmicPromo.mp4" loop = "false" autoplay="false" muted= "true" style="display: none;"></video>
+<video id="videoBeer" src = "../res/video/sanmicPromo.mp4" loop = "false" autoplay="false" muted= "true" style="display: none;"></video>
 
 <!-- 
   Example created by Lee Stemkoski: https://github.com/stemkoski
@@ -149,8 +149,8 @@ function initialize()
 	
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, kanjiMarker, {
 		type : 'pattern',
-		//patternUrl : "data/kanji.patt",
-		patternUrl : "data/pattern-sanmic.patt",
+		patternUrl : "../res/markers/pattern-sanmic.patt",
+
 	})
 
 	// interpolates from last position to create smoother transitions when moving.
@@ -182,10 +182,11 @@ renderer.domElement.addEventListener("mousedown",onMouseMove,false);
 window.addEventListener("touchstart", onTouchEnd, {passive: false});
 renderer.domElement.addEventListener("touchmove", onTouchEnd, {passive: false});
 renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
-//renderer.domElement.addEventListener("mousemove",onMouseMove,false);
+
 
 function onMouseMove(event){
 	event.preventDefault();
+	if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};
 	const mouse = {
 		x:(event.clientX /window.innerWidth)*2-1,
 		y:-(event.clientY /window.innerHeight)*2+1,
@@ -199,7 +200,7 @@ function onMouseMove(event){
 			clicks.textContent = (intersects[0].object.name);
 			
 			console.log(intersects[0].object.name);
-			//window.open(intersects[0].object.userData.URL);
+			window.open(intersects[0].object.userData.URL);
 		}	
 }
 function onTouchEnd(event){
@@ -234,30 +235,30 @@ smoothedRoot.add(axesHelper);
 
 //VIDEO HANDELING
 var videoBeer = document.getElementById( 'videoBeer' );
-videoBeer.src =  "./res/video/sanmicPromo.mp4";
+videoBeer.src =  "../res/video/sanmicPromo.mp4";
 const textureVid = new THREE.VideoTexture( videoBeer );
 textureVid.needsUpdate=true;
 textureVid.minFilter = THREE.LinearFilter;
 textureVid.magFilter = THREE.LinearFilter;
 textureVid.format = THREE.RGBFormat;
 textureVid.crossOrigin = 'anonymous';
-videoBeer.src =  "./res/video/sanmicPromo.mp4";
 videoBeer.load();
-videoBeer.play();
+videoBeer.currentTime = 2;
     //plane to display video
     var planeGeom = new THREE.PlaneGeometry(1.5,1);
     var planeMat = new THREE.MeshBasicMaterial({map:textureVid});
     var planeMesh = new THREE.Mesh(planeGeom,planeMat);
-	planeMesh.position.set(-1.5,0,0);
+	planeMesh.position.set(-2,0,-1);
 	planeMesh.rotation.x = Math.PI/-2;
-    //smoothedRoot.add(planeMesh);
+	//planeMesh.rotation.z = 0,174533*4;
+    smoothedRoot.add(planeMesh);
 
 let loader = new THREE.TextureLoader();
 	
 	// material for portal (for debugging)
 	
 	let defaultMaterial = new THREE.MeshBasicMaterial({
-		map: loader.load("images/sphere-colored.png"), 
+		map: loader.load("../res/imgs/sphere-colored.png"), 
 		color: 0x444444,
 		side: THREE.DoubleSide,
 		transparent: true,
@@ -272,16 +273,16 @@ var GLTFloader = new THREE.GLTFLoader();
 	iglight.position.y=2;
 	smoothedRoot.add(iglight)
 //indirizzi
-const tappoIGpath = {res:"./res/models/tappoig/INSTA.gltf",
+const tappoIGpath = {res:"../res/models/tappoig/INSTA.gltf",
 					 hlink :"https://www.instagram.com/explore/locations/499014100137651/birra-san-michele/?hl=it"} 
-const tappoFBpath ={res:"./res/models/tappofb/FACEBOOK.gltf",
+const tappoFBpath ={res:"../res/models/tappofb/FACEBOOK.gltf",
 					hlink:"https://it-it.facebook.com/pages/Birreria-San-Michele/1597462547196840"};
-const tappoWpath ={res:"./res/models/tappowww/WWW.gltf",
+const tappoWpath ={res:"../res/models/tappowww/WWW.gltf",
 					hlink : "https://www.birrasanmichele.it/"};
 
-const scudoComplpath="./res/models/scudo/STEMMA_COMPLETO.gltf";
-const scudo3Dpath ="./res/models/scudo/SCUDO3D.gltf";
-const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
+const scudoComplpath="../res/models/scudo/STEMMA_COMPLETO.gltf";
+const scudo3Dpath ="../res/models/scudo/SCUDO3D.gltf";
+const scudo2Dpath ="../res/models/scudo/SCUDO2D.gltf";
 
 
 
@@ -289,20 +290,6 @@ const scudo2Dpath ="./res/models/scudo/SCUDO2D.gltf";
 //func reaycast
 var sceneMeshes = [];
 boxarray = [];
-// function filtraMesh(oggetto,nome,link=" "){  
-// 	for(var i = 0 ; i < oggetto.children.length;i++)
-// 	{
-// 		if(oggetto.children[i].isMesh)
-// 		{
-// 			oggetto.children[i].name = nome;
-// 			//console.log(oggetto.children[i].geometry.boundingBox);
-// 			//oggetto.children[i].geometry.computeBoundingBox();
-
-// 			oggetto.children[i].userData = { URL: link};
-// 			sceneMeshes.push(oggetto.children[i])
-// 		}
-// 	}
-// }
 
 function AddBoundingBox(gltf,nome,link="",OggettoFinale){
 	gltf.scene.traverse(function(child)
@@ -315,6 +302,9 @@ function AddBoundingBox(gltf,nome,link="",OggettoFinale){
 			
 				boxarray.push(new THREE.BoxHelper(child, 0xffff00));
 				boxarray[boxarray.length-1].name = nome;
+				boxarray[boxarray.length-1].material.transparent = true;
+				boxarray[boxarray.length-1].material.opacity = 0;
+				boxarray[boxarray.length-1].userData={ URL: link};
 				OggettoFinale.add(boxarray[boxarray.length-1])
 				sceneMeshes.push(boxarray[boxarray.length-1])
 		}
@@ -377,6 +367,10 @@ smoothedRoot.add(WWWButton);
 
 	gltf.scene.children[0].materal = defaultMaterial;
 	gltf.scene.children[0].layers.set(1);
+	console.log(gltf.scene.children[1]);
+	gltf.scene.children[1].material = new THREE.MeshPhongMaterial({color :0x523716 });
+	gltf.scene.children[1].material.needsUpdate= true
+
 	gltf.scene.scale.set(0.32,0.32,0.32);
 	gltf.scene.position.set(0,0,-2) ;
 	smoothedRoot.add(gltf.scene);
@@ -387,31 +381,31 @@ smoothedRoot.add(WWWButton);
 		function ( error ) {console.log( 'An error happened' );}
 	);
 //SCUDO2d_PORTAL WINDOW---------------------
-	// GLTFloader.load(scudo2Dpath,function(gltf){
-	// gltf.scene.children[2].materal = defaultMaterial;
-	// gltf.scene.children[2].layers.set(1);
-	// gltf.scene.scale.set(0.3,0.3,0.3);
-	// gltf.scene.position.set(0,0,-2);
-	// //console.log(gltf);
-	// //smoothedRoot.add(gltf.scene);
-	// },
-	// // called while loading is progressing
-	// function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-	// // called when loading has errors
-	// function ( error ) {console.log( 'An error happened' );}
-	// );
+	//GLTFloader.load(scudo2Dpath,function(gltf){
+	//gltf.scene.children[2].materal = planeMat;
+	//gltf.scene.children[2].layers.set(1);
+	//gltf.scene.scale.set(0.3,0.3,0.3);
+	//gltf.scene.position.set(2,0,-2);
+	//console.log(gltf);
+	//smoothedRoot.add(gltf.scene);
+	//},
+	// called while loading is progressing
+	//function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
+	// called when loading has errors
+	//function ( error ) {console.log( 'An error happened' );}
+	//);
 
 	camera.layers.enable(1);
 
 	// the world beyond the portal	
 	// textures from http://www.humus.name/
 	let skyMaterialArray = [
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/posx.jpg"), side: THREE.BackSide } ),
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/negx.jpg"), side: THREE.BackSide } ),
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/posy.jpg"), side: THREE.BackSide } ),
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/negy.jpg"), side: THREE.BackSide } ),
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/posz.jpg"), side: THREE.BackSide } ),
-		new THREE.MeshBasicMaterial( { map: loader.load("images/mountain/negz.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/posx.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/negx.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/posy.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/negy.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/posz.jpg"), side: THREE.BackSide } ),
+		new THREE.MeshBasicMaterial( { map: loader.load("../res/portals/mountain/negz.jpg"), side: THREE.BackSide } ),
 	];
 	let skyMesh = new THREE.Mesh(
 		new THREE.CubeGeometry(30,30,30),
