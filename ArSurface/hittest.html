@@ -14,8 +14,9 @@
 
 		<script type="module">
 
-			import * as THREE from './three//build/three.module.js';
-			import { ARButton } from './three/examples/jsm/webxr/ARButton.js';
+			import * as THREE from '../build/three//build/three.module.js';
+			import { ARButton } from '../build/three/examples/jsm/webxr/ARButton.js';
+			import {GLTFLoader} from "../build/three/examples/jsm/loaders/GLTFLoader.js"
 
 			let container;
 			let camera, scene, renderer;
@@ -55,8 +56,15 @@
 				document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
 
 				//
+				const gltfLoader = new GLTFLoader();
+				//loader.load("../res/models/bott_full_red.gltf")
 
 				const geometry = new THREE.CylinderBufferGeometry( 0.1, 0.1, 0.2, 32 ).translate( 0, 0.1, 0 );
+				const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
+						const mesh = new THREE.Mesh( geometry, material );
+						mesh.position.set(0,0,0);
+						mesh.scale.y = Math.random() * 2 + 1;
+						scene.add( mesh );
 
 				function onSelect() {
 
