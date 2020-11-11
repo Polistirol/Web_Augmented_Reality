@@ -1,0 +1,432 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.3.48",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2,
+                3,
+                4
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "Light",
+            "rotation" : [
+                0.16907575726509094,
+                0.7558803558349609,
+                -0.27217137813568115,
+                0.570947527885437
+            ],
+            "translation" : [
+                6.364487171173096,
+                9.749056816101074,
+                -1.0054539442062378
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "BOTT_FULL_GREEN",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "scale" : [
+                1.0099999904632568,
+                1.0099999904632568,
+                1.0099999904632568
+            ],
+            "translation" : [
+                0,
+                5.179568767547607,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "GIUNTO",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "translation" : [
+                0,
+                11.105636596679688,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "TAPPO",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "translation" : [
+                0,
+                11.712299346923828,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "BOTT_VUOTA",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ],
+            "translation" : [
+                0,
+                5.128285884857178,
+                0
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "diffuse_Black.001",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.10062892735004425
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "diffuse_Black.002",
+            "pbrMetallicRoughness" : {}
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "diffuse_Black.003",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.0008401554659940302,
+                    0.0010648982133716345,
+                    0.14731431007385254,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.6226415038108826
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "Material.002",
+            "pbrMetallicRoughness" : {}
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_SOLO_BOTT",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_GIUNTO.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_SOLO_TAPPO",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 2
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_SOLO_BOTT.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "indices" : 3,
+                    "material" : 3
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "BOTT_TEXTURE_GREEN",
+            "uri" : "BOTT_TEXTURE_GREEN.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 2100,
+            "max" : [
+                1.8274657726287842,
+                1.8274617195129395,
+                4.860626697540283
+            ],
+            "min" : [
+                -1.8274590969085693,
+                -1.827462911605835,
+                -5.560472011566162
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 2100,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 2100,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 12153,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 2218,
+            "max" : [
+                0.9135082960128784,
+                0.9137247800827026,
+                0.41687870025634766
+            ],
+            "min" : [
+                -0.9137884378433228,
+                -0.913571834564209,
+                -0.2254018783569336
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 2218,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 2218,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 11841,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 4265,
+            "max" : [
+                0.8502915501594543,
+                0.8503890037536621,
+                0.5543556213378906
+            ],
+            "min" : [
+                -0.8503470420837402,
+                -0.8502496480941772,
+                -0.5880165100097656
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 4265,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 4265,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 24612,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 2100,
+            "max" : [
+                1.8274657726287842,
+                1.8274617195129395,
+                4.860626697540283
+            ],
+            "min" : [
+                -1.8274590969085693,
+                -1.827462911605835,
+                -5.560472011566162
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 2100,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 2100,
+            "type" : "VEC2"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 25200,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 25200,
+            "byteOffset" : 25200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16800,
+            "byteOffset" : 50400
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 24306,
+            "byteOffset" : 67200
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26616,
+            "byteOffset" : 91508
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26616,
+            "byteOffset" : 118124
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 17744,
+            "byteOffset" : 144740
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 23682,
+            "byteOffset" : 162484
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51180,
+            "byteOffset" : 186168
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51180,
+            "byteOffset" : 237348
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 34120,
+            "byteOffset" : 288528
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 49224,
+            "byteOffset" : 322648
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 25200,
+            "byteOffset" : 371872
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 25200,
+            "byteOffset" : 397072
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16800,
+            "byteOffset" : 422272
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 439072,
+            "uri" : "BOTT_FULL_GREEN.bin"
+        }
+    ]
+}
