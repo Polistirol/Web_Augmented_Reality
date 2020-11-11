@@ -8,7 +8,7 @@
 	</head>
 	
 	<body>
-		<button id="bt" type="button">v3</button>
+		<button id="bt" type="button">v4</button>
 
 		<div id="info">
 			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - hit test<br/>(Chrome Android 81+)
@@ -64,19 +64,20 @@
 				var matapply = new THREE.MeshPhongMaterial({map:texturenp});
 				var matarr=[]
 				matarr.push(matapply);
+				
 				var meshtext 
 				var Bottle =new THREE.Object3D();
 				
-				// gltfLoader.load("../res/models/Finpac/fullgreen/BOTT_FULL_GREEN.gltf",function(gltf){
-				// 	console.log(gltf.scene);
-				// 	gltf.scene.scale.set(0.05,0.05,0.05);
-				// 	gltf.scene.position.set(0.3,-0.5,-1);
-				// 	//gltf.scene.rotation.y=-(Math.PI/1.8);
-				// 	meshtext = gltf.scene.children[4];
-				// 	matarr.push(gltf.scene.children[4].material);					
-				// 	//Bottle.add(gltf.scene);	
+				gltfLoader.load("../res/models/Finpac/fullgreen/BOTT_FULL_GREEN.gltf",function(gltf){
+					console.log(gltf.scene);
+					//gltf.scene.scale.set(0.05,0.05,0.05);
+					//gltf.scene.position.set(0.3,-0.5,-1);
+					//gltf.scene.rotation.y=-(Math.PI/1.8);
+					meshtext = gltf.scene.children[4];
+					matarr.push(gltf.scene.children[4].material);					
+					//Bottle.add(gltf.scene);	
 							
-				// })
+				})
 				
 
 				//window.addEventListener("touchstart",Onclick,false);
@@ -102,7 +103,7 @@
 					//console.log(matarr);
 					
 					if (cntm % 2 ==0){
-					meshtext.material=matarr[1];	
+					meshtext.material=matarr[matarr.length-1];	
 					}else{meshtext.material=matarr[0]}
 					cntm++;
 				}
