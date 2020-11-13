@@ -96,46 +96,51 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     // pol
     var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg")
     var pol = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:polProfile}));
-    pol.position.set(50,50,0);
+    pol.position.set(0,0,0);
     pol.rotation.x=Math.PI/2;
     pol.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(pol);
     //eugi
     var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg")
     var eugi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:eugiProfile}));
-    eugi.position.set(100,100,0);
+    eugi.position.set(0,150,0);
     eugi.rotation.x=Math.PI/2;
     eugi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugi);
     //giulio
     var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg")
     var giulio = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:giulioProfile}));
-    giulio.position.set(100,50,0);
+    giulio.position.set(100,0,0);
     giulio.rotation.x=Math.PI/2;
     giulio.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulio);
     //tommi
     var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg")
     var tommi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:tommiProfile}));
-    tommi.position.set(50,100,0);
+    tommi.position.set(100,150,0);
     tommi.rotation.x=Math.PI/2;
     tommi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommi);
-
-
     root.add(volti);
 
+    //cubo NP
+    var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg")
+    var cubonp = new THREE.Mesh(new THREE.BoxGeometry(2,2,2),new THREE.MeshBasicMaterial({map:npTexture}))
+    cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    cubonp.position.set(75,75,0);
+    root.add(cubonp);
 
-    /* Load Model */
+//dancer
+    // /* Load Model */
     // var threeGLTFLoader = new THREE.GLTFLoader();
 
-    // threeGLTFLoader.load("../../res//models/tappoig/INSTA.gltf", function (gltf) {
+    // threeGLTFLoader.load("../../res//models/dancer.gltf", function (gltf) {
     //         model = gltf.scene;
-    //         console.log(model);
-    //         model.position.z = 0;
-    //         model.position.x = 100;
-    //         model.position.y = 100;
-    //         model.scale.set(5,5,5);
+    //         console.log(gltf.scene);
+    //         gltf.scene.position.z = 0;
+    //         gltf.scene.position.x = 0;
+    //         gltf.scene.position.y = 0;
+    //         gltf.scene.scale.set(400,400,400);
 
     //         // var animation = gltf.animations[0];
     //         // var mixer = new THREE.AnimationMixer(model);
@@ -144,7 +149,7 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     //         // action.play();
 
     //         root.matrixAutoUpdate = false;
-    //         root.add(model);
+    //         root.add(gltf.scene);
     //     }
     // );
     root.matrixAutoUpdate = false;
