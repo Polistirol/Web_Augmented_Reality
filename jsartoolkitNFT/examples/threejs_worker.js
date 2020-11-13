@@ -71,7 +71,7 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
         new THREE.MeshNormalMaterial()
     );
     var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
-	iglight.position.y=2;
+	iglight.position.z=85;
 
     var root = new THREE.Object3D();
     root.add(iglight);
@@ -92,43 +92,78 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     var volti = new THREE.Object3D();
     var cilindro = new THREE.CylinderGeometry(10 , 10 , 1,32 );
     var cilscale = new THREE.Vector3(2,2,2);
+    texturearray =[];
 
     // pol
-    var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg")
+    var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
+    texturearray.push(polProfile);
     var pol = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:polProfile}));
     pol.position.set(0,0,0);
     pol.rotation.x=Math.PI/2;
     pol.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(pol);
     //eugi
-    var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg")
+    var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
+    texturearray.push(eugiProfile);
     var eugi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:eugiProfile}));
     eugi.position.set(0,150,0);
     eugi.rotation.x=Math.PI/2;
     eugi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugi);
     //giulio
-    var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg")
+    var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg");
+    texturearray.push(giulioProfile);
     var giulio = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:giulioProfile}));
     giulio.position.set(100,0,0);
     giulio.rotation.x=Math.PI/2;
     giulio.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulio);
     //tommi
-    var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg")
+    var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg");
+    texturearray.push(tommiProfile);
     var tommi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:tommiProfile}));
     tommi.position.set(100,150,0);
     tommi.rotation.x=Math.PI/2;
     tommi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommi);
-    root.add(volti);
+    //root.add(volti);
 
     //cubo NP
-    var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg")
+    var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg");
+    texturearray.push(npTexture);
     var cubonp = new THREE.Mesh(new THREE.BoxGeometry(2,2,2),new THREE.MeshBasicMaterial({map:npTexture}))
     cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
     cubonp.position.set(75,75,0);
-    root.add(cubonp);
+    //root.add(cubonp);
+    
+    var CUBI = new THREE.Object3D;
+
+    const geometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
+    CUBI.position.set(50,50,0);
+
+				for ( let i = 0; i < 100; i ++ ) {
+
+					const object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { map: texturearray[Math.ceil(Math.random()*4)]} ));
+                    CUBI.add( object );
+					// object.position.x = (Math.random()-0.5) * 50*Math.sin(i);
+					// object.position.y = (Math.random()-0.5) * 75 ;
+                    // object.position.z = (Math.random()-0.5) * 50;
+                    
+                    object.position.x = 25* Math.sin(i);
+					object.position.y = 25*Math.cos(i);
+					object.position.z =i// (Math.random()-0.5) * 50;
+
+					// object.rotation.x = Math.random() * 2 * Math.PI;
+					// object.rotation.y = Math.random() * 2 * Math.PI;
+                    // object.rotation.z = Math.random() * 2 * Math.PI;
+                    var size =0.3// Math.random() + 0.3;
+
+					object.scale.set(size,size,size);
+
+					//CUBI.add( object );
+
+                }
+                root.add(CUBI);
 
 //dancer
     // /* Load Model */
@@ -276,6 +311,7 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     var tick = function () {
         draw();
         requestAnimationFrame(tick);
+        CUBI.rotation.z+=0.001;
     };
 
     load();
