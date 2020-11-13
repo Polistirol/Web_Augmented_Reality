@@ -1,0 +1,511 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.3.48",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "name" : "Light",
+            "rotation" : [
+                0.16907575726509094,
+                0.7558803558349609,
+                -0.27217137813568115,
+                0.570947527885437
+            ],
+            "translation" : [
+                4.076245307922363,
+                10.453681945800781,
+                -1.0054539442062378
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_DIVISA_sotto",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_DIVISA",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_GIUNTO",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_SOLO_TAPPO.001",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071067094802856
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "Cube",
+            "scale" : [
+                1,
+                1,
+                8.690544128417969
+            ],
+            "translation" : [
+                -8.034667015075684,
+                -2.266833543777466,
+                -1.640197992324829
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "alphaMode" : "BLEND",
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "diffuse_Black.003",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.8000000715255737,
+                    0.8000000715255737,
+                    0.8000000715255737,
+                    0.36624783277511597
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "diffuse_Black.004",
+            "pbrMetallicRoughness" : {
+                "baseColorTexture" : {
+                    "index" : 0,
+                    "texCoord" : 0
+                },
+                "metallicFactor" : 0.17272725701332092,
+                "roughnessFactor" : 0
+            }
+        },
+        {
+            "doubleSided" : true,
+            "emissiveFactor" : [
+                0,
+                0,
+                0
+            ],
+            "name" : "TAPPO",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.002067307475954294,
+                    0.0014916927320882678,
+                    0.20791654288768768,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_DIVISA_sotto",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_DIVISA",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_GIUNTO",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "FINPAC_PPRGETTO_RHINO_mesh_vuota_SOLO_TAPPO.001",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "indices" : 15,
+                    "material" : 2
+                }
+            ]
+        },
+        {
+            "name" : "Cube",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "indices" : 19,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "textures" : [
+        {
+            "source" : 0
+        }
+    ],
+    "images" : [
+        {
+            "mimeType" : "image/jpeg",
+            "name" : "BOTT_TEXTURE_GREEN",
+            "uri" : "BOTT_TEXTURE_GREEN.jpg"
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 2171,
+            "max" : [
+                0.6978073716163635,
+                1.8294343948364258,
+                -0.26765918731689453
+            ],
+            "min" : [
+                -2.961061477661133,
+                -1.8294343948364258,
+                -4.924849033355713
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 2171,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 2171,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 12402,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 1790,
+            "max" : [
+                0.6894466280937195,
+                1.820919394493103,
+                -4.924849033355713
+            ],
+            "min" : [
+                -2.9527390003204346,
+                -1.8206558227539062,
+                -10.68875789642334
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 1790,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 1790,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 10461,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 2218,
+            "max" : [
+                -0.21797874569892883,
+                0.9136483073234558,
+                -10.68875789642334
+            ],
+            "min" : [
+                -2.0452754497528076,
+                -0.9136483073234558,
+                -11.331038475036621
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 2218,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 2218,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 11841,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 4265,
+            "max" : [
+                -0.28130775690078735,
+                0.8503193259239197,
+                -11.157943725585938
+            ],
+            "min" : [
+                -1.981946349143982,
+                -0.8503193259239197,
+                -12.300315856933594
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 4265,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 4265,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5123,
+            "count" : 24612,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 24,
+            "max" : [
+                1,
+                1,
+                1
+            ],
+            "min" : [
+                -1,
+                -1,
+                -1
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5123,
+            "count" : 36,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 26052,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26052,
+            "byteOffset" : 26052
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 17368,
+            "byteOffset" : 52104
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 24804,
+            "byteOffset" : 69472
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21480,
+            "byteOffset" : 94276
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 21480,
+            "byteOffset" : 115756
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 14320,
+            "byteOffset" : 137236
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 20922,
+            "byteOffset" : 151556
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26616,
+            "byteOffset" : 172480
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 26616,
+            "byteOffset" : 199096
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 17744,
+            "byteOffset" : 225712
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 23682,
+            "byteOffset" : 243456
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51180,
+            "byteOffset" : 267140
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 51180,
+            "byteOffset" : 318320
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 34120,
+            "byteOffset" : 369500
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 49224,
+            "byteOffset" : 403620
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 452844
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 453132
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 453420
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 72,
+            "byteOffset" : 453612
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 453684,
+            "uri" : "BOTTIGLIA DIVISA.bin"
+        }
+    ]
+}
