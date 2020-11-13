@@ -27,7 +27,7 @@ var markers = {
         width: 1637,
         height: 2048,
         dpi: 250,
-        url: "./examples/DataNFT/_DSC7672-Modifica",
+        url: "./examples/DataNFT/dubai",
     },
 };
 
