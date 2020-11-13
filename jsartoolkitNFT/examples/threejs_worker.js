@@ -27,7 +27,7 @@ var markers = {
         width: 1637,
         height: 2048,
         dpi: 250,
-        url: "../../res/imgTarget/dubai/_DSC7672-Modifica",
+        url: "./examples/DataNFT/_DSC7672-Modifica",
     },
 };
 
@@ -175,7 +175,7 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
 
         worker = new Worker('../js/artoolkitNFT.worker.js');
 
-        worker.postMessage({ type: "load", pw: pw, ph: ph, camera_para: camera_para, marker:  marker.url });
+        worker.postMessage({ type: "load", pw: pw, ph: ph, camera_para: camera_para, marker: '../' + marker.url });
 
         worker.onmessage = function (ev) {
             var msg = ev.data;
