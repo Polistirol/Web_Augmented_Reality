@@ -3,7 +3,9 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	<title>Portal_sanMichele_marker_v1</title>
 	<!-- include three.js library -->
+	
 	<script src='../build/three/build/three.js'></script>
+	<script src="../build/three/examples/js/loaders/GLTFLoader.js"></script>
 	<!-- include jsartookit -->
 	<script src="jsartoolkit5/artoolkit.min.js"></script>
 	<script src="jsartoolkit5/artoolkit.api.js"></script>
@@ -15,7 +17,7 @@
 	<script src="../build/threex/threex-arsmoothedcontrols.js"></script>
 	<script src="../build/threex/threex.domevents.js"></script>
 
-	<script src="../build/three/examples/js/loaders/GLTFLoader.js"></script>
+	
 	
 	<div id="debug">
 		<div>touches:<span id="x"></span></div>
@@ -51,7 +53,9 @@
 -->
 
 
-<script>
+<script> // type="module">
+			//import * as THREE from '../build/three//build/three.module.js';
+			//import {GLTFLoader} from "../build/three/examples/jsm/loaders/GLTFLoader.js"
 
 
 var scene, camera, renderer, clock, deltaTime, totalTime;

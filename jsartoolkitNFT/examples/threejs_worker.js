@@ -1,3 +1,5 @@
+
+
 function isMobile () {
     return /Android|mobile|iPad|iPhone/i.test(navigator.userAgent);
 }
@@ -81,15 +83,47 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     sphere.position.y = 100;
     sphere.scale.set(150, 150, 150);
 
-    ////// Crea cilindri con volti
+    //axes helper
+    const axesHelper = new THREE.AxesHelper(50);
+    root.add(axesHelper);
 
+    ////// Crea cilindri con volti
+    var textureLoader = new THREE.TextureLoader();
     var volti = new THREE.Object3D();
     var cilindro = new THREE.CylinderGeometry(10 , 10 , 1,32 );
-    var pol = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial());
-    pol.position.set(100,100,0);
-    pol.scale.set(3,3,3);
-    root.add(pol);
+    var cilscale = new THREE.Vector3(2,2,2);
 
+    // pol
+    var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg")
+    var pol = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:polProfile}));
+    pol.position.set(50,50,0);
+    pol.rotation.x=Math.PI/2;
+    pol.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(pol);
+    //eugi
+    var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg")
+    var eugi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:eugiProfile}));
+    eugi.position.set(100,100,0);
+    eugi.rotation.x=Math.PI/2;
+    eugi.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(eugi);
+    //giulio
+    var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg")
+    var giulio = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:giulioProfile}));
+    giulio.position.set(100,50,0);
+    giulio.rotation.x=Math.PI/2;
+    giulio.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(giulio);
+    //tommi
+    var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg")
+    var tommi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:tommiProfile}));
+    tommi.position.set(50,100,0);
+    tommi.rotation.x=Math.PI/2;
+    tommi.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(tommi);
+
+
+    root.add(volti);
 
 
     /* Load Model */
