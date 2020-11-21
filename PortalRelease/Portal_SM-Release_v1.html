@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	<title>Portal_sanMichele_marker_v1</title>
+	<title>Portal_sanMichele_marker_v2</title>
 	<!-- include three.js library -->
 	
 	<script src='../build/three/build/three.js'></script>
@@ -45,7 +45,7 @@
 </head>
 
 <body style='margin : 0px; overflow: hidden; font-family: Monospace;'>
-<video id="videoBeer" src = "../res/video/sanmicPromo.mp4" loop = "false" autoplay="false" muted= "true" style="display: none;"></video>
+<video id="videoBeer" src = "../res/video/sanmicPromo.mp4" loop = "false" autoplay="false" muted= "false" style="display: none;"></video>
 
 <!-- 
   Example created by Lee Stemkoski: https://github.com/stemkoski
@@ -65,7 +65,8 @@ var arToolkitSource, arToolkitContext, smoothedControls;
 var markerRoot1, markerRoot2;
 
 var portal, portalMaterial;
-
+var portalFrame = new THREE.Object3D;
+var versoR = 0 ;
 
 
 var testobj = new THREE.Mesh();
@@ -181,20 +182,44 @@ const clicks_pos = document.querySelector('#cp');
 const touches_pos = document.querySelector('#tp');
 
 const raycaster = new THREE.Raycaster();
-
+var posizioni = [];
 renderer.domElement.addEventListener("mousedown",onMouseMove,false);
-window.addEventListener("touchstart", onTouchEnd, {passive: false});
-//renderer.domElement.addEventListener("touchmove", onTouchEnd, {passive: false});
+window.addEventListener("touchstart", onTouchStart, {passive: false});
 renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
+//renderer.domElement.addEventListener("mouseup",OnDistance,{passi:false});
 
+
+function OnDistance(event){
+event.preventDefault();	
+	const mouse = {
+		x:(event.clientX /window.innerWidth)*2-1,
+		y:-(event.clientY /window.innerHeight)*2+1,
+	}	
+	posizioni.push(mouse.x);
+	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
+	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
+	{
+		console.log("swipe dx")
+		versoR = 2
+	}
+	if (posizioni[0]>posizioni[1] && distSwipe >= 0.5)
+	{
+		console.log("swipe sx")
+		versoR = 1
+	}
+	console.log(distSwipe)
+	posizioni = [];
+}
 
 function onMouseMove(event){
 	event.preventDefault();
 	if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};
+
 	const mouse = {
 		x:(event.clientX /window.innerWidth)*2-1,
 		y:-(event.clientY /window.innerHeight)*2+1,
 	}
+	posizioni.push(mouse.x);
 	clicks_pos.textContent=String("x:"+mouse.x.toFixed(2) + " y:" +mouse.y.toFixed(2));
 	ntouches.textContent=(cnt+=100)
 	raycaster.setFromCamera(mouse,camera)
@@ -207,14 +232,15 @@ function onMouseMove(event){
 			window.open(intersects[0].object.userData.URL);
 		}	
 }
-function onTouchEnd(event){
-	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
-	
+function onTouchStart(event)
+{
 	event.preventDefault();
+	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
 	const tap = {
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
+	posizioni.push(tap.x);
 	touches_pos.textContent=String("x:"+tap.x.toFixed(2) + " y:" +tap.y.toFixed(2));
 	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
@@ -226,12 +252,33 @@ function onTouchEnd(event){
 			window.open(intersects[0].object.userData.URL);
 		}	
 }
+function onTouchEnd(event)
+{
+	event.preventDefault();	
+	const tap = {
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
+	}
+	posizioni.push(tap.x);
+	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
+	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
+	{
+		console.log("swipe dx")
+		versoR = 2
+	}
+	if (posizioni[0]>posizioni[1] && distSwipe >= 0.5)
+	{
+		console.log("swipe sx")
+		versoR = 1
+	}
+	console.log(distSwipe)
+	posizioni = [];
+
+}
 
 ////////////////////////////////////////////////////////////
 // setup scene
 ////////////////////////////////////////////////////////////
-
-
 //axes helper
 const axesHelper = new THREE.AxesHelper();
 smoothedRoot.add(axesHelper);
@@ -251,13 +298,13 @@ textureVid.crossOrigin = 'anonymous';
 videoBeer.load();
 videoBeer.currentTime = 2;
     //plane to display video
-    var planeGeom = new THREE.PlaneGeometry(1.5,1);
+    var planeGeom = new THREE.PlaneGeometry(2.4,1.35);
     var planeMat = new THREE.MeshBasicMaterial({map:textureVid});
     var planeMesh = new THREE.Mesh(planeGeom,planeMat);
-	planeMesh.position.set(-2,0,-1);
-	planeMesh.rotation.x = Math.PI/-2;
-	//planeMesh.rotation.z = 0,174533*4;
-    smoothedRoot.add(planeMesh);
+	//planeMesh.position.set(-2,0,-1);
+	//planeMesh.rotation.x = Math.PI/-2;
+	
+    //smoothedRoot.add(planeMesh);
 
 let loader = new THREE.TextureLoader();
 	
@@ -286,11 +333,9 @@ const tappoFBpath ={res:"../res/models/tappofb/FACEBOOK.gltf",
 const tappoWpath ={res:"../res/models/tappowww/WWW.gltf",
 					hlink : "https://www.birrasanmichele.it/"};
 
-const scudoComplpath="../res/models/scudo/STEMMA_COMPLETO.gltf";
+const scudoComplpath="../res/models/cornice/CORNICE.gltf";
 const scudo3Dpath ="../res/models/scudo/SCUDO3D.gltf";
 const scudo2Dpath ="../res/models/scudo/SCUDO2D.gltf";
-
-
 
 
 //func reaycast
@@ -367,40 +412,31 @@ smoothedRoot.add(WWWButton);
 /////PORTAL******************************
 
 //scudo3d_portal_FRAME ---------------------
+
 	GLTFloader.load(scudoComplpath,function(gltf){
-	//console.log("scudo frame")
-	//console.log(gltf.scene.children);
+	console.log("scudo frame")
+	console.log(gltf.scene.children);
 
-	gltf.scene.children[0].materal = defaultMaterial;
-	gltf.scene.children[0].layers.set(1);
-	console.log(gltf.scene.children[1]);
-	gltf.scene.children[1].material = new THREE.MeshPhongMaterial({color :0x523716 });
-	gltf.scene.children[1].material.needsUpdate= true
+	gltf.scene.children[3].materal = defaultMaterial;
+	gltf.scene.children[3].layers.set(1);
 
-	gltf.scene.scale.set(0.32,0.32,0.32);
+	gltf.scene.remove(gltf.scene.children[2])
+
+	gltf.scene.scale.set(0.4,0.4,0.4);
 	gltf.scene.position.set(0,0,-2) ;
-	smoothedRoot.add(gltf.scene);
+	portalFrame.add(gltf.scene)
+	
 	},
 	// called while loading is progressing
 		function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
 	// called when loading has errors
 		function ( error ) {console.log( 'An error happened' );}
 	);
-//SCUDO2d_PORTAL WINDOW---------------------
-	//GLTFloader.load(scudo2Dpath,function(gltf){
-	//gltf.scene.children[2].materal = planeMat;
-	//gltf.scene.children[2].layers.set(1);
-	//gltf.scene.scale.set(0.3,0.3,0.3);
-	//gltf.scene.position.set(2,0,-2);
-	//console.log(gltf);
-	//smoothedRoot.add(gltf.scene);
-	//},
-	// called while loading is progressing
-	//function ( xhr ) {console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );},
-	// called when loading has errors
-	//function ( error ) {console.log( 'An error happened' );}
-	//);
+	portalFrame.add(planeMesh);
+	planeMesh.position.set(0,0,-2);
+	planeMesh.rotation.set(Math.PI/-2,Math.PI,0) 
 
+	smoothedRoot.add(portalFrame);
 	camera.layers.enable(1);
 
 	// the world beyond the portal	
@@ -419,7 +455,28 @@ smoothedRoot.add(WWWButton);
 	skyMesh.layers.set(2);
 	smoothedRoot.add(skyMesh);
 }
+var contaGiri =0
+function swipeOn(verso){
+// verso 1 = rutoa dx
+// verso 2 = ruota sx
+// verso 0 = stop
 
+var speed = 0.06
+	if (verso == 1){portalFrame.rotation.z+=speed;}
+	if (verso == 2){portalFrame.rotation.z-=speed;}
+	//console.log(portalFrame.rotation)
+	if (portalFrame.rotation.z >= Math.PI +contaGiri){
+		versoR = 0;
+		portalFrame.rotation.z = Math.PI+contaGiri;
+		contaGiri+=Math.PI
+	}
+	if (portalFrame.rotation.z <= -Math.PI+contaGiri){
+		versoR = 0;
+		portalFrame.rotation.z = Math.PI+contaGiri;
+		contaGiri-=Math.PI
+	}
+	
+}
 
 function update()
 {
@@ -498,6 +555,8 @@ function animate()
 	requestAnimationFrame(animate);
 	fb_pos.textContent=String(testobj.position.z.toFixed(3));
 	//console.log(testobj.position);
+	swipeOn(versoR);
+	//console.log(portalFrame.rotation.z)
 	deltaTime = clock.getDelta();
 	totalTime += deltaTime;
 	update();
