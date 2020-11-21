@@ -20,8 +20,8 @@
 	
 	
 	<div id="debug">
-		<div>touchesEnd:<span id="x"></span></div>
-		<div>TouchStart:<span id="y"></span></div>
+		<div>touchstart:<span id="x"></span></div>
+		<div>touchend:<span id="y"></span></div>
 		<div>ntouches :<span id="z"></span></div>
 
 		<div>click_pos<span id="cp"></span></div>
@@ -184,8 +184,9 @@ const touches_pos = document.querySelector('#tp');
 const raycaster = new THREE.Raycaster();
 var posizioni = [];
 renderer.domElement.addEventListener("mousedown",onMouseMove,false);
-window.addEventListener("touchstart", onTouchStart, {passive: false});
-window.addEventListener("touchend", onTouchEnd, {passive: false});
+renderer.domElement.addEventListener("touchstart", onTouchStart, {passive: false});
+renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
+renderer.domElement.addEventListener("touchmove", onTouchMove, {passive: false});
 //renderer.domElement.addEventListener("mouseup",OnDistance,{passi:false});
 
 
@@ -277,6 +278,14 @@ function onTouchEnd(event)
 	console.log(distSwipe)
 	posizioni = [];
 
+}
+function onTouchMove(event){
+	event.preventDefault();	
+	const tap = {
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
+	}
+	clicks_pos.textContent=String("x:"+tap.x.toFixed(2));
 }
 
 ////////////////////////////////////////////////////////////
