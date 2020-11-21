@@ -185,7 +185,7 @@ const raycaster = new THREE.Raycaster();
 var posizioni = [];
 renderer.domElement.addEventListener("mousedown",onMouseMove,false);
 renderer.domElement.addEventListener("touchstart", onTouchStart, {passive: false});
-renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
+//renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
 renderer.domElement.addEventListener("touchmove", onTouchMove, {passive: false});
 //renderer.domElement.addEventListener("mouseup",OnDistance,{passi:false});
 
@@ -254,14 +254,14 @@ function onTouchStart(event)
 			window.open(intersects[0].object.userData.URL);
 		}	
 }
-function onTouchEnd(event)
+function onTouchMove(event)
 {
 	event.preventDefault();	
 	const tap = {
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
-	posizioni.push(tap.x);
+	posizioni[1]=tap.x
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
 	clicks_pos.textContent=String(distSwipe);
@@ -278,14 +278,6 @@ function onTouchEnd(event)
 	console.log(distSwipe)
 	posizioni = [];
 
-}
-function onTouchMove(event){
-	event.preventDefault();	
-	const tap = {
-		x:(event.touches[0].clientX /window.innerWidth)*2-1,
-		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
-	}
-	clicks_pos.textContent=String("x:"+tap.x.toFixed(2));
 }
 
 ////////////////////////////////////////////////////////////
