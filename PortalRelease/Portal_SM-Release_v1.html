@@ -20,8 +20,8 @@
 	
 	
 	<div id="debug">
-		<div>touches:<span id="x"></span></div>
-		<div>click:<span id="y"></span></div>
+		<div>touchesEnd:<span id="x"></span></div>
+		<div>TouchStart:<span id="y"></span></div>
 		<div>ntouches :<span id="z"></span></div>
 
 		<div>click_pos<span id="cp"></span></div>
@@ -172,8 +172,8 @@ function initialize()
 ///////////////////////////////
 //<Setup mouse and reaycasting
 ///////////////////////////////////
-const clicks = document.querySelector('#x');
-const touches = document.querySelector('#y');
+const startPos = document.querySelector('#x');
+const endPos = document.querySelector('#y');
 var ntouches = document.querySelector('#z');
 
 var cnt=0;
@@ -241,6 +241,7 @@ function onTouchStart(event)
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
 	posizioni.push(tap.x);
+	startPos.textContent=String("x:"+tap.x.toFixed(2));
 	touches_pos.textContent=String("x:"+tap.x.toFixed(2) + " y:" +tap.y.toFixed(2));
 	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
@@ -260,6 +261,7 @@ function onTouchEnd(event)
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
 	posizioni.push(tap.x);
+	endPos.textContent=String("x:"+tap.x.toFixed(2));
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
 	clicks_pos.textContent=String(distSwipe);
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
