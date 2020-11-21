@@ -264,7 +264,7 @@ function onTouchMove(event)
 	}
 	posizioni[1]=tap.x
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
-	clicks_pos.textContent=String(posizioni[1])
+	clicks_pos.textContent=String(posizioni[0].toFixed(2))
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
 	{
