@@ -209,7 +209,7 @@ event.preventDefault();
 		versoR = 1
 	}
 	console.log(distSwipe)
-	posizioni = [];
+	posizioni = [0,0];
 }
 
 function onMouseMove(event){
@@ -220,8 +220,8 @@ function onMouseMove(event){
 		x:(event.clientX /window.innerWidth)*2-1,
 		y:-(event.clientY /window.innerHeight)*2+1,
 	}
-	posizioni.push(mouse.x);
-	posizioni.push(mouse.x);
+	//posizioni.push(mouse.x);
+	
 	//clicks_pos.textContent=String("x:"+mouse.x.toFixed(2) + " y:" +mouse.y.toFixed(2));
 	ntouches.textContent=(cnt+=100)
 	raycaster.setFromCamera(mouse,camera)
@@ -242,8 +242,8 @@ function onTouchStart(event)
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
-	posizioni.push(tap.x);
-	startPos.textContent=String("x:"+tap.x.toFixed(2));
+	posizioni[0] =tap.x;
+	startPos.textContent=String(posizioni[0].toFixed(2));
 	touches_pos.textContent=String("x:"+tap.x.toFixed(2) + " y:" +tap.y.toFixed(2));
 	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
@@ -264,8 +264,9 @@ function onTouchMove(event)
 	}
 	posizioni[1]=tap.x
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
-	clicks_pos.textContent=String(posizioni[0].toFixed(2))
+	
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
+	clicks_pos.textContent=String(posizioni[0].toFixed(2) + "_ " +posizioni[1].toFixed(2)+"_"+ distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
 	{
 		console.log("swipe dx")
