@@ -251,7 +251,7 @@ function onTouchStart(event)
 
 	
 
-	posizioni[0] =tap.x;
+	posizioni[0] =tapX;
 	startPos.textContent=String(posizioni[0].toFixed(2));
 	
 	ntouches.textContent=(cnt++)
@@ -275,7 +275,7 @@ function onTouchMove(event)
 
 	endPos.textContent=String("1:"+tapX.toFixed(2) );
 	posizioni.push(tap.x)
-	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
+	var distSwipe  = Math.abs(tapX)
 	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[posizioni.length-1].toFixed(2));
 	clicks_pos.textContent=String( distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
