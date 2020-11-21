@@ -250,9 +250,6 @@ function onTouchStart(event)
 		tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
 		tapstart = (event.touches[0].clientX /window.innerWidth)*2-1
 
-	
-
-	posizioni[0] =tapstart;
 	startPos.textContent=String(posizioni[0].toFixed(2));
 	
 	ntouches.textContent=(cnt++)
@@ -269,9 +266,6 @@ function onTouchStart(event)
 function onTouchMove(event)
 {
 	
-
-	tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
-	tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
 	tapend = (event.touches[0].clientX /window.innerWidth)*2-1
 
 	endPos.textContent=String("1:"+tapend.toFixed(2) );
@@ -279,12 +273,12 @@ function onTouchMove(event)
 	var distSwipe  = Math.abs(tapstart-tapend)
 	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[posizioni.length-1].toFixed(2));
 	clicks_pos.textContent=String( distSwipe.toFixed(2))
-	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
+	if (tapstart<tapend && distSwipe >= 0.5)
 	{
 		console.log("swipe dx")
 		versoR = 2
 	}
-	if (posizioni[0]>posizioni[1] && distSwipe >= 0.5)
+	if (tapstart<tapend && distSwipe >= 0.5)
 	{
 		console.log("swipe sx")
 		versoR = 1
