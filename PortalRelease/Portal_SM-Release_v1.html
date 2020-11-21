@@ -221,7 +221,8 @@ function onMouseMove(event){
 		y:-(event.clientY /window.innerHeight)*2+1,
 	}
 	posizioni.push(mouse.x);
-	clicks_pos.textContent=String("x:"+mouse.x.toFixed(2) + " y:" +mouse.y.toFixed(2));
+	posizioni.push(mouse.x);
+	//clicks_pos.textContent=String("x:"+mouse.x.toFixed(2) + " y:" +mouse.y.toFixed(2));
 	ntouches.textContent=(cnt+=100)
 	raycaster.setFromCamera(mouse,camera)
 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
