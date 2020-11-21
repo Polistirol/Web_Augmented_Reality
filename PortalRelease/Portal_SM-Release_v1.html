@@ -244,7 +244,7 @@ function onTouchStart(event)
 	}
 	posizioni[0] =tap.x;
 	startPos.textContent=String(posizioni[0].toFixed(2));
-	touches_pos.textContent=String("x:"+tap.x.toFixed(2) + " y:" +tap.y.toFixed(2));
+	
 	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
@@ -266,6 +266,7 @@ function onTouchMove(event)
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
 	
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
+	touches_pos.textContent=String("0"+posizioni[0].toFixed(2) + " 1:" +posizioni[1].toFixed(2));
 	clicks_pos.textContent=String( distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
 	{
