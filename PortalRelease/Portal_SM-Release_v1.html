@@ -234,14 +234,21 @@ function onMouseMove(event){
 			window.open(intersects[0].object.userData.URL);
 		}	
 }
+
+	var tap = {
+		x:null,
+		y:null
+	}
+	var tapX
 function onTouchStart(event)
 {
 	event.preventDefault();
 	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
-	const tap = {
-		x:(event.touches[0].clientX /window.innerWidth)*2-1,
-		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
-	}
+	
+		tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
+		tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
+	
+
 	posizioni[0] =tap.x;
 	startPos.textContent=String(posizioni[0].toFixed(2));
 	
@@ -258,12 +265,12 @@ function onTouchStart(event)
 function onTouchMove(event)
 {
 	event.preventDefault();	
-	const tap = {
-		x:(event.changedTouches[0].clientX /window.innerWidth)*2-1,
-		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
-	}
-	
-	endPos.textContent=String("x:"+tap.x.toFixed(2));
+
+	tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
+	tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
+	tapX = (event.touches[0].clientX /window.innerWidth)*2-1
+
+	endPos.textContent=String("1:"+tap.x.toFixed(2) + "2:"+tapX.toFixed(2) );
 	posizioni[1]=tap.x
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
 	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[1].toFixed(2));
