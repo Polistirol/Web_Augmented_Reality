@@ -259,14 +259,14 @@ function onTouchMove(event)
 {
 	event.preventDefault();	
 	const tap = {
-		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		x:(event.touches[event.touches.length-1].clientX /window.innerWidth)*2-1,
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
 	}
 	posizioni[1]=tap.x
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
 	
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
-	touches_pos.textContent=String("0"+posizioni[0].toFixed(2) + " 1:" +posizioni[1].toFixed(2));
+	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[1].toFixed(2));
 	clicks_pos.textContent=String( distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
 	{
