@@ -154,7 +154,7 @@ function initialize()
 	
 	let markerControls1 = new THREEx.ArMarkerControls(arToolkitContext, kanjiMarker, {
 		type : 'pattern',
-		patternUrl : "../res/markers/pattern-sanmic.patt",
+		patternUrl : "../res/markers/pattern-pattern-sanmic_rid.patt",
 
 	})
 
@@ -266,7 +266,7 @@ function onTouchMove(event)
 	endPos.textContent=String("x:"+tap.x.toFixed(2));
 	
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
-	clicks_pos.textContent=String(posizioni[0].toFixed(2) + "_ " +posizioni[1].toFixed(2)+"_"+ distSwipe.toFixed(2))
+	clicks_pos.textContent=String( distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
 	{
 		console.log("swipe dx")
