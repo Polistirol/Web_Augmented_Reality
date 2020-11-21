@@ -239,7 +239,8 @@ function onMouseMove(event){
 		x:null,
 		y:null
 	}
-	var tapX
+	var tapstart
+	var tapend
 function onTouchStart(event)
 {
 	
@@ -247,11 +248,11 @@ function onTouchStart(event)
 	
 		tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
 		tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
-		tapX = (event.touches[0].clientX /window.innerWidth)*2-1
+		tapstart = (event.touches[0].clientX /window.innerWidth)*2-1
 
 	
 
-	posizioni[0] =tapX;
+	posizioni[0] =tapstart;
 	startPos.textContent=String(posizioni[0].toFixed(2));
 	
 	ntouches.textContent=(cnt++)
@@ -271,11 +272,11 @@ function onTouchMove(event)
 
 	tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
 	tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
-	tapX -= (event.touches[0].clientX /window.innerWidth)*2-1
+	tapend = (event.touches[0].clientX /window.innerWidth)*2-1
 
 	endPos.textContent=String("1:"+tapX.toFixed(2) );
 	posizioni.push(tap.x)
-	var distSwipe  = Math.abs(tapX)
+	var distSwipe  = Math.abs(tapstart-tapend)
 	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[posizioni.length-1].toFixed(2));
 	clicks_pos.textContent=String( distSwipe.toFixed(2))
 	if (posizioni[0]<posizioni[1] && distSwipe >= 0.5)
