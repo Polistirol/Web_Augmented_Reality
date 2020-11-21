@@ -183,7 +183,7 @@ const touches_pos = document.querySelector('#tp');
 
 const raycaster = new THREE.Raycaster();
 var posizioni = [];
-renderer.domElement.addEventListener("mousedown",onMouseMove,false);
+//renderer.domElement.addEventListener("mousedown",onMouseMove,false);
 renderer.domElement.addEventListener("touchstart", onTouchStart, {passive: false});
 //renderer.domElement.addEventListener("touchend", onTouchEnd, {passive: false});
 renderer.domElement.addEventListener("touchmove", onTouchMove, {passive: false});
@@ -247,6 +247,8 @@ function onTouchStart(event)
 	
 		tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
 		tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
+		tapX = (event.touches[0].clientX /window.innerWidth)*2-1
+
 	
 
 	posizioni[0] =tap.x;
@@ -268,9 +270,9 @@ function onTouchMove(event)
 
 	tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
 	tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
-	tapX = (event.touches[0].clientX /window.innerWidth)*2-1
+	tapX -= (event.touches[0].clientX /window.innerWidth)*2-1
 
-	endPos.textContent=String("1:"+tap.x.toFixed(2) + "2:"+tapX.toFixed(2) );
+	endPos.textContent=String("1:"+tapX.toFixed(2) );
 	posizioni[1]=tap.x
 	var distSwipe  = Math.abs(posizioni[0]-posizioni[1])
 	touches_pos.textContent=String("0:"+posizioni[0].toFixed(2) + " 1:" +posizioni[1].toFixed(2));
