@@ -179,7 +179,7 @@ var ntouches = document.querySelector('#z');
 var cnt=0;
 
 const clicks_pos = document.querySelector('#cp');
-const touches_pos = document.querySelector('#tp');
+var touches  = document.querySelector('#tp');
 
 const raycaster = new THREE.Raycaster();
 var posizioni = [];
@@ -248,8 +248,6 @@ function onTouchStart(event)
 
 		tapstart = (event.touches[0].clientX /window.innerWidth)*2-1
 
-	//startPos.textContent=String(posizioni[0].toFixed(2));
-	
 	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
@@ -265,17 +263,10 @@ function onTouchStart(event)
 }
 function onTouchEnd(event)
 {
-	
-	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
 	const tap ={
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
 		y:-(event.touches[0].clientY /window.innerHeight)*2+1}
-
-		//tapstart = (event.touches[0].clientX /window.innerWidth)*2-1
-
-	//startPos.textContent=String(posizioni[0].toFixed(2));
 	
-	ntouches.textContent=(cnt++)
 	raycaster.setFromCamera(tap,camera)
 	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
 	console.log("onend")
@@ -310,16 +301,16 @@ function onTouchMove(event)
 		versoR = 1
 	}
 	console.log(distSwipe)
-	raycaster.setFromCamera(tap,camera)
-	const intersects = raycaster.intersectObjects(sceneMeshes,false);
-	console.log("onmover")
-	console.log(intersects)	
-		if (intersects.length >0)
-		{
-			touches.textContent = (intersects[0].object.name);
-			console.log(intersects[0].object.name);
-			window.open(intersects[0].object.userData.URL);
-		}	
+	// raycaster.setFromCamera(tap,camera)
+	// const intersects = raycaster.intersectObjects(sceneMeshes,false);
+	// console.log("onmover")
+	// console.log(intersects)	
+	// 	if (intersects.length >0)
+	// 	{
+	// 		touches.textContent = (intersects[0].object.name);
+	// 		console.log(intersects[0].object.name);
+	// 		window.open(intersects[0].object.userData.URL);
+	// 	}	
 
 event.preventDefault();	
 }
