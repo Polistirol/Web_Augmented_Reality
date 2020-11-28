@@ -235,19 +235,17 @@ function onMouseMove(event){
 		}	
 }
 
-	var tap = {
-		x:null,
-		y:null
-	}
+
 	var tapstart
 	var tapend
 function onTouchStart(event)
 {
 	
 	if (event.type == "touchstart"){if (videoBeer.paused == true){videoBeer.play()}else{videoBeer.pause()};} ;
-	
-		tap.x=(event.touches[0].clientX /window.innerWidth)*2-1
-		tap.y=-(event.touches[0].clientY /window.innerHeight)*2+1
+	const tap ={
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1}
+
 		tapstart = (event.touches[0].clientX /window.innerWidth)*2-1
 
 	startPos.textContent=String(posizioni[0].toFixed(2));
@@ -265,13 +263,14 @@ function onTouchStart(event)
 }
 function onTouchMove(event)
 {
-	
+	const tap = {
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1}
+	}
 	tapend = (event.touches[0].clientX /window.innerWidth)*2-1
 
 	endPos.textContent=String("1:"+tapend.toFixed(2) );
-	posizioni.push(tap.x)
 	var distSwipe  = Math.abs(tapstart-tapend)
-	//touches_pos.textContent=String();
 	clicks_pos.textContent=String( "dist: " + distSwipe.toFixed(2))
 	if (tapstart<tapend && distSwipe >= 0.5)
 	{
@@ -284,7 +283,15 @@ function onTouchMove(event)
 		versoR = 1
 	}
 	console.log(distSwipe)
-	posizioni = [];
+	raycaster.setFromCamera(tap,camera)
+	const intersects = raycaster.intersectObjects(sceneMeshes,false);	
+		if (intersects.length >0)
+		{
+			touches.textContent = (intersects[0].object.name);
+			console.log(intersects[0].object.name);
+			window.open(intersects[0].object.userData.URL);
+		}	
+
 event.preventDefault();	
 }
 
