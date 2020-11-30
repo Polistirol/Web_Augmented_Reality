@@ -85,85 +85,67 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
 
     //axes helper
     const axesHelper = new THREE.AxesHelper(50);
+    const axesHelper2 = new THREE.AxesHelper(50);
     root.add(axesHelper);
 
     ////// Crea cilindri con volti
     var textureLoader = new THREE.TextureLoader();
     var volti = new THREE.Object3D();
     var cilindro = new THREE.CylinderGeometry(10 , 10 , 1,32 );
-    var cilscale = new THREE.Vector3(2,2,2);
+    var stand = new THREE.BoxGeometry( 10,10,20);
+    var cilscale = new THREE.Vector3(1.5,1.5,1.5);
+    var startPos = new THREE.Vector3(75,75,0);
     texturearray =[];
 
     // pol
     var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
     texturearray.push(polProfile);
-    var pol = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:polProfile}));
-    pol.position.set(0,0,0);
+    var pol = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:polProfile}));
+    pol.position.set(0,0,-30);
     pol.rotation.x=Math.PI/2;
     pol.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    pol.name = "pol";
     volti.add(pol);
     //eugi
     var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
     texturearray.push(eugiProfile);
-    var eugi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:eugiProfile}));
-    eugi.position.set(0,150,0);
+    var eugi = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:eugiProfile}));
+    eugi.position.set(0,0,20);
     eugi.rotation.x=Math.PI/2;
     eugi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugi);
     //giulio
     var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg");
     texturearray.push(giulioProfile);
-    var giulio = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:giulioProfile}));
-    giulio.position.set(100,0,0);
+    var giulio = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:giulioProfile}));
+    giulio.position.set(-25,0,0);
     giulio.rotation.x=Math.PI/2;
     giulio.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulio);
     //tommi
     var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg");
     texturearray.push(tommiProfile);
-    var tommi = new THREE.Mesh(cilindro,new THREE.MeshBasicMaterial({map:tommiProfile}));
-    tommi.position.set(100,150,0);
+    var tommi = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:tommiProfile}));
+    tommi.position.set(25,0,0);
     tommi.rotation.x=Math.PI/2;
     tommi.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommi);
-    //root.add(volti);
 
-    //cubo NP
+   //cubo NP
     var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg");
     texturearray.push(npTexture);
-    var cubonp = new THREE.Mesh(new THREE.BoxGeometry(2,2,2),new THREE.MeshBasicMaterial({map:npTexture}))
+    var cubonp = new THREE.Mesh(new THREE.BoxGeometry(10,10,10),new THREE.MeshBasicMaterial({map:npTexture}))
     cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    cubonp.position.set(75,75,0);
-    //root.add(cubonp);
+    cubonp.position.set(0,0,0);
+
+
+    //volti.add(cubonp);   
+    volti.add(axesHelper2); 
+    volti.position.set(startPos.x,startPos.y,startPos.z)
+    root.add(volti);
+
+ 
     
-    var CUBI = new THREE.Object3D;
-
-    const geometry = new THREE.BoxBufferGeometry( 20, 20, 20 );
-    CUBI.position.set(50,50,0);
-
-				for ( let i = 0; i < 100; i ++ ) {
-
-					const object = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { map: texturearray[Math.ceil(Math.random()*4)]} ));
-                    CUBI.add( object );
-					// object.position.x = (Math.random()-0.5) * 50*Math.sin(i);
-					// object.position.y = (Math.random()-0.5) * 75 ;
-                    // object.position.z = (Math.random()-0.5) * 50;
-                    
-                    object.position.x = 25* Math.sin(i);
-					object.position.y = 25*Math.cos(i);
-					object.position.z =i// (Math.random()-0.5) * 50;
-
-					// object.rotation.x = Math.random() * 2 * Math.PI;
-					// object.rotation.y = Math.random() * 2 * Math.PI;
-                    // object.rotation.z = Math.random() * 2 * Math.PI;
-                    var size =0.3// Math.random() + 0.3;
-
-					object.scale.set(size,size,size);
-
-					//CUBI.add( object );
-
-                }
-                root.add(CUBI);
 
 //dancer
     // /* Load Model */
@@ -189,6 +171,77 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     // );
     root.matrixAutoUpdate = false;
     //root.add(sphere);
+
+
+///////////////////LISTENERS ecc
+renderer.domElement.addEventListener("mousedown",onMouseDown,false);
+renderer.domElement.addEventListener("mouseup",onMouseUp,false);
+
+var mouseDownPos = null
+var mouseUpPos = null
+var swipeDist = 0
+var versoRotazSwipe =0;
+var contaGiri = 0;
+function onMouseDown(event){
+    const mouse = {
+		x:(event.clientX /window.innerWidth)*2-1,
+		y:-(event.clientY /window.innerHeight)*2+1,
+    }
+    mouseDownPos = (event.clientX /window.innerWidth)*2-1
+}
+function onMouseUp(event){
+    const mouse = {
+		x:(event.clientX /window.innerWidth)*2-1,
+		y:-(event.clientY /window.innerHeight)*2+1,
+    }
+    mouseUpPos = (event.clientX /window.innerWidth)*2-1
+
+    SwipeManager(mouseDownPos,mouseUpPos)   
+}
+function SwipeManager(mouseDown,mouseUp){
+swipeDist = mouseUp- mouseDown;
+    console.log ("distanza :"+ swipeDist.toFixed(2));
+    if (Math.abs(swipeDist) >= 0.5){
+        if (mouseUp> mouseDown){
+            console.log("swipe dx")
+            versoRotazSwipe = 1
+        }
+        if (mouseUp< mouseDown){
+
+            console.log("swipe sx")
+            versoRotazSwipe = 2
+        }
+    }   
+}
+function SwipeActivation(verso,objectToRotate){
+    snaps={
+        zero : 0,
+        p_novanta:Math.PI/2,
+        centott:Math.PI,
+        m_novanta:Math.PI/2
+    }
+
+    var speed = 0.07;
+	if (verso == 1){objectToRotate.rotation.y+=speed;}
+	if (verso == 2){objectToRotate.rotation.y-=speed;}
+	
+	if (objectToRotate.rotation.y >= Math.PI/2 +contaGiri){
+		versoRotazSwipe = 0;
+		objectToRotate.rotation.y = Math.PI/2+contaGiri;//snap
+        contaGiri+=Math.PI/2
+        console.log(volti.children[0]);
+    }
+    
+
+	if (objectToRotate.rotation.y <= -Math.PI/2+contaGiri){
+		versoRotazSwipe = 0;
+		objectToRotate.rotation.y = -Math.PI/2+contaGiri;//snap
+		contaGiri-=Math.PI/2
+	} 
+}
+
+
+
 ///////////////////////////////////////////////////
     var load = function () {
         vw = input_width;
@@ -311,7 +364,7 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     var tick = function () {
         draw();
         requestAnimationFrame(tick);
-        CUBI.rotation.z+=0.001;
+        SwipeActivation(versoRotazSwipe,volti)
     };
 
     load();
