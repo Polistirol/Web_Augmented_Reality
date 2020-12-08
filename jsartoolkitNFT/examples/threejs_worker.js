@@ -194,10 +194,6 @@ segnaposto=0
     root.add(volti);
     root.add(fontPlaneOBJ);
 
-
-
-
-
 //dancer
     // /* Load Model */
     // var threeGLTFLoader = new THREE.GLTFLoader();
@@ -223,12 +219,11 @@ segnaposto=0
     root.matrixAutoUpdate = false;
     //root.add(sphere);
     
-
 ///////////////////LISTENERS ecc
 renderer.domElement.addEventListener("mousedown",onMouseDown,false);
 renderer.domElement.addEventListener("mouseup",onMouseUp,false);
-renderer.domElement.addEventListener("touchstart",onMouseDown,false);
-renderer.domElement.addEventListener("touchmove",onMouseUp,false);
+renderer.domElement.addEventListener("touchstart",onTouchStart,false);
+renderer.domElement.addEventListener("touchmove",onTouchMove,false);
 
 var mouseDownPos = null
 var mouseUpPos = null
@@ -251,6 +246,25 @@ function onMouseUp(event){
 
     SwipeManager(mouseDownPos,mouseUpPos)   
 }
+
+function onTouchStart(event){
+    const mouse = {
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
+    }
+    mouseDownPos = (event.touches[0].clientX /window.innerWidth)*2-1
+}
+function onTouchMove(event){
+    const mouse = {
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
+    }
+    mouseUpPos = (event.touches[0].clientX /window.innerWidth)*2-1
+
+    SwipeManager(mouseDownPos,mouseUpPos)   
+}
+
+
 
 function SwipeManager(mouseDown,mouseUp)
 //prende up and down e ritorna il verso in cui girare, se distanza swipe è> 0.5
