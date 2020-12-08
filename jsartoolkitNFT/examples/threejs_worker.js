@@ -43,6 +43,10 @@ var setMatrix = function (matrix, value) {
     }
 };
 
+let leon, fontCanvas, ctx;
+var fontTexture =null;
+var textSwitch = false;
+
 function start(container, marker, video, input_width, input_height, canvas_draw, render_update, track_update, greyCover) {
     var vw, vh;
     var sw, sh;
@@ -65,6 +69,35 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     camera.matrixAutoUpdate = false;
 
     scene.add(camera);
+
+//font roba
+
+const swF = 200;
+const shF = 100;
+const pixelRatio = 2;
+
+fontCanvas = document.createElement('canvas');
+ctx = fontCanvas.getContext("2d");
+fontCanvas.width = swF * pixelRatio;
+fontCanvas.height = shF * pixelRatio;
+fontCanvas.style.width = swF + 'px';
+fontCanvas.style.height =shF + 'px';
+ctx.scale(pixelRatio, pixelRatio);
+
+leon = null
+
+fontTexture = new THREE.CanvasTexture(fontCanvas);
+
+//plane for canvas
+let fontPlaneGeom = new THREE.PlaneGeometry(30,30);
+let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); //map:fontTexture
+let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
+let fontPlaneOBJ = new THREE.Object3D();
+//fontPlaneMesh.rotation.x=Math.PI/-2;
+fontPlaneOBJ.add(fontPlaneMesh);
+
+
+
 //////////////////////////////////////////////
     var sphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.5, 8, 8),
@@ -96,40 +129,54 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     var cilscale = new THREE.Vector3(1.5,1.5,1.5);
     var startPos = new THREE.Vector3(75,75,0);
     texturearray =[];
+//oggeti
+var polOBJ = new THREE.Object3D();
+var eugiOBJ = new THREE.Object3D();
+var giulioOBJ = new THREE.Object3D();
+var tommiOBJ = new THREE.Object3D();
+segnaposto=0
+
 
     // pol
     var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
     texturearray.push(polProfile);
-    var pol = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:polProfile}));
-    pol.position.set(0,0,-30);
-    pol.rotation.x=Math.PI/2;
-    pol.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    pol.name = "pol";
-    volti.add(pol);
+    var polMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:polProfile}));
+    polOBJ.add(polMesh)
+    polOBJ.position.set(0,0,-30);
+    polOBJ.rotation.x=Math.PI/2;
+    polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    polOBJ.name = "pol";
+    volti.add(polOBJ);
+
     //eugi
     var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
     texturearray.push(eugiProfile);
-    var eugi = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:eugiProfile}));
-    eugi.position.set(0,0,20);
-    eugi.rotation.x=Math.PI/2;
-    eugi.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    volti.add(eugi);
+    var eugiMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:eugiProfile}));
+    eugiOBJ.add(eugiMesh)
+    eugiOBJ.position.set(0,0,20);
+    eugiOBJ.rotation.x=Math.PI/2;
+    eugiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(eugiOBJ);
+
     //giulio
     var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg");
     texturearray.push(giulioProfile);
-    var giulio = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:giulioProfile}));
-    giulio.position.set(-25,0,0);
-    giulio.rotation.x=Math.PI/2;
-    giulio.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    volti.add(giulio);
+    var giulioMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:giulioProfile}));
+    giulioOBJ.add(giulioMesh)
+    giulioOBJ.position.set(-25,0,0);
+    giulioOBJ.rotation.x=Math.PI/2;
+    giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(giulioOBJ);
+
     //tommi
     var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg");
     texturearray.push(tommiProfile);
-    var tommi = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:tommiProfile}));
-    tommi.position.set(25,0,0);
-    tommi.rotation.x=Math.PI/2;
-    tommi.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    volti.add(tommi);
+    var tommiMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:tommiProfile}));
+    tommiOBJ.add(tommiMesh);
+    tommiOBJ.position.set(25,0,0);
+    tommiOBJ.rotation.x=Math.PI/2;
+    tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    volti.add(tommiOBJ);
 
    //cubo NP
     var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg");
@@ -138,14 +185,18 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
     cubonp.position.set(0,0,0);
 
-
-    //volti.add(cubonp);   
+//panel comune
+    fontPlaneOBJ.position.set(0,0,0)
+    
+    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
     root.add(volti);
+    root.add(fontPlaneOBJ);
 
- 
-    
+
+
+
 
 //dancer
     // /* Load Model */
@@ -171,11 +222,13 @@ function start(container, marker, video, input_width, input_height, canvas_draw,
     // );
     root.matrixAutoUpdate = false;
     //root.add(sphere);
-
+    
 
 ///////////////////LISTENERS ecc
 renderer.domElement.addEventListener("mousedown",onMouseDown,false);
 renderer.domElement.addEventListener("mouseup",onMouseUp,false);
+renderer.domElement.addEventListener("touchstart",onMouseDown,false);
+renderer.domElement.addEventListener("touchmove",onMouseUp,false);
 
 var mouseDownPos = null
 var mouseUpPos = null
@@ -198,7 +251,10 @@ function onMouseUp(event){
 
     SwipeManager(mouseDownPos,mouseUpPos)   
 }
-function SwipeManager(mouseDown,mouseUp){
+
+function SwipeManager(mouseDown,mouseUp)
+//prende up and down e ritorna il verso in cui girare, se distanza swipe è> 0.5
+{
 swipeDist = mouseUp- mouseDown;
     console.log ("distanza :"+ swipeDist.toFixed(2));
     if (Math.abs(swipeDist) >= 0.5){
@@ -213,34 +269,76 @@ swipeDist = mouseUp- mouseDown;
         }
     }   
 }
-function SwipeActivation(verso,objectToRotate){
-    snaps={
-        zero : 0,
-        p_novanta:Math.PI/2,
-        centott:Math.PI,
-        m_novanta:Math.PI/2
-    }
+function SwipeActivation(verso,objectToRotate)
+//prende verso e oggetto da rotare e muove l'oggetto (1/2 PI)
+{
+    textToDraw=[
+        "EUGENIO DAMASIO\n Project Manager \n Writer",
+        "GIULIO RUBINELLI \nCreative Director",
+        "PAOLO PETTIGIANI\nArt Director\nPhotographer",
+        "TOMMASO MORETTI \nBusiness Development \nManager"]
 
     var speed = 0.07;
-	if (verso == 1){objectToRotate.rotation.y+=speed;}
-	if (verso == 2){objectToRotate.rotation.y-=speed;}
-	
+    if (verso == 1){
+        FontCanvasReset(ctx);
+        objectToRotate.rotation.y+=speed;}
+
+    if (verso == 2){FontCanvasReset(ctx);
+        objectToRotate.rotation.y-=speed;}
+    
 	if (objectToRotate.rotation.y >= Math.PI/2 +contaGiri){
 		versoRotazSwipe = 0;
 		objectToRotate.rotation.y = Math.PI/2+contaGiri;//snap
         contaGiri+=Math.PI/2
-        console.log(volti.children[0]);
+        segnaposto+=1
+        if (segnaposto==4){segnaposto=0}
+        TextAnimation(textToDraw[segnaposto]);
     }
     
-
 	if (objectToRotate.rotation.y <= -Math.PI/2+contaGiri){
 		versoRotazSwipe = 0;
 		objectToRotate.rotation.y = -Math.PI/2+contaGiri;//snap
-		contaGiri-=Math.PI/2
+        contaGiri-=Math.PI/2
+        segnaposto-=1
+        if (segnaposto==-1){segnaposto=3}
+        TextAnimation(textToDraw[segnaposto]);
+        
+        
 	} 
 }
+function FontCanvasReset(ctx)
+{
+    textSwitch=false
+    ctx = fontCanvas.getContext("2d");
+    fontCanvas.width = swF * pixelRatio;
+    fontCanvas.height = shF * pixelRatio;
+    fontCanvas.style.width = swF + 'px';
+    fontCanvas.style.height =shF + 'px';
+    ctx.scale(pixelRatio, pixelRatio);
 
+}
 
+function TextAnimation (textIn)
+{
+    
+    leon = new LeonSans();
+    leon.text=textIn
+    leon.color= ['#f5426f']
+    leon.size= 20
+    leon.weight= 400
+    
+    textSwitch=true
+    let i, total = leon.drawing.length;
+    for (i = 0; i < total; i++) {
+        TweenMax.fromTo(leon.drawing[i], 1.6, 
+        {value: 0}, 
+        {
+        delay: i * 0.02,
+        value: 1,
+        ease: Power4.easeOut});
+        }
+        
+}
 
 ///////////////////////////////////////////////////
     var load = function () {
@@ -350,6 +448,12 @@ function SwipeActivation(verso,objectToRotate){
                 // set matrix of 'root' by detected 'world' matrix
                 setMatrix(root.matrix, trackedMatrix.interpolated);
         }
+        if (textSwitch){
+            //console.log(textSwitch);
+            leon.draw(ctx);
+        }
+        //leon.draw(ctx)
+        fontTexture.needsUpdate=true;
         renderer.render(scene, camera);
     };
 
@@ -363,6 +467,7 @@ function SwipeActivation(verso,objectToRotate){
     }
     var tick = function () {
         draw();
+        
         requestAnimationFrame(tick);
         SwipeActivation(versoRotazSwipe,volti)
     };
