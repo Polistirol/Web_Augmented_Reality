@@ -48,30 +48,25 @@ var fontTexture =null;
 var textSwitch = false;
 
 function start(container, marker, video, input_width, input_height, canvas_draw, render_update, track_update, greyCover) {
-    var vw, vh;
-    var sw, sh;
-    var pscale, sscale;
-    var w, h;
-    var pw, ph;
-    var ox, oy;
-    var worker;
-    var camera_para = './../examples/Data/camera_para.dat'
-
-    var canvas_process = document.createElement('canvas');
-    var context_process = canvas_process.getContext('2d');
-
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas_draw, alpha: true, antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
-
-    var scene = new THREE.Scene();
-
-    var camera = new THREE.Camera();
-    camera.matrixAutoUpdate = false;
-
-    scene.add(camera);
+var vw, vh;
+var sw, sh;
+var pscale, sscale;
+var w, h;
+var pw, ph;
+var ox, oy;
+var worker;
+var camera_para = './../examples/Data/camera_para.dat'
+var canvas_process = document.createElement('canvas');
+var context_process = canvas_process.getContext('2d');
+var renderer = new THREE.WebGLRenderer({ canvas: canvas_draw, alpha: true, antialias: true });
+renderer.setPixelRatio(window.devicePixelRatio);
+var scene = new THREE.Scene();
+var camera = new THREE.Camera();
+camera.matrixAutoUpdate = false;
+scene.add(camera);
 
 //font roba
-
+leon = null
 const swF = 200;
 const shF = 100;
 const pixelRatio = 2;
@@ -83,11 +78,7 @@ fontCanvas.height = shF * pixelRatio;
 fontCanvas.style.width = swF + 'px';
 fontCanvas.style.height =shF + 'px';
 ctx.scale(pixelRatio, pixelRatio);
-
-leon = null
-
 fontTexture = new THREE.CanvasTexture(fontCanvas);
-
 //plane for canvas
 let fontPlaneGeom = new THREE.PlaneGeometry(30,30);
 let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); //map:fontTexture
@@ -96,47 +87,32 @@ let fontPlaneOBJ = new THREE.Object3D();
 //fontPlaneMesh.rotation.x=Math.PI/-2;
 fontPlaneOBJ.add(fontPlaneMesh);
 
-
-
 //////////////////////////////////////////////
-    var sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(0.5, 8, 8),
-        new THREE.MeshNormalMaterial()
-    );
-    var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
-	iglight.position.z=85;
+var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
+iglight.position.z=85;
+var root = new THREE.Object3D();
+root.add(iglight);
+scene.add(root);
 
-    var root = new THREE.Object3D();
-    root.add(iglight);
-    scene.add(root);
+//axes helper
+const axesHelper = new THREE.AxesHelper(50);
+const axesHelper2 = new THREE.AxesHelper(50);
+root.add(axesHelper);
 
-    sphere.material.flatShading;
-    sphere.position.z = 0;
-    sphere.position.x = 100;
-    sphere.position.y = 100;
-    sphere.scale.set(150, 150, 150);
+////// Crea cilindri con volti
+var textureLoader = new THREE.TextureLoader();
+var volti = new THREE.Object3D();
+var stand = new THREE.BoxGeometry( 10,10,20);
+var cilscale = new THREE.Vector3(1.5,1.5,1.5);
+var startPos = new THREE.Vector3(75,75,0);
+texturearray =[];
 
-    //axes helper
-    const axesHelper = new THREE.AxesHelper(50);
-    const axesHelper2 = new THREE.AxesHelper(50);
-    root.add(axesHelper);
-
-    ////// Crea cilindri con volti
-    var textureLoader = new THREE.TextureLoader();
-    var volti = new THREE.Object3D();
-    var cilindro = new THREE.CylinderGeometry(10 , 10 , 1,32 );
-    var stand = new THREE.BoxGeometry( 10,10,20);
-    var cilscale = new THREE.Vector3(1.5,1.5,1.5);
-    var startPos = new THREE.Vector3(75,75,0);
-    texturearray =[];
 //oggeti
 var polOBJ = new THREE.Object3D();
 var eugiOBJ = new THREE.Object3D();
 var giulioOBJ = new THREE.Object3D();
 var tommiOBJ = new THREE.Object3D();
 segnaposto=0
-
-
     // pol
     var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
     texturearray.push(polProfile);
@@ -187,7 +163,6 @@ segnaposto=0
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,0)
-    
     fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
@@ -230,44 +205,41 @@ var mouseUpPos = null
 var swipeDist = 0
 var versoRotazSwipe =0;
 var contaGiri = 0;
-function onMouseDown(event){
+function onMouseDown(event)
+{
     const mouse = {
 		x:(event.clientX /window.innerWidth)*2-1,
-		y:-(event.clientY /window.innerHeight)*2+1,
-    }
+		y:-(event.clientY /window.innerHeight)*2+1,}
     mouseDownPos = (event.clientX /window.innerWidth)*2-1
 }
-function onMouseUp(event){
+
+function onMouseUp(event)
+{
     const mouse = {
 		x:(event.clientX /window.innerWidth)*2-1,
-		y:-(event.clientY /window.innerHeight)*2+1,
-    }
+		y:-(event.clientY /window.innerHeight)*2+1,}
     mouseUpPos = (event.clientX /window.innerWidth)*2-1
-
     SwipeManager(mouseDownPos,mouseUpPos)   
 }
 
-function onTouchStart(event){
+function onTouchStart(event)
+{
     const mouse = {
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
-		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
-    }
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1,}
     mouseDownPos = (event.touches[0].clientX /window.innerWidth)*2-1
 }
-function onTouchMove(event){
+
+function onTouchMove(event)
+{
     const mouse = {
 		x:(event.touches[0].clientX /window.innerWidth)*2-1,
-		y:-(event.touches[0].clientY /window.innerHeight)*2+1,
-    }
+        y:-(event.touches[0].clientY /window.innerHeight)*2+1,} 
     mouseUpPos = (event.touches[0].clientX /window.innerWidth)*2-1
-
     SwipeManager(mouseDownPos,mouseUpPos)   
 }
 
-
-
-function SwipeManager(mouseDown,mouseUp)
-//prende up and down e ritorna il verso in cui girare, se distanza swipe è> 0.5
+function SwipeManager(mouseDown,mouseUp) //prende up and down e ritorna il verso in cui girare, se distanza swipe è> 0.5
 {
 swipeDist = mouseUp- mouseDown;
     console.log ("distanza :"+ swipeDist.toFixed(2));
@@ -277,26 +249,24 @@ swipeDist = mouseUp- mouseDown;
             versoRotazSwipe = 1
         }
         if (mouseUp< mouseDown){
-
             console.log("swipe sx")
             versoRotazSwipe = 2
         }
     }   
 }
-function SwipeActivation(verso,objectToRotate)
-//prende verso e oggetto da rotare e muove l'oggetto (1/2 PI)
+
+function SwipeActivation(verso,objectToRotate) //prende verso e oggetto da rotare e muove l'oggetto (1/2 PI)
 {
     textToDraw=[
         "EUGENIO DAMASIO\n Project Manager \n Writer",
         "GIULIO RUBINELLI \nCreative Director",
         "PAOLO PETTIGIANI\nArt Director\nPhotographer",
-        "TOMMASO MORETTI \nBusiness Development \nManager"]
-
+        "TOMMASO MORETTI \nBusiness Development \nManager"]//descrizioni persone
+    //rotazioni
     var speed = 0.07;
     if (verso == 1){
         FontCanvasReset(ctx);
         objectToRotate.rotation.y+=speed;}
-
     if (verso == 2){FontCanvasReset(ctx);
         objectToRotate.rotation.y-=speed;}
     
@@ -304,7 +274,7 @@ function SwipeActivation(verso,objectToRotate)
 		versoRotazSwipe = 0;
 		objectToRotate.rotation.y = Math.PI/2+contaGiri;//snap
         contaGiri+=Math.PI/2
-        segnaposto+=1
+        segnaposto+=1//usato per decidere quale descrizione far apparire
         if (segnaposto==4){segnaposto=0}
         TextAnimation(textToDraw[segnaposto]);
     }
@@ -316,8 +286,6 @@ function SwipeActivation(verso,objectToRotate)
         segnaposto-=1
         if (segnaposto==-1){segnaposto=3}
         TextAnimation(textToDraw[segnaposto]);
-        
-        
 	} 
 }
 function FontCanvasReset(ctx)
@@ -329,12 +297,10 @@ function FontCanvasReset(ctx)
     fontCanvas.style.width = swF + 'px';
     fontCanvas.style.height =shF + 'px';
     ctx.scale(pixelRatio, pixelRatio);
-
 }
 
 function TextAnimation (textIn)
 {
-    
     leon = new LeonSans();
     leon.text=textIn
     leon.color= ['#f5426f']
@@ -350,8 +316,7 @@ function TextAnimation (textIn)
         delay: i * 0.02,
         value: 1,
         ease: Power4.easeOut});
-        }
-        
+    }    
 }
 
 ///////////////////////////////////////////////////
@@ -448,9 +413,12 @@ function TextAnimation (textIn)
         lasttime = now;
 
         if (!world) {
-            sphere.visible = false;
+            volti.visible=false;
+            fontPlaneOBJ.visible=false;
+            
         } else {
-          sphere.visible = true;
+          volti.visible=true;
+          fontPlaneOBJ.visible=true;
                 // interpolate matrix
                 for (var i = 0; i < 16; i++) {
                   trackedMatrix.delta[i] = world[i] - trackedMatrix.interpolated[i];
@@ -462,12 +430,9 @@ function TextAnimation (textIn)
                 // set matrix of 'root' by detected 'world' matrix
                 setMatrix(root.matrix, trackedMatrix.interpolated);
         }
-        if (textSwitch){
-            //console.log(textSwitch);
-            leon.draw(ctx);
-        }
-        //leon.draw(ctx)
+        if (textSwitch){leon.draw(ctx);} //abilitano il font,swipare cambia textswitch(bool)
         fontTexture.needsUpdate=true;
+
         renderer.render(scene, camera);
     };
 
