@@ -197,19 +197,17 @@ segnaposto=0
     //root.add(bottoni)  
     
 
-
-
 //dancer
     /* Load Model */
     var threeGLTFLoader = new THREE.GLTFLoader();
     threeGLTFLoader.load("../../res//models/nopanic/eugi/NEWBUSTO2.gltf", function (gltf) {
             //model = gltf.scene;
             console.log(gltf.scene);
-            gltf.scene.position.z = 0//-150;
+            gltf.scene.position.z = 0;
             gltf.scene.position.x = 0;
             gltf.scene.position.y = 0;
             gltf.scene.scale.set(25,25,25);
-            gltf.scene.rotation.y = 1.57
+            gltf.scene.rotation.y = 1.57;
 
             var textu= textureLoader.load("../../res//models/nopanic/eugi/Caverson - LowPoly.jpg")
             var texface = textureLoader.load(("../../res//models/nopanic/eugi/kt_facebuilder_texture.png"))
