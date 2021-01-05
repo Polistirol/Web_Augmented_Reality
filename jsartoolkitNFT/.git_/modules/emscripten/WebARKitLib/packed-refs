@@ -1,0 +1,5 @@
+# pack-refs with: peeled fully-peeled sorted 
+d9504bf358abf7ee91be12527e39ccf0f10a864f refs/remotes/origin/dev
+8b046eabce1937bf22bc5b72a21a99e98060ef6c refs/remotes/origin/feature-multi-nft
+f04ec81d56e4f57242083e2f1f8901d3f525810b refs/remotes/origin/master
+48f23be960863491f28261eddfa4e0c90964b07c refs/remotes/origin/oKit

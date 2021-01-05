@@ -23,13 +23,19 @@
             
 
             var scene = new THREE.Scene();
-            scene.background = new THREE.Color( 0x0099cc);
+            scene.background = new THREE.Color( 0xE9E6E5);
             var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
         
 
             var renderer = new THREE.WebGLRenderer();
             renderer.setSize( window.innerWidth, window.innerHeight );
             document.body.appendChild( renderer.domElement );
+
+            var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
+            iglight.position.z=55;
+            scene.add(iglight)
+
+    
 
             var control = new OrbitControls(camera,renderer.domElement);
             control.update();
@@ -39,20 +45,21 @@
             var cube = new THREE.Mesh( geometryz, material );
             cube.scale.set(2,2,2);
             cube.position.set(-2,0,0);
+            cube.visible=false
             scene.add( cube );
 
             camera.position.z = 10;
             
-            var abint = new THREE.AmbientLight(0x555500,4)
+            var abint = new THREE.AmbientLight(0x555500,10)
             scene.add(abint);
   
             var loader = new GLTFLoader();
-            loader.load( 'http://127.0.0.1:5500/dancer.gltf', function ( gltf ) 
+            loader.load( '../res/models/nopanic/eugi/NEWBUSTO2.gltf', function ( gltf ) 
             {
 
                 var dancer= gltf.scene;
-                dancer.scale.set(0.5,0.5,0.5);
-                dancer.rotation.set(-90,0,0);
+                dancer.scale.set(2,2,2);
+                dancer.rotation.set(0,1.57,0);
                 dancer.position.set(0,0,0)
 	            scene.add( dancer);
                 

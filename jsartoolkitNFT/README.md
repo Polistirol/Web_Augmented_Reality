@@ -18,6 +18,8 @@ Try the example !! [kalwalt.github.io/jsartoolkitNFT/examples/arNFT_example.html
 
 has **WASM** embedded in a single file!
 
+:grey_exclamation: from 0.8.0 version has **ES6** feature 🎉 😻
+
 ## Using the library 💥
 You can use raw.githack.com links:
 
@@ -27,15 +29,27 @@ You can use raw.githack.com links:
 <script src="https://raw.githack.com/kalwalt/jsartoolkitNFT/master/build/artoolkitNFT_wasm.js">
 ```
 
-NO WASM minified:
+**NO WASM** minified:
 
 ```html
 <script src="https://raw.githack.com/kalwalt/jsartoolkitNFT/master/build/artoolkitNFT.min.js">
 ```
-or you can install with npm:
+
+or (recommended) use the **UMD** libary:
+
+```html
+<script src="https://raw.githack.com/kalwalt/jsartoolkitNFT/master/dist/ARToolkitNFT.js">
+```
+
+or you can install with npm and use as a module:
 
 ```nodejs
 npm i @kalwalt/jsartoolkit-nft
+```
+then:
+
+```javascript
+import { ARToolkitNFT, ARControllerNFT } from '@kalwalt/jsartoolkit-nft'
 ```
 
 or you can clone the repository with git, follow the instructions below:
@@ -56,8 +70,9 @@ or you can clone the repository with git, follow the instructions below:
 ## Project Structure 📂
 
 - `build/` (compiled debug and minified versions of JSARToolKitNFT)
+- `dist/` (compiled UMD lib with ES6 of JSARToolKitNFT)
 - `doc/` (documentation, coming...)
-- `emscripten/` (source code for ARToolKit)
+- `emscripten/` (source code for ARToolKitNFT)
 - `examples/` (demos and examples using JSARToolKitNFT)
 - `js/` (compiled versions of ARToolKit.js with Three.js helper api)
 - `tools/` (build scripts for building JSARToolKitNFT)
@@ -78,7 +93,7 @@ window.addEventListener('artoolkitNFT-loaded', () => {
 });
 ```
 
-See the example for details.
+See the examples for details.
 
 
 ## Build the project 🔨
