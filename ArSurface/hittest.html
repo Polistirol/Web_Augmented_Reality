@@ -14,7 +14,7 @@
 			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - hit test<br/>(Chrome Android 81+)
 		</div>
 
-<button id="bt" type="button">v8</button>
+<button id="bt" type="button">v9</button>
 		
 		
 		<script type="module">
@@ -55,15 +55,15 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				renderer.xr.enabled = true;
 				container.appendChild( renderer.domElement );
-
 				//
 
 				document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
 
 //bottoni cambio texture + modello 
 //cambio texture
-	const tx_geom_mesh = new THREE.Mesh ( new THREE.PlaneGeometry(5,5,32) , new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}))
-	tx_geom_mesh.position.set(-window.innerWidth/2,0,-10)
+	const tx_geom_mesh = new THREE.Mesh ( new THREE.PlaneGeometry(2,2,32) , new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}))
+	console.log(window.innerWidth)
+	tx_geom_mesh.position.set(0,0,-10)
 	scene.add(tx_geom_mesh)
 
 
