@@ -14,7 +14,7 @@
 			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - hit test<br/>(Chrome Android 81+)
 		</div>
 
-<button id="bt" type="button">v9</button>
+<button id="bt" type="button">v10</button>
 		
 		
 		<script type="module">
@@ -58,6 +58,12 @@
 				//
 
 				document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+
+
+
+
+
+
 
 //bottoni cambio texture + modello 
 //cambio texture
@@ -104,6 +110,10 @@
 							scene.add(gltf.scene);	
 						})
 					}
+					var btn = document.createElement("BUTTON");
+ 						 btn.innerHTML = "CLICK ME";
+  					document.body.appendChild(btn);
+
 				}
 
 				controller = renderer.xr.getController( 0 );
