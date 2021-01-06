@@ -214,10 +214,11 @@ segnaposto=0
             var mate = new THREE.MeshBasicMaterial({map:polProfile ,name:"matedddd"})
             //var mateface = new THREE.MeshBasicMaterial({color : 0x00ff00 , aplphaMode : "MASK"})
 
-            gltf.scene.children[2].material.emissiveIntensity=0.0
+            //gltf.scene.children[2].material.emissiveIntensity=0.0
             //gltf.scene.children[2].material.metalness = 0
             //gltf.scene.children[2].material=mate
-            //gltf.scene.children[1].visible=false //material = mateface
+            gltf.scene.children[1].visible=false //material = mateface
+            gltf.scene.children[0].visible=false
             
 
             //gltf.scene.children[2].material=

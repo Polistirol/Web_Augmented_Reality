@@ -5,15 +5,18 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 		<!--<link type="text/css" rel="stylesheet" href="main.css">-->
+
 	</head>
 	
 	<body>
-		<button id="bt" type="button">v5</button>
-
+		
 		<div id="info">
 			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> ar - hit test<br/>(Chrome Android 81+)
 		</div>
 
+<button id="bt" type="button">v6</button>
+		
+		
 		<script type="module">
 
 			import * as THREE from '../build/three//build/three.module.js';
@@ -57,6 +60,8 @@
 
 				document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
 
+
+
 				//////////////////// modellazione
 				const gltfLoader = new GLTFLoader();
 				const textureLoader = new THREE.TextureLoader();
@@ -68,78 +73,31 @@
 				var meshtext 
 				var Bottle =new THREE.Object3D();
 				
-				gltfLoader.load("../res/models/Finpac/halfgreen/BOTTIGLIA DIVISA.gltf",function(gltf){
-					console.log(gltf.scene);
-					gltf.scene.scale.set(0.05,0.05,0.05);
-					gltf.scene.position.set(0.3,-0.2,-1);
-					//gltf.scene.rotation.y=-(Math.PI/1.8);
-
-					gltf.scene.children[4].visible=true;
-					gltf.scene.children[4].position.set(0,1.5,-4);
-					//meshtext = gltf.scene.children[4];
-					//matarr.push(gltf.scene.children[4].material);					
-					//scene.add(gltf.scene);	
-							
-				})
-				
-
-				//window.addEventListener("touchstart",Onclick,false);
 				var cntm=1;
-				// function Onclick(){
-				// 	console.log(matarr);
-					
-				// 	if (cntm % 2 ==0){
-				// 	meshtext.material=matarr[1];	
-				// 	}else{meshtext.material=matarr[0]}
-				// 	cntm++;
-				// }
-		
 
-				// const geometry = new THREE.CylinderBufferGeometry( 0.1, 0.1, 0.2, 32 ).translate( 0, 0.1, 0 );
-				// const material = new THREE.MeshBasicMaterial( { map: texturenp } );
-				// 		const mesh = new THREE.Mesh( geometry, material );
-				// 		mesh.position.set(0.3,-0.5,-1.5);
-				// 		mesh.scale.y = Math.random() * 2 + 1;
-				// 		scene.add( mesh );
-
-				function Onclick(){
-					//console.log(matarr);
-					
+				function Onclick(){					
 					if (cntm % 2 ==0){
 					meshtext.material=matarr[matarr.length-1];	
 					}else{meshtext.material=matarr[0]}
 					cntm++;
 				}
 
-
-
-						///////////////////////////////////
 				function onSelect() {
 
-					if ( reticle.visible ) {
-
-						// const material = new THREE.MeshPhongMaterial( { color: 0xffffff * Math.random() } );
-						// const mesh = new THREE.Mesh( geometry, material );
-						// mesh.position.setFromMatrixPosition( reticle.matrix );
-						// mesh.scale.y = Math.random() * 2 + 1;
-						// scene.add( mesh );
-					//gltfLoader.load("../res/models/Finpac/fullgreen/BOTT_FULL_GREEN.gltf",function(gltf){
-					gltfLoader.load("../res/models/Finpac/halfgreen/BOTTIGLIA DIVISA.gltf",function(gltf){
-					console.log(gltf.scene);
-					gltf.scene.scale.set(0.05,0.05,0.05);
-					gltf.scene.children[4].visible=false;
-					gltf.scene.position.setFromMatrixPosition( reticle.matrix );
-					//gltf.scene.rotation.y=-(Math.PI/1.8);
-					
-					meshtext = gltf.scene.children[4];
-					matarr.push(gltf.scene.children[4].material);					
-					scene.add(gltf.scene);	
+					if ( reticle.visible )
+					{
+						gltfLoader.load("../res/models/Finpac/halfgreen/BOTTIGLIA DIVISA.gltf",function(gltf)
+						{
+							console.log(gltf.scene);
+							gltf.scene.scale.set(0.05,0.05,0.05);
+							gltf.scene.children[4].visible=false;
+							gltf.scene.position.setFromMatrixPosition( reticle.matrix );
 							
-				})
-				//Onclick();
-
+							meshtext = gltf.scene.children[4];
+							matarr.push(gltf.scene.children[4].material);					
+							scene.add(gltf.scene);	
+						})
 					}
-
 				}
 
 				controller = renderer.xr.getController( 0 );

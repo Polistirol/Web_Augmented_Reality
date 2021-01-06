@@ -38,6 +38,8 @@ function start(markerUrl, video, input_width, input_height, render_update, track
 
   scene.add(camera);
 
+
+
   var sphere = new THREE.Mesh(
     new THREE.SphereGeometry(0.5, 8, 8),
     new THREE.MeshNormalMaterial()
@@ -46,14 +48,40 @@ function start(markerUrl, video, input_width, input_height, render_update, track
   var root = new THREE.Object3D();
   scene.add(root);
 
+  var iglight = new THREE.PointLight(0xFFFFFF, 6 , 1000);
+  iglight.position.z=100;
+  root.add(iglight);
+
   sphere.material.flatShading;
   sphere.position.z = 0;
   sphere.position.x = 100;
   sphere.position.y = 100;
   sphere.scale.set(200, 200, 200);
 
+    /* Load Model */
+    var threeGLTFLoader = new THREE.GLTFLoader();
+    threeGLTFLoader.load("../../res//models/nopanic/eugi/NEWBUSTO2.gltf", function (gltf) {
+            //model = gltf.scene;
+            
+          gltf.scene.scale.set(25,25,25);
+          gltf.scene.rotation.y = 1.57;
+          gltf.scene.children[1].visible=false //material = mateface
+          gltf.scene.children[0].visible=false
+
+          gltf.scene.children[2].material.flatShading
+          gltf.scene.children[2].material.needsUpdate = false
+          gltf.scene.children[2].material.transparent = true
+          gltf.scene.children[2].material.opacity =1
+
+
+          console.log(gltf.scene);
+          root.matrixAutoUpdate = false;
+          root.add(gltf.scene);
+        }
+    );
+
   root.matrixAutoUpdate = false;
-  root.add(sphere);
+  //root.add(sphere);
 
   var load = function () {
     vw = input_width;
