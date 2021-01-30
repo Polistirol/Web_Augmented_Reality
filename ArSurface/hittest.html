@@ -22,6 +22,7 @@
 			import * as THREE from '../build/three//build/three.module.js';
 			import { ARButton } from '../build/three/examples/jsm/webxr/ARButton.js';
 			import {GLTFLoader} from "../build/three/examples/jsm/loaders/GLTFLoader.js"
+			import {CanvasUI} from "../build/three/examples/jsm/CanvasUI.js"
 
 			let container;
 			let camera, scene, renderer;
@@ -31,6 +32,10 @@
 
 			let hitTestSource = null;
 			let hitTestSourceRequested = false;
+
+			const tx_geom_mesh = new THREE.Mesh ( new THREE.PlaneGeometry(2,2,32) , new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}))
+			var sceneMeshes=[]
+			sceneMeshes.push(tx_geom_mesh)
 
 			init();
 			animate();
@@ -63,22 +68,27 @@
 
 
 
+				//bottoni cambio texture + modello 
+				//cambio texture
 
-
-//bottoni cambio texture + modello 
-//cambio texture
-	const tx_geom_mesh = new THREE.Mesh ( new THREE.PlaneGeometry(2,2,32) , new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}))
-	console.log(window.innerWidth)
-	tx_geom_mesh.position.set(0,0,-10)
-	//scene.add(tx_geom_mesh)
+				tx_geom_mesh.position.set(0,0,-10)
+				scene.add(tx_geom_mesh)
 
 
 
 				//////////////////// modellazione
 				const gltfLoader = new GLTFLoader();
 				const textureLoader = new THREE.TextureLoader();
-				var texturenp = textureLoader.load("../res/imgs/nopanic/logo.jpg");
-				var matapply = new THREE.MeshPhongMaterial({map:texturenp});
+				var texturenp = textureLoader.load("../res/imgs/coca.jpg",function(texture)
+				{
+				    texture.wrapS = texture.wrapT = THREE.MirroredRepeatWrapping;
+   					 texture.offset.set( 0, 0 );
+   					texture.repeat.set( 2, 6 );
+				
+				});					
+				var repeatt = new THREE.Vector2(2,2)
+				var matapply = new THREE.MeshPhongMaterial({map:texturenp})
+
 				var matarr=[]
 				matarr.push(matapply);
 				
@@ -97,28 +107,69 @@
 				// 			scene.add(gltf.scene);	
 				// 		})
 
-				// 		gltfLoader.load("../res/models/Finpac/FULL_RED/BOTT_FULL_GREEN.gltf",function(gltf)
-				// 		{
-				// 			console.log(gltf.scene);
-				// 			gltf.scene.scale.set(0.05,0.05,0.05);
-				// 			//gltf.scene.children[4].visible=false;
-				// 			gltf.scene.position.set(0,0,-10) ;
+						gltfLoader.load("../res/models/Finpac/Lattina/LATTINA.gltf",function(gltf)
+						{
+							//console.log(gltf.scene);
+							gltf.scene.scale.set(0.5,0.5,0.5);
+							//gltf.scene.children[3].material=matapply;
+							gltf.scene.position.set(0,-2,-10) ;
 							
-				// 			//meshtext = gltf.scene.children[4];
-				// 			//matarr.push(gltf.scene.children[4].material);					
-				// 			scene.add(gltf.scene);	
-				// 		})
+							//meshtext = gltf.scene.children[4];
+							//matarr.push(gltf.scene.children[4].material);					
+							scene.add(gltf.scene);	
+						})
 
 
 
 
 				var cntm=1;
 
-				function Onclick(){					
 
-				}
+///////////////////////raycasting
 
-				function onSelect() {
+
+
+
+/////////////////////end raycasting 
+
+
+
+
+renderer.domElement.addEventListener("touchstart", Onclick, {passive: false});
+
+
+				function Onclick(event){
+					
+const tap ={
+		x:(event.touches[0].clientX /window.innerWidth)*2-1,
+		y:-(event.touches[0].clientY /window.innerHeight)*2+1}
+		console.log("tap")
+					const raycaster = new THREE.Raycaster();
+					var posizioni = [];
+					var tapstart = null ;
+
+					// const tap ={
+					// x:event.target.position.x,
+					// y:event.target.position.y}
+
+				raycaster.setFromCamera(tap,camera)
+				const intersects = raycaster.intersectObjects(sceneMeshes,false);	
+				console.log("onstart")
+				console.log(intersects)
+					if (intersects.length >0)
+					{
+						console.log(intersects[0].object.name);
+						window.open(intersects[0].object.userData.URL);
+					}	
+					event.preventDefault();
+			}
+
+
+				
+
+				function onSelect(event) {
+					console.log(event.target.position.x)
+					
 
 					if ( reticle.visible )
 					{ 
@@ -137,13 +188,12 @@
 
 						if (cntm % 2 !=0){
 
-						gltfLoader.load("../res/models/Finpac/FULL_RED/BOTT_FULL_GREEN.gltf",function(gltf)
+						gltfLoader.load("../res/models/Finpac/Lattina/LATTINA.gltf",function(gltf)
 						{
 							console.log(gltf.scene);
 							gltf.scene.scale.set(0.05,0.05,0.05);
 							//gltf.scene.children[4].visible=false;
-							gltf.scene.position.setFromMatrixPosition( reticle.matrix );
-							
+							gltf.scene.position.setFromMatrixPosition( reticle.matrix );	
 							//meshtext = gltf.scene.children[4];
 							//matarr.push(gltf.scene.children[4].material);					
 							scene.add(gltf.scene);	
@@ -158,6 +208,7 @@
 
 				controller = renderer.xr.getController( 0 );
 				controller.addEventListener( 'select', onSelect );
+				
 				scene.add( controller );
 
 				reticle = new THREE.Mesh(
@@ -188,7 +239,6 @@
 			function animate() {
 
 				renderer.setAnimationLoop( render );
-
 			}
 
 			function render( timestamp, frame ) {
