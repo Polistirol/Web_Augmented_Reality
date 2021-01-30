@@ -16,7 +16,7 @@ class App2{
         
         this.loadingBar = new LoadingBar();
 
-		this.assetsPath = './fin/';
+		this.assetsPath = './fin/halfgreen/';
         
 		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
 		this.camera.position.set( 0, 1.6, 3 );
@@ -40,9 +40,6 @@ class App2{
         //this.setEnvironment();
         
         this.workingVec3 = new THREE.Vector3();
-
-        this.ID_model =0
-        this.ID_texture =0
         
         this.initScene();
         this.setupXR();
@@ -75,26 +72,17 @@ class App2{
     	this.renderer.setSize( window.innerWidth, window.innerHeight );  
     }
     
-    loadKnight(id_model=0){
-	    const loader = new GLTFLoader()//.setPath(this.assetsPath);
+    loadKnight(){
+	    const loader = new GLTFLoader().setPath(this.assetsPath);
 		const self = this;
-        
-        let modelsArray = [`fin/half/BOTTIGLIA DIVISA.gltf`,
-                            `fin/full/BOTT_FULL_GREEN.gltf`,
-                            `fin/can/lattina.gltf` ];
-
-        let textureArray = ["fin/textures/fin.jpg",
-                            "fin/textures/log.jpg" ,
-                            "fin/textures/coca.jpg",
-                            ];
+		
 		// Load a GLTF resource
 		loader.load(
 			// resource URL
-			modelsArray[id_model],
+			`BOTTIGLIA DIVISA.gltf`,
 			// called when the resource is loaded
 			function ( gltf ) {
-                const object = gltf.scene;
-                
+				const object = gltf.scene;
 				
 				const options = {
 					object: object,
@@ -106,25 +94,13 @@ class App2{
 				
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
-                //console.log(self.knight.object)
-
-                if (id_model == 0){
-                    self.knight.object.remove(self.knight.object.children[5]); //rimuove il rettangolone blu    
-                }
-
-                // // gestione texture
-                // if (id_model == 0) {
-                //     self.knight.object.children[2].material.map="fin/textures/log.jpg"//self.textureArray[self.ID_texture]
-                // }
-                // if (id_model == 1) {
-                //     self.knight.object.children[3].material.map=self.textureArray[ID_texture]
-                // }
-                // if (id_model == 1) {
-                //     self.knight.object.children[2].material.map=self.textureArray[ID_texture]
-                // }
-                
+                console.log(self.knight.object);
+                self.knight.object.remove(self.knight.object.children[5]); //rimuove il rettangolone blu
+				
+				//self.knight.action = 'Dance';
 				const scale = 0.1;
 				self.knight.object.scale.set(scale, scale, scale); 
+				
                 self.loadingBar.visible = false;
                 self.renderer.setAnimationLoop( self.render.bind(self) );//(timestamp, frame) => { self.render(timestamp, frame); } );
 			},
@@ -133,16 +109,14 @@ class App2{
 
 				self.loadingBar.progress = (xhr.loaded / xhr.total);
 
+			},
+			// called when loading has errors
+			function ( error ) {
+
+				console.log( 'An error happened' );
+
 			}
-			// // called when loading has errors
-			// function ( error ) {
-
-			// 	console.log( 'An error happened' );
-
-			// }
-        );
-
-        
+		);
 	}		
     
     initScene(){
@@ -160,49 +134,55 @@ class App2{
     }
 
     createUI() {
-        const self = this
 
-
-        function textureClick(){
-            if ( self.ID_texture <2){
-                self.ID_texture +=1                
-            }else {self.ID_texture =0  }                       
-            console.log("ID texture = "+ String(self.ID_texture));
-            
+        function onPrev(){
+            console.log("prev0");
+            self.ui_model.updateElement('header', "booottone" ); 
             } 
-        function modelClick(){
-            if ( self.ID_model <2){
-                self.ID_model +=1                
-            }else {self.ID_model =0  }                       
-            console.log("ID model = "+ String(self.ID_model));
+        
+        const config = {
+            // renderer:this.renderer,
+            panelSize: { width: 0.2, height: 0.3 },
+            // height: 128,
+            // info:{ type: "text" },
             
+            
+                header:{
+                    type: "text",
+                    position:{ top:0 },
+                    paddingTop: 30,
+                    height: 70
+                },
+                main:{
+                    type: "text",
+                    position:{ top:70 },
+                    height: 372, // default height is 512 so this is 512 - header height:70 - footer height:70
+                    backgroundColor: "#bbb",
+                    fontColor: "#000"
+                },
+                footer:{
+                    type: "text",
+                    position:{ bottom:0 },
+                    paddingTop: 30,
+                    height: 70
+                },
+            prev: { type: "button", position:{ top: 100, left: 50 }, width: 64, fontColor: "#000", hover: "#ff0", onSelect: onPrev }    
         }
-        
-        const config_model = {
-            panelSize: { width: 0.1, height: 0.1 },
-            height: 128,
-            width :128,
-            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
-            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#fff", backgroundColor: "#1bf", hover: "#3df", onSelect: modelClick },
-            renderer:self.renderer    
-        }
-        const config_texture = {
-            panelSize: { width: 0.1, height: 0.1 },
-            height: 128,
-            width :128,
-            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
-            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#fff", backgroundColor: "#c01c00", hover: "#c01c00", onSelect: textureClick },
-            renderer:self.renderer    
-        }
-        const content = {	
-        continue: "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>"
-        }
-        
-        const ui_model = new CanvasUI( content, config_model );
-        const ui_texture = new CanvasUI( content, config_texture );
+        const content = {
+	        header: "Header",
+	        main: "This is the main text",
+            footer: "Footer",
+            prev: "<path>M 0 0 L 0 200 L 100 200 L 200 0 Z <path>",}
+        // const content = {
+        //     info: "Debug info"
+        // }
+
+
+        const ui_model = new CanvasUI( content, config );
+        //const ui_texture = new CanvasUI( content, config );
         
         this.ui_model = ui_model;
-        this.ui_texture = ui_texture;
+        //this.ui_texture = ui_texture;
     }
 
     
@@ -212,39 +192,49 @@ class App2{
         const self = this;
 
         function onSessionStart(){
-            let ui_spacing = 0.07
+            console.log(this.renderer)
+            let ui_spacing =0// 0.06
 
-            self.ui_texture.mesh.position.set( -ui_spacing, -0.17, -0.3 );
-            self.camera.add( self.ui_texture.mesh );
+            //self.ui_texture.mesh.position.set( -ui_spacing, -0.17, -0.3 );
+            //self.camera.add( self.ui_texture.mesh );
 
-            self.ui_model.mesh.position.set( +ui_spacing, -0.17, -0.3 );
+            self.ui_model.mesh.position.set( +ui_spacing, 0, -0.3 );
             self.camera.add( self.ui_model.mesh );
         }
 
         const btn = new ARButton( this.renderer, { onSessionStart, sessionInit: { requiredFeatures: [ 'hit-test' ], optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
 
+        this.gestures = new ControllerGestures( this.renderer );
+        this.gestures.addEventListener( 'tap', (ev)=>{ 
+            self.ui_model.updateElement('main', String(ev.position.x) ); 
+            self.ui_model.updateElement('footer', String(ev.position.y) );           
+            console.log(ev.target.controller1.position.x)
+            console.log(ev)
+        });
+
+
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
         
-        function onSelect() {
-            if (self.knight===undefined) return;           
+        function onSelect(event) {
+            if (self.knight===undefined) return;
+            console.log(event.position)
+            
             if (self.reticle.visible){
 
-                self.loadKnight(self.ID_model);
+
+               // self.loadKnight();
+
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true;                
+                self.knight.object.visible = true;
+                //self.ui_texture.updateElement('info', 'tap' );
+                
             }
         }
 
         this.controller = this.renderer.xr.getController( 0 );
         this.controller.addEventListener( 'select', onSelect );
-
-        const geometryline = new THREE.BufferGeometry().setFromPoints( [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -1 ) ] );
-
-        this.line = new THREE.Line( geometryline );
-        this.line.name = 'line';
-        this.line.scale.z = 10;
-        this.controller.add( this.line.clone() );        
+        
         this.scene.add( this.controller );    
     }
     
@@ -301,8 +291,11 @@ class App2{
 
         const self = this;
         if ( this.renderer.xr.isPresenting ){
+            //console.log("presenting")
+            this.gestures.update();
+
             this.ui_model.update();
-            this.ui_texture.update();
+            //this.ui_texture.update();
         }
         
         if ( frame ) {
