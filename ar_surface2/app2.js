@@ -39,10 +39,12 @@ class App2{
 		container.appendChild( this.renderer.domElement );
         //this.setEnvironment();
         this.raycaster = new THREE.Raycaster();
+        this.workingMatrix = new THREE.Matrix4();
         this.workingVec3 = new THREE.Vector3();
 
-        this.ID_model =0
-        this.ID_texture =0
+        this.ID_model =0;
+        this.ID_texture =0;
+        this.UI_meshes=[];
         
         this.initScene();
         this.setupXR();
@@ -62,9 +64,9 @@ class App2{
 	    const loader = new GLTFLoader()//.setPath(this.assetsPath);
 		const self = this;
         
-        let modelsArray = [`fin/half/BOTTIGLIA DIVISA.gltf`,
-                            `fin/full/BOTT_FULL_GREEN.gltf`,
-                            `fin/can/LATTINA.gltf` ];
+        let modelsArray = [`fin/half/B_HALF.gltf`,
+                            `fin/full/B_FULL.gltf`,
+                            `fin/can/LATT.gltf` ];
 
         let textureArray = ["fin/textures/fin.jpg",
                             "fin/textures/logo.jpg" ,
@@ -75,8 +77,6 @@ class App2{
 			modelsArray[id_model],
 			function ( gltf ) {
                 const object = gltf.scene;
-
-                console.log(window.innerWidth , window.innerHeight)
 				
 				const options = {
 					object: object,
@@ -88,25 +88,20 @@ class App2{
 				
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
-                //console.log(self.knight.object.children[2])
-
-                if (id_model == 0){
-                    self.knight.object.remove(self.knight.object.children[5]); //rimuove il rettangolone blu    
-                }
+                //console.log(self.knight.object)
 
                 // // gestione texture
-                // if (id_model == 0) {
+                if (id_model == 0) {
 
-                //     self.knight.object.children[2].material.map = THREE.ImageUtils.loadTexture(textureArray[id_texture])//self.textureArray[self.ID_texture]
-                //     self.knight.object.children[2].material.trasparent = false;
-                //     self.knight.object.children[2].material.needsUpdate = true;
-                // }
-                // if (id_model == 1) {
-                //     self.knight.object.children[3].material.map=self.textureArray[ID_texture]
-                // }
-                // if (id_model == 1) {
-                //     self.knight.object.children[2].material.map=self.textureArray[ID_texture]
-                // }
+                    self.knight.object.children[0].children[3].material.map = THREE.ImageUtils.loadTexture(textureArray[id_texture])//self.textureArray[self.ID_texture]
+                    self.knight.object.children[0].children[3].material.needsUpdate = true;
+                }
+                if (id_model == 1) {
+                    self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(textureArray[id_texture])
+                }
+                if (id_model == 2) {
+                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(textureArray[id_texture])
+                }
                 
 				const scale = 0.1;
 				self.knight.object.scale.set(scale, scale, scale); 
@@ -147,6 +142,7 @@ class App2{
             
             self.ui_texture.updateElement( "continue", String(self.ID_texture) );
             console.log("ID texture = "+ String(self.ID_texture));
+            self.UI_meshes.push(self.ui_texture.mesh);
             
             } 
         function modelClick(){
@@ -156,6 +152,7 @@ class App2{
             
             self.ui_model.updateElement( "continue", String(self.ID_model) );
             console.log("ID model = "+ String(self.ID_model));
+            self.UI_meshes.push(self.ui_model.mesh);
             
         }
         
@@ -191,6 +188,36 @@ class App2{
         this.ui_texture = ui_texture;
     }
 
+    handleController( controller ){
+        const self = this;
+        if (controller!== undefined ){
+            controller.children[0].scale.z = 10;
+
+            this.workingMatrix.identity().extractRotation( controller.matrixWorld );
+
+            this.raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
+            this.raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( this.workingMatrix );
+
+            const intersects = this.raycaster.intersectObjects( self.UI_meshes );
+
+            if (intersects.length>0){
+                console.log("toccato qualcosa")
+
+            }else{
+                console.log("nontoccato")
+                if (self.knight===undefined) return;   
+
+                if (self.reticle.visible){
+    
+                    self.loadKnight(self.ID_model,self.ID_texture);
+                    self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+                    self.knight.object.visible = true;               
+                }
+                
+            }
+        }
+    }
+
 
     
     setupXR(){
@@ -216,15 +243,16 @@ class App2{
         this.hitTestSource = null;
         
         function onSelect(ev) {
+            self.handleController(self.controller) 
 
-            if (self.knight===undefined) return;   
+            // if (self.knight===undefined) return;   
 
-            if (self.reticle.visible){
+            // if (self.reticle.visible){
 
-                self.loadKnight(self.ID_model,self.ID_texture);
-                self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true;               
-            }
+            //     self.loadKnight(self.ID_model,self.ID_texture);
+            //     self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+            //     self.knight.object.visible = true;               
+            // }
 
             //let mouse0 = new THREE.Vector2(controller)
             //self.mouse = mouse0
@@ -239,8 +267,11 @@ class App2{
         this.line.name = 'line';
         this.line.scale.z = 10;7
         this.controller.add( this.line.clone() );        
-        this.scene.add( this.controller );    
+        this.scene.add( this.controller );   
+        
     }
+
+
     
     requestHitTestSource(){
         const self = this;
