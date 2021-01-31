@@ -26,7 +26,7 @@ class App2{
 
 		const ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 2);
         ambient.position.set( 0.5, 1, 0.25 );
-		this.scene.add(ambient);
+		//this.scene.add(ambient);
         
         const light = new THREE.DirectionalLight();
         light.position.set( 0.2, 1, 1);
@@ -45,6 +45,16 @@ class App2{
         this.ID_model =0;
         this.ID_texture =0;
         this.UI_meshes=[];
+        this.modelsArray = [
+        `fin/half/B_HALF.gltf`,
+        `fin/full/B_FULL.gltf`,
+        `fin/can/LATT.gltf` ];
+
+        this.textureArray = [
+        "fin/textures/fin.jpg",
+        "fin/textures/logo.jpg" ,
+        "fin/textures/coop.jpg",
+        ];
         
         this.initScene();
         this.setupXR();
@@ -60,21 +70,14 @@ class App2{
     	this.renderer.setSize( window.innerWidth, window.innerHeight );  
     }
     
-    loadKnight(id_model=0,id_texture =0){
+    loadKnight(){
 	    const loader = new GLTFLoader()//.setPath(this.assetsPath);
 		const self = this;
         
-        let modelsArray = [`fin/half/B_HALF.gltf`,
-                            `fin/full/B_FULL.gltf`,
-                            `fin/can/LATT.gltf` ];
 
-        let textureArray = ["fin/textures/fin.jpg",
-                            "fin/textures/logo.jpg" ,
-                            "fin/textures/coca.jpg",
-                            ];
 		// Load a GLTF resource
 		loader.load(
-			modelsArray[id_model],
+			self.modelsArray[self.ID_model],
 			function ( gltf ) {
                 const object = gltf.scene;
 				
@@ -91,22 +94,22 @@ class App2{
                 //console.log(self.knight.object)
 
                 // // gestione texture
-                if (id_model == 0) {
+                if (self.ID_model == 0) {
 
-                    self.knight.object.children[0].children[3].material.map = THREE.ImageUtils.loadTexture(textureArray[id_texture])//self.textureArray[self.ID_texture]
+                    self.knight.object.children[0].children[3].material.map = THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])//self.textureArray[self.ID_texture]
                     self.knight.object.children[0].children[3].material.needsUpdate = true;
                 }
-                if (id_model == 1) {
-                    self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(textureArray[id_texture])
+                if (self.ID_model == 1) {
+                    self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
                 }
-                if (id_model == 2) {
-                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(textureArray[id_texture])
+                if (self.ID_model == 2) {
+                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(textureArray[self.ID_texture])
                 }
                 
-				const scale = 0.1;
+				const scale = 0.05;
 				self.knight.object.scale.set(scale, scale, scale); 
                 self.loadingBar.visible = false;
-                self.renderer.setAnimationLoop( self.render.bind(self) );//(timestamp, frame) => { self.render(timestamp, frame); } );
+                self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
 			// called while loading is progressing
 			function ( xhr ) {
@@ -209,7 +212,7 @@ class App2{
 
                 if (self.reticle.visible){
     
-                    self.loadKnight(self.ID_model,self.ID_texture);
+                    self.loadKnight();
                     self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
                     self.knight.object.visible = true;               
                 }
