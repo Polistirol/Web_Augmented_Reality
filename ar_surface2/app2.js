@@ -38,7 +38,7 @@ class App2{
 		this.renderer.outputEncoding = THREE.sRGBEncoding;
 		container.appendChild( this.renderer.domElement );
         //this.setEnvironment();
-        
+        this.raycaster = new THREE.Raycaster();
         this.workingVec3 = new THREE.Vector3();
 
         this.ID_model =0
@@ -160,7 +160,7 @@ class App2{
         }
         
         const config_model = {
-            panelSize: { width: 0.1, height: 0.1 },
+            panelSize: { width: 0.08, height: 0.08 },
             height: 128,
             width :128,
             
@@ -169,7 +169,7 @@ class App2{
             renderer:self.renderer    
         }
         const config_texture = {
-            panelSize: { width: 0.1, height: 0.1 },
+            panelSize: { width: 0.08, height: 0.08 },
             height: 128,
             width :128,
             //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
@@ -201,30 +201,33 @@ class App2{
 
         function onSessionStart(){
             self.resize()
-            let ui_spacing = 0.07
+            let ui_spacing = 0.05
 
-            self.ui_texture.mesh.position.set( -ui_spacing, -0.17, -0.3 );
+            self.ui_texture.mesh.position.set( -ui_spacing, -0.15, -0.3 );
             self.camera.add( self.ui_texture.mesh );
 
-            self.ui_model.mesh.position.set( +ui_spacing, -0.17, -0.3 );
+            self.ui_model.mesh.position.set( +ui_spacing, -0.15, -0.3 );
             self.camera.add( self.ui_model.mesh );
         }
-
-
 
         const btn = new ARButton( this.renderer, { onSessionStart, sessionInit: { requiredFeatures: [ 'hit-test' ], optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
 
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
         
-        function onSelect() {
-            if (self.knight===undefined) return;           
+        function onSelect(ev) {
+
+            if (self.knight===undefined) return;   
+
             if (self.reticle.visible){
 
                 self.loadKnight(self.ID_model,self.ID_texture);
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true;                
+                self.knight.object.visible = true;               
             }
+
+            //let mouse0 = new THREE.Vector2(controller)
+            //self.mouse = mouse0
         }
 
         this.controller = this.renderer.xr.getController( 0 );
@@ -234,7 +237,7 @@ class App2{
 
         this.line = new THREE.Line( geometryline );
         this.line.name = 'line';
-        this.line.scale.z = 10;
+        this.line.scale.z = 10;7
         this.controller.add( this.line.clone() );        
         this.scene.add( this.controller );    
     }
