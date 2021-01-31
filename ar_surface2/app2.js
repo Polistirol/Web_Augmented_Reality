@@ -103,7 +103,7 @@ class App2{
                     self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
                 }
                 if (self.ID_model == 2) {
-                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(textureArray[self.ID_texture])
+                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
                 }
                 
 				const scale = 0.05;
@@ -129,9 +129,10 @@ class App2{
         this.reticle.matrixAutoUpdate = false;
         this.reticle.visible = false;
         this.scene.add( this.reticle );
-        
-        this.loadKnight();
+
         this.createUI();
+        this.loadKnight();
+        
     }
 
     createUI() {
@@ -245,20 +246,8 @@ class App2{
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
         
-        function onSelect(ev) {
+        function onSelect() {
             self.handleController(self.controller) 
-
-            // if (self.knight===undefined) return;   
-
-            // if (self.reticle.visible){
-
-            //     self.loadKnight(self.ID_model,self.ID_texture);
-            //     self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-            //     self.knight.object.visible = true;               
-            // }
-
-            //let mouse0 = new THREE.Vector2(controller)
-            //self.mouse = mouse0
         }
 
         this.controller = this.renderer.xr.getController( 0 );
@@ -274,33 +263,21 @@ class App2{
         
     }
 
-
-    
     requestHitTestSource(){
-        const self = this;
-        
+        const self = this;        
         const session = this.renderer.xr.getSession();
-
-        session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
-            
+        session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {           
             session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
-
                 self.hitTestSource = source;
-
             } );
-
         } );
 
         session.addEventListener( 'end', function () {
-
             self.hitTestSourceRequested = false;
             self.hitTestSource = null;
             self.referenceSpace = null;
-
         } );
-
         this.hitTestSourceRequested = true;
-
     }
     
     getHitTestResults( frame ){
@@ -311,14 +288,10 @@ class App2{
             const referenceSpace = this.renderer.xr.getReferenceSpace();
             const hit = hitTestResults[ 0 ];
             const pose = hit.getPose( referenceSpace );
-
             this.reticle.visible = true;
             this.reticle.matrix.fromArray( pose.transform.matrix );
-
         } else {
-
             this.reticle.visible = false;
-
         }
 
     }
@@ -334,11 +307,8 @@ class App2{
         }
         
         if ( frame ) {
-
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
-
             if ( this.hitTestSource ) this.getHitTestResults( frame );
-
         }
 
         this.renderer.render( this.scene, this.camera );
