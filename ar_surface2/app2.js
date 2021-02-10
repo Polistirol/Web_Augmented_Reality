@@ -101,6 +101,7 @@ class App2{
                 }
                 if (self.ID_model == 1) {
                     self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
+                    self.knight.object.children[0].children[3].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
                 }
                 if (self.ID_model == 2) {
                     self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
