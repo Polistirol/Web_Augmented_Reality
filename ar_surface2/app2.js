@@ -14,7 +14,7 @@ class App2{
         
         this.clock = new THREE.Clock();
         
-       //this.loadingBar = new LoadingBar();
+        this.loadingBar = new LoadingBar();
 
 		this.assetsPath = './fin/';
         
@@ -73,6 +73,8 @@ class App2{
     loadKnight(){
 	    const loader = new GLTFLoader()//.setPath(this.assetsPath);
 		const self = this;
+        
+
 		// Load a GLTF resource
 		loader.load(
 			self.modelsArray[self.ID_model],
@@ -85,10 +87,10 @@ class App2{
 					app: self,
 					name: 'bottle',
 					npc: false
-				};				
+				};
+				
 				self.knight = new Player(options);
-                console.log(self.knight)
-                //self.knight.object.visible = false;
+                self.knight.object.visible = false;
                 //console.log(self.knight.object)
 
                 // // gestione texture
@@ -106,18 +108,15 @@ class App2{
                 
 				const scale = 0.05;
 				self.knight.object.scale.set(scale, scale, scale); 
-                //self.loadingBar.visible = false;
+                self.loadingBar.visible = false;
                 self.renderer.setAnimationLoop( self.render.bind(self) );
-
-                self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true; 
 			},
-			//called while loading is progressing
-			// function ( xhr ) {
+			// called while loading is progressing
+			function ( xhr ) {
 
-			// 	self.loadingBar.progress = (xhr.loaded / xhr.total);
+				self.loadingBar.progress = (xhr.loaded / xhr.total);
 
-			// }
+			}
         );        
 	}		
     
@@ -132,8 +131,7 @@ class App2{
         this.scene.add( this.reticle );
 
         this.createUI();
-        this.renderer.setAnimationLoop( this.render.bind(this) );
-        //this.loadKnight();
+        this.loadKnight();
         
     }
 
@@ -211,13 +209,13 @@ class App2{
 
             }else{
                 console.log("nontoccato")
-                //if (self.knight===undefined) return;   
+                if (self.knight===undefined) return;   
 
                 if (self.reticle.visible){
     
                     self.loadKnight();
-                    //self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                    //self.knight.object.visible = true;               
+                    self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+                    self.knight.object.visible = true;               
                 }
                 
             }
