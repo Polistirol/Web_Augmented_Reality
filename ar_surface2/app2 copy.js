@@ -16,7 +16,7 @@ class App2{
         
         this.loadingBar = new LoadingBar();
 
-		this.assetsPath = './fin/halfgreen/';
+		this.assetsPath = './fin/';
         
 		this.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 0.01, 20 );
 		this.camera.position.set( 0, 1.6, 3 );
@@ -26,7 +26,7 @@ class App2{
 
 		const ambient = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 2);
         ambient.position.set( 0.5, 1, 0.25 );
-		this.scene.add(ambient);
+		//this.scene.add(ambient);
         
         const light = new THREE.DirectionalLight();
         light.position.set( 0.2, 1, 1);
@@ -38,8 +38,23 @@ class App2{
 		this.renderer.outputEncoding = THREE.sRGBEncoding;
 		container.appendChild( this.renderer.domElement );
         //this.setEnvironment();
-        
+        this.raycaster = new THREE.Raycaster();
+        this.workingMatrix = new THREE.Matrix4();
         this.workingVec3 = new THREE.Vector3();
+
+        this.ID_model =0;
+        this.ID_texture =0;
+        this.UI_meshes=[];
+        this.modelsArray = [
+        `fin/half/B_HALF.gltf`,
+        `fin/full/B_FULL.gltf`,
+        `fin/can/LATT.gltf` ];
+
+        this.textureArray = [
+        "fin/textures/fin.jpg",
+        "fin/textures/logo.jpg" ,
+        "fin/textures/coop.jpg",
+        ];
         
         this.initScene();
         this.setupXR();
@@ -48,23 +63,6 @@ class App2{
         
 	}
     
-    // setEnvironment(){
-    //     const loader = new RGBELoader().setDataType( THREE.UnsignedByteType );
-    //     const pmremGenerator = new THREE.PMREMGenerator( this.renderer );
-    //     pmremGenerator.compileEquirectangularShader();
-        
-    //     const self = this;
-        
-    //     loader.load( '../../assets/hdr/venice_sunset_1k.hdr', ( texture ) => {
-    //       const envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-    //       pmremGenerator.dispose();
-
-    //       self.scene.environment = envMap;
-
-    //     }, undefined, (err)=>{
-    //         console.error( 'An error occurred setting the environment');
-    //     } );
-    // }
 	
     resize(){ 
         this.camera.aspect = window.innerWidth / window.innerHeight;
@@ -73,16 +71,15 @@ class App2{
     }
     
     loadKnight(){
-	    const loader = new GLTFLoader().setPath(this.assetsPath);
+	    const loader = new GLTFLoader()//.setPath(this.assetsPath);
 		const self = this;
-		
+        
+
 		// Load a GLTF resource
 		loader.load(
-			// resource URL
-			`BOTTIGLIA DIVISA.gltf`,
-			// called when the resource is loaded
+			self.modelsArray[self.ID_model],
 			function ( gltf ) {
-				const object = gltf.scene;
+                const object = gltf.scene;
 				
 				const options = {
 					object: object,
@@ -94,29 +91,33 @@ class App2{
 				
 				self.knight = new Player(options);
                 self.knight.object.visible = false;
-                console.log(self.knight.object);
-                self.knight.object.remove(self.knight.object.children[5]); //rimuove il rettangolone blu
-				
-				//self.knight.action = 'Dance';
-				const scale = 0.1;
+                //console.log(self.knight.object)
+
+                // // gestione texture
+                if (self.ID_model == 0) {
+
+                    self.knight.object.children[0].children[3].material.map = THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])//self.textureArray[self.ID_texture]
+                    self.knight.object.children[0].children[3].material.needsUpdate = true;
+                }
+                if (self.ID_model == 1) {
+                    self.knight.object.children[0].children[2].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
+                }
+                if (self.ID_model == 2) {
+                    self.knight.object.children[0].children[1].material.map= THREE.ImageUtils.loadTexture(self.textureArray[self.ID_texture])
+                }
+                
+				const scale = 0.05;
 				self.knight.object.scale.set(scale, scale, scale); 
-				
                 self.loadingBar.visible = false;
-                self.renderer.setAnimationLoop( self.render.bind(self) );//(timestamp, frame) => { self.render(timestamp, frame); } );
+                self.renderer.setAnimationLoop( self.render.bind(self) );
 			},
 			// called while loading is progressing
 			function ( xhr ) {
 
 				self.loadingBar.progress = (xhr.loaded / xhr.total);
 
-			},
-			// called when loading has errors
-			function ( error ) {
-
-				console.log( 'An error happened' );
-
 			}
-		);
+        );        
 	}		
     
     initScene(){
@@ -128,62 +129,99 @@ class App2{
         this.reticle.matrixAutoUpdate = false;
         this.reticle.visible = false;
         this.scene.add( this.reticle );
-        
-        this.loadKnight();
+
         this.createUI();
+        this.loadKnight();
+        
     }
 
     createUI() {
+        const self = this
 
-        function onPrev(){
-            console.log("prev0");
-            self.ui_model.updateElement('header', "booottone" ); 
+
+        function textureClick(){
+            if ( self.ID_texture <2){
+                self.ID_texture +=1                
+            }else {self.ID_texture =0  }   
+            
+            self.ui_texture.updateElement( "continue", String(self.ID_texture) );
+            console.log("ID texture = "+ String(self.ID_texture));
+            self.UI_meshes.push(self.ui_texture.mesh);
+            
             } 
-        
-        const config = {
-            // renderer:this.renderer,
-            panelSize: { width: 0.2, height: 0.3 },
-            // height: 128,
-            // info:{ type: "text" },
+        function modelClick(){
+            if ( self.ID_model <2){
+                self.ID_model +=1                
+            }else {self.ID_model =0  }  
             
+            self.ui_model.updateElement( "continue", String(self.ID_model) );
+            console.log("ID model = "+ String(self.ID_model));
+            self.UI_meshes.push(self.ui_model.mesh);
             
-                header:{
-                    type: "text",
-                    position:{ top:0 },
-                    paddingTop: 30,
-                    height: 70
-                },
-                main:{
-                    type: "text",
-                    position:{ top:70 },
-                    height: 372, // default height is 512 so this is 512 - header height:70 - footer height:70
-                    backgroundColor: "#bbb",
-                    fontColor: "#000"
-                },
-                footer:{
-                    type: "text",
-                    position:{ bottom:0 },
-                    paddingTop: 30,
-                    height: 70
-                },
-            prev: { type: "button", position:{ top: 100, left: 50 }, width: 64, fontColor: "#000", hover: "#ff0", onSelect: onPrev }    
         }
-        const content = {
-	        header: "Header",
-	        main: "This is the main text",
-            footer: "Footer",
-            prev: "<path>M 0 0 L 0 200 L 100 200 L 200 0 Z <path>",}
-        // const content = {
-        //     info: "Debug info"
-        // }
+        
+        const config_model = {
+            panelSize: { width: 0.08, height: 0.08 },
+            height: 128,
+            width :128,
+            
+            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
+            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#000", backgroundColor: "#1bf", hover: "#3df", onSelect: modelClick },
+            renderer:self.renderer    
+        }
+        const config_texture = {
+            panelSize: { width: 0.08, height: 0.08 },
+            height: 128,
+            width :128,
+            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
+            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#fff", backgroundColor: "#c01c00", hover: "#c01c00", onSelect: textureClick },
+            renderer:self.renderer    
+        }
+        const content_model = {	
+        continue:String(self.ID_model)// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
+        }
 
-
-        const ui_model = new CanvasUI( content, config );
-        //const ui_texture = new CanvasUI( content, config );
+        const content_texture = {	
+            continue:String(self.ID_texture)// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
+            }
+        
+        const ui_model = new CanvasUI( content_model, config_model );
+        const ui_texture = new CanvasUI( content_texture, config_texture );
         
         this.ui_model = ui_model;
-        //this.ui_texture = ui_texture;
+        this.ui_texture = ui_texture;
     }
+
+    handleController( controller ){
+        const self = this;
+        if (controller!== undefined ){
+            controller.children[0].scale.z = 10;
+
+            this.workingMatrix.identity().extractRotation( controller.matrixWorld );
+
+            this.raycaster.ray.origin.setFromMatrixPosition( controller.matrixWorld );
+            this.raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( this.workingMatrix );
+
+            const intersects = this.raycaster.intersectObjects( self.UI_meshes );
+
+            if (intersects.length>0){
+                console.log("toccato qualcosa")
+
+            }else{
+                console.log("nontoccato")
+                if (self.knight===undefined) return;   
+
+                if (self.reticle.visible){
+    
+                    self.loadKnight();
+                    self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+                    self.knight.object.visible = true;               
+                }
+                
+            }
+        }
+    }
+
 
     
     setupXR(){
@@ -191,78 +229,55 @@ class App2{
 
         const self = this;
 
+
         function onSessionStart(){
-            console.log(this.renderer)
-            let ui_spacing =0// 0.06
+            self.resize()
+            let ui_spacing = 0.05
 
-            //self.ui_texture.mesh.position.set( -ui_spacing, -0.17, -0.3 );
-            //self.camera.add( self.ui_texture.mesh );
+            self.ui_texture.mesh.position.set( -ui_spacing, -0.15, -0.3 );
+            self.camera.add( self.ui_texture.mesh );
 
-            self.ui_model.mesh.position.set( +ui_spacing, 0, -0.3 );
+            self.ui_model.mesh.position.set( +ui_spacing, -0.15, -0.3 );
             self.camera.add( self.ui_model.mesh );
         }
 
         const btn = new ARButton( this.renderer, { onSessionStart, sessionInit: { requiredFeatures: [ 'hit-test' ], optionalFeatures: [ 'dom-overlay' ], domOverlay: { root: document.body } } } );
 
-        this.gestures = new ControllerGestures( this.renderer );
-        this.gestures.addEventListener( 'tap', (ev)=>{ 
-            self.ui_model.updateElement('main', String(ev.position.x) ); 
-            self.ui_model.updateElement('footer', String(ev.position.y) );           
-            console.log(ev.target.controller1.position.x)
-            console.log(ev)
-        });
-
-
         this.hitTestSourceRequested = false;
         this.hitTestSource = null;
         
-        function onSelect(event) {
-            if (self.knight===undefined) return;
-            console.log(event.position)
-            
-            if (self.reticle.visible){
-
-
-               // self.loadKnight();
-
-                self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true;
-                //self.ui_texture.updateElement('info', 'tap' );
-                
-            }
+        function onSelect() {
+            self.handleController(self.controller) 
         }
 
         this.controller = this.renderer.xr.getController( 0 );
         this.controller.addEventListener( 'select', onSelect );
+
+        const geometryline = new THREE.BufferGeometry().setFromPoints( [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, -1 ) ] );
+
+        this.line = new THREE.Line( geometryline );
+        this.line.name = 'line';
+        this.line.scale.z = 10;7
+        this.controller.add( this.line.clone() );        
+        this.scene.add( this.controller );   
         
-        this.scene.add( this.controller );    
     }
-    
+
     requestHitTestSource(){
-        const self = this;
-        
+        const self = this;        
         const session = this.renderer.xr.getSession();
-
-        session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
-            
+        session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {           
             session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
-
                 self.hitTestSource = source;
-
             } );
-
         } );
 
         session.addEventListener( 'end', function () {
-
             self.hitTestSourceRequested = false;
             self.hitTestSource = null;
             self.referenceSpace = null;
-
         } );
-
         this.hitTestSourceRequested = true;
-
     }
     
     getHitTestResults( frame ){
@@ -273,14 +288,10 @@ class App2{
             const referenceSpace = this.renderer.xr.getReferenceSpace();
             const hit = hitTestResults[ 0 ];
             const pose = hit.getPose( referenceSpace );
-
             this.reticle.visible = true;
             this.reticle.matrix.fromArray( pose.transform.matrix );
-
         } else {
-
             this.reticle.visible = false;
-
         }
 
     }
@@ -291,19 +302,13 @@ class App2{
 
         const self = this;
         if ( this.renderer.xr.isPresenting ){
-            //console.log("presenting")
-            this.gestures.update();
-
             this.ui_model.update();
-            //this.ui_texture.update();
+            this.ui_texture.update();
         }
         
         if ( frame ) {
-
             if ( this.hitTestSourceRequested === false ) this.requestHitTestSource( )
-
             if ( this.hitTestSource ) this.getHitTestResults( frame );
-
         }
 
         this.renderer.render( this.scene, this.camera );
