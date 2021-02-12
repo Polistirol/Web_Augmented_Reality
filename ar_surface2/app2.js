@@ -112,6 +112,7 @@ class App2{
                 //self.loadingBar.visible = false;
                 self.renderer.setAnimationLoop( self.render.bind(self) );
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+                self.knight.object.visible = true;
 			},
 			// // called while loading is progressing
 			// function ( xhr ) {
@@ -140,61 +141,49 @@ class App2{
 
     createUI() {
         const self = this
-
-
-        function textureClick(){
-            if ( self.ID_texture <2){
-                self.ID_texture +=1                
-            }else {self.ID_texture =0  }   
-            
-            self.ui_texture.updateElement( "continue", String(self.ID_texture) );
-            console.log("ID texture = "+ String(self.ID_texture));
-            self.UI_meshes.push(self.ui_texture.mesh);
-            
-            } 
-        function modelClick(){
-            if ( self.ID_model <2){
-                self.ID_model +=1                
-            }else {self.ID_model =0  }  
-            
-            self.ui_model.updateElement( "continue", String(self.ID_model) );
-            console.log("ID model = "+ String(self.ID_model));
-            //self.UI_meshes.push(self.ui_model.mesh);
-            
-        }
-        
+      
         const config_model = {
             panelSize: { width: 0.08, height: 0.08 },
             height: 128,
             width :128,
-            
-            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
-            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#000", backgroundColor: "#1bf", hover: "#3df", onSelect: modelClick },
+            opacity:0.3,
+            body:{backgroundColor: '#00f', },                      
+            image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
+            //continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#000", backgroundColor: "#1bf", hover: "#3df", onSelect: modelClick },
             renderer:self.renderer    
         }
         const config_texture = {
             panelSize: { width: 0.08, height: 0.08 },
             height: 128,
             width :128,
-            //image: { type: "img", position: { left: 20, top: 20 }, width: 100 },
-            continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#fff", backgroundColor: "#c01c00", hover: "#c01c00", onSelect: textureClick },
+            opacity:0.3,
+            body:{backgroundColor: '#f00', },
+            image: { type: "img", position: { left: 20, top: 20 }, width: 88, height :88 },
+            //continue: { type: "button", position:{ top: 20, left: 20 }, width: 88, height: 88, fontColor: "#fff", backgroundColor: "#c01c00", hover: "#c01c00", onSelect: textureClick },
             renderer:self.renderer    
         }
         const content_model = {	
-        continue:String(self.ID_model)// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
+            image: "fin/model.png" ,//continue:String(self.ID_model)// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
         }
 
         const content_texture = {	
-            continue:String(self.ID_texture),// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
-            //image: "fin/textures/logo.jpg" ,
+            //continue:String(self.ID_texture),// "<path>M 50 15 L 15 15 L 15 50 L 50 50 Z<path>" 
+            image: "fin/texture.png" ,
             }
-        
-        const ui_model = new CanvasUI( content_model, config_model );
+    
+
         const ui_texture = new CanvasUI( content_texture, config_texture );
-        
-        this.ui_model = ui_model;
         this.ui_texture = ui_texture;
-        self.UI_meshes.push(this.ui_texture.mesh);
+        this.ui_texture.mesh.name="texture_panel";
+        self.UI_meshes.push(this.ui_texture.mesh);        
+
+
+        const ui_model = new CanvasUI( content_model, config_model );
+        this.ui_model = ui_model;
+        this.ui_model.mesh.name="model_panel";
+        self.UI_meshes.push(this.ui_model.mesh);    
+        
+        
     }
 
     handleController( controller ){
@@ -209,16 +198,34 @@ class App2{
 
             const intersects = this.raycaster.intersectObjects( self.UI_meshes );
 
-            if (intersects.length>0){
-                console.log(intersects)
-                console.log("toccato qualcosa")
-
+            if (intersects.length>0)
+            {
+                console.log(intersects[0].object.name)
+                if (intersects[0].object.name == "texture_panel" )
+                {
+                    if( self.ID_texture <2)
+                    {
+                        self.ID_texture +=1                
+                    }else {
+                        self.ID_texture =0  
+                    }   
+                    console.log("ID texture = "+ String(self.ID_texture));                   
+                }
+                if (intersects[0].object.name == "model_panel" )
+                {
+                    if( self.ID_model <2)
+                    {
+                        self.ID_model +=1                
+                    }else {
+                        self.ID_model =0  
+                    }   
+                    console.log("ID model = "+ String(self.ID_model));                   
+                }
+                //self.loadKnight()
+                    
             }else{
-                console.log("nontoccato")
-                //if (self.knight===undefined) return;   
-
-                if (self.reticle.visible){
-    
+                console.log("nontoccato")  
+                if (self.reticle.visible){  
                     self.loadKnight();
                     //self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
                     //self.knight.object.visible = true;               
