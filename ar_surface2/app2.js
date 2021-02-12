@@ -112,7 +112,7 @@ class App2{
                 //self.loadingBar.visible = false;
                 self.renderer.setAnimationLoop( self.render.bind(self) );
                 self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
-                self.knight.object.visible = true;
+                self.knight.object.visible = false;
 			},
 			// // called while loading is progressing
 			// function ( xhr ) {
@@ -135,7 +135,7 @@ class App2{
 
         this.createUI();
         this.renderer.setAnimationLoop( this.render.bind(this) );
-        //this.loadKnight();
+        this.loadKnight();
         
     }
 
@@ -221,13 +221,18 @@ class App2{
                     }   
                     console.log("ID model = "+ String(self.ID_model));                   
                 }
-                //self.loadKnight()
+                self.loadKnight()
                     
             }else{
                 console.log("nontoccato")  
                 if (self.reticle.visible){  
-                    self.loadKnight();
-                    //self.knight.object.position.setFromMatrixPosition( self.reticle.matrix );
+                    //self.loadKnight();
+                    
+                    this.clone = self.knight.object.clone()
+                    console.log(this.clone)
+                    this.clone.position.setFromMatrixPosition( self.reticle.matrix );
+                    this.clone.visible=true;
+                    self.scene.add(this.clone)
                     //self.knight.object.visible = true;               
                 }
                 
