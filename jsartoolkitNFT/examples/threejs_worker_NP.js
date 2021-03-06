@@ -160,27 +160,26 @@ segnaposto=0
     volti.add(eugiOBJ);
 
     //giulio
-    threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
+    threeGLTFLoader.load("../../res/models/nopanic/prete/MAYA.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
             giulioOBJ.add(model);
         }
     );
     giulioOBJ.position.set(-40,0,0);
-    giulioOBJ.rotation.set(0,0,0)
+    giulioOBJ.rotation.set(0,-pmezzi,0)
     giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulioOBJ);
 
     //tommi
-    threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
+    threeGLTFLoader.load("../../res/models/nopanic/darwin/DARWIN.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
             tommiOBJ.add(model);
         }
     );
-    tommiOBJ.add(tommiMesh);
     tommiOBJ.position.set(40,0,0);
-    tommiOBJ.rotation.x=Math.PI/2;
+    tommiOBJ.rotation.set(0,pmezzi,0);
     tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommiOBJ);
 
@@ -194,7 +193,7 @@ segnaposto=0
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
     fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
-    
+
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
 
