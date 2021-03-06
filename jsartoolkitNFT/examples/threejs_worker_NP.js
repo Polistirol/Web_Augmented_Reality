@@ -84,7 +84,7 @@ ctx.scale(pixelRatio, pixelRatio);
 fontTexture = new THREE.CanvasTexture(fontCanvas);
 //plane for canvas
 let fontPlaneGeom = new THREE.PlaneGeometry(65,40);
-let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); //map:fontTexture
+let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); 
 let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
 let fontPlaneOBJ = new THREE.Object3D();
 //fontPlaneMesh.rotation.x=Math.PI/-2;
@@ -114,10 +114,10 @@ iglight.position.set(startPos.x,startPos.y+25,startPos.z+70);
 root.add(iglight);
 
 
-//oggeti
+
 /* Load Model */
 var threeGLTFLoader = new THREE.GLTFLoader();
-
+//oggeti
 var polOBJ = new THREE.Object3D();
 var eugiOBJ = new THREE.Object3D();
 var giulioOBJ = new THREE.Object3D();
@@ -129,7 +129,6 @@ var bottoni = new THREE.Object3D();
 var pmezzi = Math.PI/2
 segnaposto=0
     // POL
-    //var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
     threeGLTFLoader.load("../../res/models/nopanic/gandhi/GHANDIF.gltf", function (gltf) {
             model = gltf.scene;
             //console.log(model);
@@ -231,7 +230,7 @@ segnaposto=0
     bottoni.position.set(volti.position.x,volti.position.y-25,volti.position.z+40)
     bottoni.rotation.set(1.57,0,0)
 
-    //root.add(bottoni)  
+    root.add(bottoni)  
     
 
 
@@ -339,17 +338,17 @@ function FontCanvasReset(ctx)
     fontCanvas.style.width = swF + 'px';
     fontCanvas.style.height =shF + 'px';
     ctx.scale(pixelRatio, pixelRatio);
-   // bottoni.visible=false
+    bottoni.visible=false
 }
 
 function TextAnimation (textIn)
 {
     leon = new LeonSans();
     leon.text=textIn
-    leon.color= ['#f5426f']
+    leon.color= ['#52000f']
     leon.size= 20
     leon.weight= 400
-    //bottoni.visible=true
+    bottoni.visible=true
     textSwitch=true
     let i, total = leon.drawing.length;
     for (i = 0; i < total; i++) {
@@ -459,10 +458,12 @@ function TextAnimation (textIn)
         if (!world) {
             volti.visible=false;
             fontPlaneOBJ.visible=false;
+            bottoni.visible=false;
             
         } else {
           volti.visible=true;
           fontPlaneOBJ.visible=true;
+          bottoni.visible=true;
                 // interpolate matrix
                 for (var i = 0; i < 16; i++) {
                   trackedMatrix.delta[i] = world[i] - trackedMatrix.interpolated[i];
