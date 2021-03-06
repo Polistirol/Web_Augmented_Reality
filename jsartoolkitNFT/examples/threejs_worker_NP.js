@@ -91,10 +91,9 @@ let fontPlaneOBJ = new THREE.Object3D();
 fontPlaneOBJ.add(fontPlaneMesh);
 
 //////////////////////////////////////////////
-//var iglight = new THREE.PointLight(0xFFFFFF, 5 , 100);
+
 
 var root = new THREE.Object3D();
-//root.add(iglight);
 
 scene.add(root);
 
@@ -106,21 +105,19 @@ root.add(axesHelper);
 ////// Crea cilindri con volti
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
-var stand = new THREE.BoxGeometry( 10,10,20);
 var cilscale = new THREE.Vector3(15,15,15);
 var startPos = new THREE.Vector3(75,75,0);
 texturearray =[];
 
-var iglight = new THREE.PointLight(0xFFFFFF, 5 , 100);
+var iglight = new THREE.PointLight(0xbaa775, 1.5 , 200);
 iglight.position.set(startPos.x,startPos.y+25,startPos.z+70);
 root.add(iglight);
-//volti.add( new THREE.AmbientLight( 0x040404 ) );
+
 
 //oggeti
 /* Load Model */
 var threeGLTFLoader = new THREE.GLTFLoader();
-//var model_light  =  new THREE.PointLight(0xFFFFFF, 5 , 100);
-//model_light.position.y = 15
+
 var polOBJ = new THREE.Object3D();
 var eugiOBJ = new THREE.Object3D();
 var giulioOBJ = new THREE.Object3D();
@@ -137,6 +134,8 @@ segnaposto=0
             model = gltf.scene;
             //console.log(model);
             root.matrixAutoUpdate = false;
+            model.children[0].visible=false
+            console.log(model)
             polOBJ.add(model);
         }
     );
@@ -151,6 +150,10 @@ segnaposto=0
     threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
+            console.log(model)
+            model.children[3].visible=false
+            model.children[0].visible=false
+            model.children[4].visible=false
             eugiOBJ.add(model);
         }
     );
@@ -163,6 +166,8 @@ segnaposto=0
     threeGLTFLoader.load("../../res/models/nopanic/prete/MAYA.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
+            model.children[3].visible=false
+            model.children[2].visible=false
             giulioOBJ.add(model);
         }
     );
@@ -175,6 +180,10 @@ segnaposto=0
     threeGLTFLoader.load("../../res/models/nopanic/darwin/DARWIN.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
+            model.children[3].visible=false
+            model.children[2].visible=false
+            model.children[0].visible=false
+            console.log(model)
             tommiOBJ.add(model);
         }
     );
