@@ -165,8 +165,8 @@ segnaposto=0
     threeGLTFLoader.load("../../res/models/nopanic/prete/MAYA.gltf", function (gltf) {
             model = gltf.scene;
             root.matrixAutoUpdate = false;
-            model.children[3].visible=false
-            model.children[2].visible=false
+            //model.children[3].visible=false
+            //model.children[2].visible=false
             giulioOBJ.add(model);
         }
     );
