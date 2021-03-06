@@ -133,7 +133,7 @@ segnaposto=0
             model = gltf.scene;
             //console.log(model);
             root.matrixAutoUpdate = false;
-            model.children[0].visible=false
+            //model.children[0].visible=false
             console.log(model)
             polOBJ.add(model);
         }
@@ -150,9 +150,9 @@ segnaposto=0
             model = gltf.scene;
             root.matrixAutoUpdate = false;
             console.log(model)
-            model.children[3].visible=false
-            model.children[0].visible=false
-            model.children[4].visible=false
+            //model.children[3].visible=false
+            //model.children[0].visible=false
+            //model.children[4].visible=false
             eugiOBJ.add(model);
         }
     );
@@ -178,10 +178,10 @@ segnaposto=0
     //tommi
     threeGLTFLoader.load("../../res/models/nopanic/darwin/DARWIN.gltf", function (gltf) {
             model = gltf.scene;
-            root.matrixAutoUpdate = false;
-            model.children[3].visible=false
-            model.children[2].visible=false
-            model.children[0].visible=false
+            //root.matrixAutoUpdate = false;
+            //model.children[3].visible=false
+            //model.children[2].visible=false
+            //model.children[0].visible=false
             console.log(model)
             tommiOBJ.add(model);
         }
