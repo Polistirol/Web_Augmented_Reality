@@ -83,7 +83,7 @@ fontCanvas.style.height =shF + 'px';
 ctx.scale(pixelRatio, pixelRatio);
 fontTexture = new THREE.CanvasTexture(fontCanvas);
 //plane for canvas
-let fontPlaneGeom = new THREE.PlaneGeometry(30,30);
+let fontPlaneGeom = new THREE.PlaneGeometry(65,40);
 let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); //map:fontTexture
 let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
 let fontPlaneOBJ = new THREE.Object3D();
@@ -107,7 +107,7 @@ root.add(axesHelper);
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
 var stand = new THREE.BoxGeometry( 10,10,20);
-var cilscale = new THREE.Vector3(12,12,12);
+var cilscale = new THREE.Vector3(15,15,15);
 var startPos = new THREE.Vector3(75,75,0);
 texturearray =[];
 
@@ -141,46 +141,47 @@ segnaposto=0
         }
     );
     //texturearray.push(polProfile);
-    polOBJ.position.set(0,0,-50);
+    polOBJ.position.set(0,0,-45);
     polOBJ.rotation.set(0,pmezzi*2,0)
     polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     polOBJ.name = "pol";
     volti.add(polOBJ);
 
     //eugi
-    //var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
-    //texturearray.push(eugiProfile);
     threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
             model = gltf.scene;
-            //console.log(model);
             root.matrixAutoUpdate = false;
             eugiOBJ.add(model);
         }
     );
-    //eugiOBJ.add(eugiMesh)
-    eugiOBJ.position.set(0,0,40);
-    eugiOBJ.rotation.set(0,pmezzi,0)
+    eugiOBJ.position.set(0,0,35);
+    eugiOBJ.rotation.set(0,0,0)
     eugiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugiOBJ);
 
     //giulio
-    var giulioProfile = textureLoader.load("../../res/imgs/nopanic/giulio_profile.jpg");
-    texturearray.push(giulioProfile);
-    var giulioMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:giulioProfile}));
-    giulioOBJ.add(giulioMesh)
-    giulioOBJ.position.set(-45,0,0);
-    giulioOBJ.rotation.x=Math.PI/2;
-    //giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
+            model = gltf.scene;
+            root.matrixAutoUpdate = false;
+            giulioOBJ.add(model);
+        }
+    );
+    giulioOBJ.position.set(-40,0,0);
+    giulioOBJ.rotation.set(0,0,0)
+    giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulioOBJ);
 
     //tommi
-    var tommiProfile = textureLoader.load("../../res/imgs/nopanic/tommaso_profile.jpg");
-    texturearray.push(tommiProfile);
-    var tommiMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:tommiProfile}));
+    threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
+            model = gltf.scene;
+            root.matrixAutoUpdate = false;
+            tommiOBJ.add(model);
+        }
+    );
     tommiOBJ.add(tommiMesh);
-    tommiOBJ.position.set(45,0,0);
+    tommiOBJ.position.set(40,0,0);
     tommiOBJ.rotation.x=Math.PI/2;
-    //tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommiOBJ);
 
    //cubo NP
@@ -191,15 +192,11 @@ segnaposto=0
     cubonp.position.set(0,0,0);
 
 //panel comune
-    fontPlaneOBJ.position.set(0,0,0)
+    fontPlaneOBJ.position.set(0,0,20)
     fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
+    
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
-
-
-    //volti.add(hemlight)
-    //volti.add(iglight);
-    //volti.add( new THREE.AmbientLight( 0x040404 ) );
 
     root.add(volti);
     root.add(fontPlaneOBJ);
