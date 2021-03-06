@@ -68,6 +68,7 @@ var camera = new THREE.PerspectiveCamera();
 camera.matrixAutoUpdate = false;
 scene.add(camera);
 
+
 //font roba
 leon = null
 const swF = 200;
@@ -107,14 +108,14 @@ var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
 var cilscale = new THREE.Vector3(15,15,15);
 var startPos = new THREE.Vector3(75,75,0);
-texturearray =[];
+var texturearray =[];
 
 var iglight = new THREE.PointLight(0xbaa775, 1.5 , 200);
 iglight.position.set(startPos.x,startPos.y+25,startPos.z+70);
 root.add(iglight);
 
 
-
+const raycaster = new THREE.Raycaster();
 /* Load Model */
 var threeGLTFLoader = new THREE.GLTFLoader();
 //oggeti
@@ -137,7 +138,6 @@ segnaposto=0
             polOBJ.add(model);
         }
     );
-    //texturearray.push(polProfile);
     polOBJ.position.set(0,0,-45);
     polOBJ.rotation.set(0,pmezzi*2,0)
     polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
@@ -183,15 +183,15 @@ segnaposto=0
     volti.add(tommiOBJ);
 
    //cubo NP
-    var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg");
-    texturearray.push(npTexture);
-    var cubonp = new THREE.Mesh(new THREE.BoxGeometry(10,10,10),new THREE.MeshBasicMaterial({map:npTexture}))
-    cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
-    cubonp.position.set(0,0,0);
+    // var npTexture = textureLoader.load("../../res/imgs/nopanic/logo.jpg");
+    // texturearray.push(npTexture);
+    // var cubonp = new THREE.Mesh(new THREE.BoxGeometry(10,10,10),new THREE.MeshBasicMaterial({map:npTexture}))
+    // cubonp.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    // cubonp.position.set(0,0,0);
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
-    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
+    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+50,startPos.z+20)
 
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
@@ -202,6 +202,7 @@ segnaposto=0
 
 //Bottoni click
     var IGmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
+
     var FBmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
     var WWWmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
     
@@ -243,6 +244,9 @@ function onMouseDown(event)
 		x:(event.clientX /window.innerWidth)*2-1,
 		y:-(event.clientY /window.innerHeight)*2+1,}
     mouseDownPos = (event.clientX /window.innerWidth)*2-1
+    // raycaster.setFromCamera( mouse, camera );
+    // const intersects = raycaster.intersectObjects( bottoni.children );
+    // console.log(bottoni)
 }
 
 function onMouseUp(event)
