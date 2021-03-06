@@ -15,7 +15,7 @@
   ==================
   STATS
   ==================
-  -->
+ 
 
       <div id="stats" class="ui stats">
 
@@ -32,7 +32,7 @@
           </div>
 
       </div>
-
+ -->
   <!--
   ==================
   CAMERA VIDEO & CANVAS
@@ -77,13 +77,13 @@
     /**
      * STATS
      */
-    var statsMain = new Stats();
-    statsMain.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.getElementById( 'stats1' ).appendChild( statsMain.dom );
+    // var statsMain = new Stats();
+    // statsMain.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    // document.getElementById( 'stats1' ).appendChild( statsMain.dom );
 
-    var statsWorker = new Stats();
-    statsWorker.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
-    document.getElementById( 'stats2' ).appendChild( statsWorker.dom );
+    // var statsWorker = new Stats();
+    // statsWorker.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+    // document.getElementById( 'stats2' ).appendChild( statsWorker.dom );
 
     /**
      * APP / ELEMENTS
@@ -135,10 +135,10 @@
                       video.videoHeight,
                       canvas,
                       function() {
-                          statsMain.update()
+                          //statsMain.update()
                       },
                       function() {
-                          statsWorker.update();
+                          //statsWorker.update();
                       },
                       null
                   );

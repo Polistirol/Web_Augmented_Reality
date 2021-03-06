@@ -107,7 +107,7 @@ root.add(axesHelper);
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
 var stand = new THREE.BoxGeometry( 10,10,20);
-var cilscale = new THREE.Vector3(7.5,7.5,7.5);
+var cilscale = new THREE.Vector3(12,12,12);
 var startPos = new THREE.Vector3(75,75,0);
 texturearray =[];
 
@@ -141,7 +141,7 @@ segnaposto=0
         }
     );
     //texturearray.push(polProfile);
-    polOBJ.position.set(0,0,-30);
+    polOBJ.position.set(0,0,-50);
     polOBJ.rotation.set(0,pmezzi*2,0)
     polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     polOBJ.name = "pol";
@@ -158,7 +158,7 @@ segnaposto=0
         }
     );
     //eugiOBJ.add(eugiMesh)
-    eugiOBJ.position.set(0,0,20);
+    eugiOBJ.position.set(0,0,40);
     eugiOBJ.rotation.set(0,pmezzi,0)
     eugiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugiOBJ);
@@ -168,7 +168,7 @@ segnaposto=0
     texturearray.push(giulioProfile);
     var giulioMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:giulioProfile}));
     giulioOBJ.add(giulioMesh)
-    giulioOBJ.position.set(-25,0,0);
+    giulioOBJ.position.set(-45,0,0);
     giulioOBJ.rotation.x=Math.PI/2;
     //giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulioOBJ);
@@ -178,7 +178,7 @@ segnaposto=0
     texturearray.push(tommiProfile);
     var tommiMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:tommiProfile}));
     tommiOBJ.add(tommiMesh);
-    tommiOBJ.position.set(25,0,0);
+    tommiOBJ.position.set(45,0,0);
     tommiOBJ.rotation.x=Math.PI/2;
     //tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommiOBJ);
