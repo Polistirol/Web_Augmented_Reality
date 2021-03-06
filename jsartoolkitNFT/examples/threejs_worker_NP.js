@@ -58,10 +58,13 @@ var worker;
 var camera_para = './../examples/Data/camera_para.dat'
 var canvas_process = document.createElement('canvas');
 var context_process = canvas_process.getContext('2d');
-var renderer = new THREE.WebGLRenderer({ canvas: canvas_draw, alpha: true, antialias: true });
+var renderer = new THREE.WebGLRenderer({type:"three", canvas: canvas_draw, alpha: true, antialias: true,precision : "mediump",logarithmicDepthBuffer: true});
 renderer.setPixelRatio(window.devicePixelRatio);
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.physicallyCorrectLights = false;
 var scene = new THREE.Scene();
-var camera = new THREE.Camera();
+scene.add( new THREE.AmbientLight( 0x040404 ) );
+var camera = new THREE.PerspectiveCamera();
 camera.matrixAutoUpdate = false;
 scene.add(camera);
 
@@ -88,10 +91,11 @@ let fontPlaneOBJ = new THREE.Object3D();
 fontPlaneOBJ.add(fontPlaneMesh);
 
 //////////////////////////////////////////////
-var iglight = new THREE.PointLight(0xFFFFFF, 5 , 1000);
-iglight.position.z=85;
+//var iglight = new THREE.PointLight(0xFFFFFF, 5 , 100);
+
 var root = new THREE.Object3D();
-root.add(iglight);
+//root.add(iglight);
+
 scene.add(root);
 
 //axes helper
@@ -103,11 +107,20 @@ root.add(axesHelper);
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
 var stand = new THREE.BoxGeometry( 10,10,20);
-var cilscale = new THREE.Vector3(1.5,1.5,1.5);
+var cilscale = new THREE.Vector3(7.5,7.5,7.5);
 var startPos = new THREE.Vector3(75,75,0);
 texturearray =[];
 
+var iglight = new THREE.PointLight(0xFFFFFF, 5 , 100);
+iglight.position.set(startPos.x,startPos.y+25,startPos.z+70);
+root.add(iglight);
+//volti.add( new THREE.AmbientLight( 0x040404 ) );
+
 //oggeti
+/* Load Model */
+var threeGLTFLoader = new THREE.GLTFLoader();
+//var model_light  =  new THREE.PointLight(0xFFFFFF, 5 , 100);
+//model_light.position.y = 15
 var polOBJ = new THREE.Object3D();
 var eugiOBJ = new THREE.Object3D();
 var giulioOBJ = new THREE.Object3D();
@@ -116,25 +129,37 @@ var igbutton = new THREE.Object3D();
 var fbbutton = new THREE.Object3D();
 var wwwbutton = new THREE.Object3D();
 var bottoni = new THREE.Object3D();
+var pmezzi = Math.PI/2
 segnaposto=0
-    // pol
-    var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
-    texturearray.push(polProfile);
-    var polMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:polProfile}));
-    polOBJ.add(polMesh)
+    // POL
+    //var polProfile = textureLoader.load("../../res/imgs/nopanic/pol_profile.jpg");
+    threeGLTFLoader.load("../../res/models/nopanic/gandhi/GHANDIF.gltf", function (gltf) {
+            model = gltf.scene;
+            //console.log(model);
+            root.matrixAutoUpdate = false;
+            polOBJ.add(model);
+        }
+    );
+    //texturearray.push(polProfile);
     polOBJ.position.set(0,0,-30);
-    polOBJ.rotation.x=Math.PI/2;
+    polOBJ.rotation.set(0,pmezzi*2,0)
     polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     polOBJ.name = "pol";
     volti.add(polOBJ);
 
     //eugi
-    var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
-    texturearray.push(eugiProfile);
-    var eugiMesh = new THREE.Mesh(stand,new THREE.MeshBasicMaterial({map:eugiProfile}));
-    eugiOBJ.add(eugiMesh)
+    //var eugiProfile = textureLoader.load("../../res/imgs/nopanic/eugenio_profile.jpg");
+    //texturearray.push(eugiProfile);
+    threeGLTFLoader.load("../../res/models/nopanic/hippie/HIPPIE.gltf", function (gltf) {
+            model = gltf.scene;
+            //console.log(model);
+            root.matrixAutoUpdate = false;
+            eugiOBJ.add(model);
+        }
+    );
+    //eugiOBJ.add(eugiMesh)
     eugiOBJ.position.set(0,0,20);
-    eugiOBJ.rotation.x=Math.PI/2;
+    eugiOBJ.rotation.set(0,pmezzi,0)
     eugiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugiOBJ);
 
@@ -145,7 +170,7 @@ segnaposto=0
     giulioOBJ.add(giulioMesh)
     giulioOBJ.position.set(-25,0,0);
     giulioOBJ.rotation.x=Math.PI/2;
-    giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    //giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulioOBJ);
 
     //tommi
@@ -155,7 +180,7 @@ segnaposto=0
     tommiOBJ.add(tommiMesh);
     tommiOBJ.position.set(25,0,0);
     tommiOBJ.rotation.x=Math.PI/2;
-    tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
+    //tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommiOBJ);
 
    //cubo NP
@@ -170,8 +195,15 @@ segnaposto=0
     fontPlaneOBJ.position.set(startPos.x-20,startPos.y+20,startPos.z+20)
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
-    //root.add(volti);
-    //root.add(fontPlaneOBJ);
+
+
+    //volti.add(hemlight)
+    //volti.add(iglight);
+    //volti.add( new THREE.AmbientLight( 0x040404 ) );
+
+    root.add(volti);
+    root.add(fontPlaneOBJ);
+    root.matrixAutoUpdate = false;
 
 //Bottoni click
     var IGmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
@@ -197,37 +229,7 @@ segnaposto=0
     //root.add(bottoni)  
     
 
-//dancer
-    /* Load Model */
-    var threeGLTFLoader = new THREE.GLTFLoader();
-    threeGLTFLoader.load("../../res//models/nopanic/eugi/NEWBUSTO2.gltf", function (gltf) {
-            //model = gltf.scene;
-            console.log(gltf.scene);
-            gltf.scene.position.z = 0;
-            gltf.scene.position.x = 0;
-            gltf.scene.position.y = 0;
-            gltf.scene.scale.set(25,25,25);
-            gltf.scene.rotation.y = 1.57;
 
-            var textu= textureLoader.load("../../res//models/nopanic/eugi/Caverson - LowPoly.jpg")
-            var texface = textureLoader.load(("../../res//models/nopanic/eugi/kt_facebuilder_texture.png"))
-            var mate = new THREE.MeshBasicMaterial({map:polProfile ,name:"matedddd"})
-            //var mateface = new THREE.MeshBasicMaterial({color : 0x00ff00 , aplphaMode : "MASK"})
-
-            //gltf.scene.children[2].material.emissiveIntensity=0.0
-            //gltf.scene.children[2].material.metalness = 0
-            //gltf.scene.children[2].material=mate
-            gltf.scene.children[1].visible=false //material = mateface
-            gltf.scene.children[0].visible=false
-            
-
-            //gltf.scene.children[2].material=
-            root.matrixAutoUpdate = false;
-            root.add(gltf.scene);
-        }
-    );
-    root.matrixAutoUpdate = false;
-    //root.add(sphere);
     
 ///////////////////LISTENERS ecc
 renderer.domElement.addEventListener("mousedown",onMouseDown,false);
