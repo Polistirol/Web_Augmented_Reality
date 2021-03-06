@@ -7,34 +7,12 @@
     {
       "name": "Scene",
       "nodes": [
-        0,
-        2
+        1
       ]
     }
   ],
   "scene": 0,
   "nodes": [
-    {
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        10,
-        0,
-        1
-      ],
-      "name": "HemisphereLight"
-    },
     {
       "matrix": [
         0.10000000149011612,
@@ -63,7 +41,7 @@
     {
       "name": "GHANDI_LOW.gltf",
       "children": [
-        1
+        0
       ]
     }
   ],
