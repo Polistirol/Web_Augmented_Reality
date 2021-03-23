@@ -191,7 +191,7 @@ segnaposto=0
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
-    fontPlaneOBJ.position.set(startPos.x-60,startPos.y+90,startPos.z+20)
+    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+140,startPos.z+140)
 
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
@@ -201,10 +201,10 @@ segnaposto=0
     root.matrixAutoUpdate = false;
 
 //Bottoni click
-    var IGmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
+    // var IGmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
 
-    var FBmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
-    var WWWmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
+    // var FBmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
+    // var WWWmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
     
 
     //igbutton.add(IGmesh);
@@ -341,7 +341,7 @@ function TextAnimation (textIn)
     leon = new LeonSans();
     leon.text=textIn
     leon.color= ['#52000f']
-    leon.size= 18
+    leon.size= 19
     leon.weight= 400
     //bottoni.visible=true
     textSwitch=true
