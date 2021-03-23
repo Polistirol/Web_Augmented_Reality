@@ -24,10 +24,10 @@ var trackedMatrix = {
 
 var markers = {
     "dubai": {
-        width: 2000,
-        height: 2000,
-        dpi: 250,
-        url: "./examples/DataNFT/fra",
+        width: 1024,
+        height: 1024,
+        dpi: 300,
+        url: "./examples/DataNFT/fra2",
     },
 };
 
@@ -64,7 +64,7 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.physicallyCorrectLights = false;
 var scene = new THREE.Scene();
 scene.add( new THREE.AmbientLight( 0x040404 ) );
-var camera = new THREE.PerspectiveCamera();
+var camera = new THREE.PerspectiveCamera({zoom:10});
 camera.matrixAutoUpdate = false;
 scene.add(camera);
 
@@ -84,7 +84,7 @@ fontCanvas.style.height =shF + 'px';
 ctx.scale(pixelRatio, pixelRatio);
 fontTexture = new THREE.CanvasTexture(fontCanvas);
 //plane for canvas
-let fontPlaneGeom = new THREE.PlaneGeometry(65,40);
+let fontPlaneGeom = new THREE.PlaneGeometry(165,140);
 let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); 
 let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
 let fontPlaneOBJ = new THREE.Object3D();
@@ -99,19 +99,19 @@ var root = new THREE.Object3D();
 scene.add(root);
 
 //axes helper
-const axesHelper = new THREE.AxesHelper(50);
-const axesHelper2 = new THREE.AxesHelper(50);
+const axesHelper = new THREE.AxesHelper(200);
+const axesHelper2 = new THREE.AxesHelper(200);
 root.add(axesHelper);
 
 ////// Crea cilindri con volti
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
-var cilscale = new THREE.Vector3(15,15,15);
-var startPos = new THREE.Vector3(75,75,0);
+var cilscale = new THREE.Vector3(60,60,60);
+var startPos = new THREE.Vector3(450,250,150);
 var texturearray =[];
 
-var iglight = new THREE.PointLight(0xbaa775, 1.5 , 200);
-iglight.position.set(startPos.x,startPos.y+25,startPos.z+70);
+var iglight = new THREE.PointLight(0xbaa775, 2 , 500);
+iglight.position.set(startPos.x,startPos.y+155,startPos.z+250);
 root.add(iglight);
 
 
@@ -123,10 +123,10 @@ var polOBJ = new THREE.Object3D();
 var eugiOBJ = new THREE.Object3D();
 var giulioOBJ = new THREE.Object3D();
 var tommiOBJ = new THREE.Object3D();
-var igbutton = new THREE.Object3D();
-var fbbutton = new THREE.Object3D();
-var wwwbutton = new THREE.Object3D();
-var bottoni = new THREE.Object3D();
+//var igbutton = new THREE.Object3D();
+//var fbbutton = new THREE.Object3D();
+//var wwwbutton = new THREE.Object3D();
+//var bottoni = new THREE.Object3D();
 var pmezzi = Math.PI/2
 segnaposto=0
     // POL
@@ -138,7 +138,7 @@ segnaposto=0
             polOBJ.add(model);
         }
     );
-    polOBJ.position.set(0,0,-45);
+    polOBJ.position.set(0,0,-145);
     polOBJ.rotation.set(0,pmezzi*2,0)
     polOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     polOBJ.name = "pol";
@@ -152,7 +152,7 @@ segnaposto=0
             eugiOBJ.add(model);
         }
     );
-    eugiOBJ.position.set(0,0,35);
+    eugiOBJ.position.set(0,0,135);
     eugiOBJ.rotation.set(0,0,0)
     eugiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(eugiOBJ);
@@ -164,7 +164,7 @@ segnaposto=0
             giulioOBJ.add(model);
         }
     );
-    giulioOBJ.position.set(-40,0,0);
+    giulioOBJ.position.set(-140,0,0);
     giulioOBJ.rotation.set(0,-pmezzi,0)
     giulioOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(giulioOBJ);
@@ -177,7 +177,7 @@ segnaposto=0
             tommiOBJ.add(model);
         }
     );
-    tommiOBJ.position.set(40,0,0);
+    tommiOBJ.position.set(140,0,0);
     tommiOBJ.rotation.set(0,pmezzi,0);
     tommiOBJ.scale.set(cilscale.x,cilscale.y,cilscale.z);
     volti.add(tommiOBJ);
@@ -191,7 +191,7 @@ segnaposto=0
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
-    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+50,startPos.z+20)
+    fontPlaneOBJ.position.set(startPos.x-60,startPos.y+90,startPos.z+20)
 
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
@@ -207,20 +207,20 @@ segnaposto=0
     var WWWmesh = new THREE.Mesh(new THREE.CylinderGeometry(5,5,0.5,32),new THREE.MeshBasicMaterial() )
     
 
-    igbutton.add(IGmesh);
-    fbbutton.add(FBmesh);
-    wwwbutton.add(WWWmesh);
+    //igbutton.add(IGmesh);
+    //fbbutton.add(FBmesh);
+    //wwwbutton.add(WWWmesh);
 
 
-    bottoni.add(igbutton);
-    bottoni.add(fbbutton);
-    bottoni.add(wwwbutton);
-    fbbutton.position.x=-20;
-    igbutton.position.x=0;
-    wwwbutton.position.x=20;
+    //bottoni.add(igbutton);
+    //bottoni.add(fbbutton);
+    //bottoni.add(wwwbutton);
+    //fbbutton.position.x=-20;
+    //igbutton.position.x=0;
+    //wwwbutton.position.x=20;
 
-    bottoni.position.set(volti.position.x,volti.position.y-25,volti.position.z+40)
-    bottoni.rotation.set(1.57,0,0)
+    //bottoni.position.set(volti.position.x,volti.position.y-25,volti.position.z+40)
+    //bottoni.rotation.set(1.57,0,0)
 
     //root.add(bottoni)  
     
@@ -333,7 +333,7 @@ function FontCanvasReset(ctx)
     fontCanvas.style.width = swF + 'px';
     fontCanvas.style.height =shF + 'px';
     ctx.scale(pixelRatio, pixelRatio);
-    bottoni.visible=false
+    //bottoni.visible=false
 }
 
 function TextAnimation (textIn)
@@ -343,7 +343,7 @@ function TextAnimation (textIn)
     leon.color= ['#52000f']
     leon.size= 18
     leon.weight= 400
-    bottoni.visible=true
+    //bottoni.visible=true
     textSwitch=true
     let i, total = leon.drawing.length;
     for (i = 0; i < total; i++) {
@@ -453,12 +453,12 @@ function TextAnimation (textIn)
         if (!world) {
             volti.visible=false;
             fontPlaneOBJ.visible=false;
-            bottoni.visible=false;
+            //bottoni.visible=false;
             
         } else {
           volti.visible=true;
           fontPlaneOBJ.visible=true;
-          bottoni.visible=true;
+          //bottoni.visible=true;
                 // interpolate matrix
                 for (var i = 0; i < 16; i++) {
                   trackedMatrix.delta[i] = world[i] - trackedMatrix.interpolated[i];
