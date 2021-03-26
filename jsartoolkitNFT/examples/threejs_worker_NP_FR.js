@@ -84,7 +84,7 @@ fontCanvas.style.height =shF + 'px';
 ctx.scale(pixelRatio, pixelRatio);
 fontTexture = new THREE.CanvasTexture(fontCanvas);
 //plane for canvas
-let fontPlaneGeom = new THREE.PlaneGeometry(185,160);
+let fontPlaneGeom = new THREE.PlaneGeometry(200,180);
 let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); 
 let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
 let fontPlaneOBJ = new THREE.Object3D();
@@ -111,7 +111,7 @@ var startPos = new THREE.Vector3(420,250,150);
 var texturearray =[];
 
 var iglight = new THREE.PointLight(0xbaa775, 2 , 1000);
-iglight.position.set(startPos.x,startPos.y+155,startPos.z+250);
+iglight.position.set(startPos.x,startPos.y+255,startPos.z+250);
 root.add(iglight);
 
 
@@ -340,9 +340,9 @@ function TextAnimation (textIn)
 {
     leon = new LeonSans();
     leon.text=textIn
-    leon.color= ['#52000f']
-    leon.size= 19
-    leon.weight= 400
+    leon.color= ['#FED0D0']
+    leon.size= 20
+    leon.weight= 500
     //bottoni.visible=true
     textSwitch=true
     let i, total = leon.drawing.length;
