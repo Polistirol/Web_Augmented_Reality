@@ -111,7 +111,7 @@ var startPos = new THREE.Vector3(420,250,150);
 var texturearray =[];
 
 var iglight = new THREE.PointLight(0xbaa775, 2 , 1000);
-iglight.position.set(startPos.x,startPos.y+255,startPos.z+250);
+iglight.position.set(startPos.x,startPos.y+130,startPos.z+350);
 root.add(iglight);
 
 
@@ -340,9 +340,9 @@ function TextAnimation (textIn)
 {
     leon = new LeonSans();
     leon.text=textIn
-    leon.color= ['#FED0D0']
-    leon.size= 20
-    leon.weight= 500
+    leon.color= ['#9D0000']
+    leon.size= 19
+    leon.weight= 150
     //bottoni.visible=true
     textSwitch=true
     let i, total = leon.drawing.length;
