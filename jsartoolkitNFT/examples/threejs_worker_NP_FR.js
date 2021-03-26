@@ -110,7 +110,7 @@ var cilscale = new THREE.Vector3(60,60,60);
 var startPos = new THREE.Vector3(420,250,150);
 var texturearray =[];
 
-var iglight = new THREE.PointLight(0xbaa775, 2 , 500);
+var iglight = new THREE.PointLight(0xbaa775, 2 , 1000);
 iglight.position.set(startPos.x,startPos.y+155,startPos.z+250);
 root.add(iglight);
 
@@ -191,7 +191,7 @@ segnaposto=0
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
-    fontPlaneOBJ.position.set(startPos.x-50,startPos.y+200,startPos.z+140)
+    fontPlaneOBJ.position.set(startPos.x-150,startPos.y+200,startPos.z+250)
 
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
