@@ -27,7 +27,7 @@ var markers = {
         width: 1024,
         height: 1024,
         dpi: 300,
-        url: "./examples/DataNFT/fra2",
+        url: "./examples/DataNFT/fra_R",
     },
 };
 
@@ -295,7 +295,7 @@ function SwipeActivation(verso,objectToRotate) //prende verso e oggetto da rotar
 {
     textToDraw=[
         "FRANCESCA GIACCONE\n Digital Illustrator \n Artist \nDonna",
-        "FRAJACK \n HTML+CSS Master \nMi gaso da Dio -cit.\nDi giorno proietto \ndi notte ",
+        "FRAJACK \n HTML+CSS Master \nMi gaso da Dio -cit.\nDi giorno proietto \ndi notte smanetto ",
         "TAZZINA ROSSA\n E' mia \n di chi ? \n MIA",//descrizioni persone
         "FRA'\nDarwiniana '93\nBorn'n'raised Avigliana \n Come sei alta! \nChe tempo fa lassù?"]
     //rotazioni
