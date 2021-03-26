@@ -84,7 +84,7 @@ fontCanvas.style.height =shF + 'px';
 ctx.scale(pixelRatio, pixelRatio);
 fontTexture = new THREE.CanvasTexture(fontCanvas);
 //plane for canvas
-let fontPlaneGeom = new THREE.PlaneGeometry(165,140);
+let fontPlaneGeom = new THREE.PlaneGeometry(185,160);
 let fontPlaneMat = new THREE.MeshBasicMaterial({transparent:true,opacity:1,map:fontTexture}); 
 let fontPlaneMesh = new THREE.Mesh(fontPlaneGeom,fontPlaneMat);
 let fontPlaneOBJ = new THREE.Object3D();
@@ -107,7 +107,7 @@ root.add(axesHelper);
 var textureLoader = new THREE.TextureLoader();
 var volti = new THREE.Object3D();
 var cilscale = new THREE.Vector3(60,60,60);
-var startPos = new THREE.Vector3(450,250,150);
+var startPos = new THREE.Vector3(420,250,150);
 var texturearray =[];
 
 var iglight = new THREE.PointLight(0xbaa775, 2 , 500);
@@ -191,7 +191,7 @@ segnaposto=0
 
 //panel comune
     fontPlaneOBJ.position.set(0,0,20)
-    fontPlaneOBJ.position.set(startPos.x-20,startPos.y+140,startPos.z+140)
+    fontPlaneOBJ.position.set(startPos.x-50,startPos.y+200,startPos.z+140)
 
     volti.add(axesHelper2); 
     volti.position.set(startPos.x,startPos.y,startPos.z)
