@@ -294,7 +294,7 @@ swipeDist = mouseUp- mouseDown;
 function SwipeActivation(verso,objectToRotate) //prende verso e oggetto da rotare e muove l'oggetto (1/2 PI)
 {
     textToDraw=[
-        "FRANCESCA GIACCONE\n Digital Illustrator \n Artist \nDonna",
+        "FRANCESCA GIACCON\n Digital Illustrator \n Artist \nDonna",
         "FRAJACK \n HTML+CSS Master \nMi gaso da Dio -cit.\nDi giorno proietto \ndi notte smanetto ",
         "TAZZINA ROSSA\n E' mia \n di chi ? \n MIA",//descrizioni persone
         "FRA'\nDarwiniana '93\nBorn'n'raised Avigliana \n Come sei alta! \nChe tempo fa lassù?"]
